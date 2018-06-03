@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<SoundList>
+    <Header>
+        <Title>Test Data</Title>
+        <Subtitle>Soundinfo Test</Subtitle>
+        <Date>2018/5/21</Date>
+    </Header>
+    <SoundData ID ="1" Name ="Foot" Size="2">
+            <SoundType>
+                <Cue>Se</Cue>
+                <SubGroup>Character</SubGroup>
+                <Loop>0</Loop>
+                <StreamType>0</StreamType>
+            </SoundType>
+            <SoundInfo>
+                <ID>0</ID>
+                <Extension>wav</Extension>
+                <SoundName>SandFoot</SoundName>
+                <Material>Sand</Material>
+                <Type></Type>
+                <MaxVolume>1.0</MaxVolume>
+            </SoundInfo>
+            <SoundInfo>
+                <ID>1</ID>
+                <Extension>wav</Extension>
+                <SoundName>GrassFoot</SoundName>
+                <Material>Grass</Material>
+                <Type></Type>
+                <MaxVolume>1.0</MaxVolume>
+            </SoundInfo>
+    </SoundData>
+     <SoundData ID ="2" Name ="TestBGM" Size="1">
+            <SoundType>
+                <Cue>Bgm</Cue>
+                <SubGroup>Bgm</SubGroup>
+                <Loop>1</Loop>
+                <StreamType>0</StreamType>
+            </SoundType>
+            <SoundInfo>
+                <ID>0</ID>
+                <Extension>ogg</Extension>
+                <SoundName>TestBgm</SoundName>
+                <Material></Material>
+                <Type></Type>
+                <MaxVolume>1.0</MaxVolume>
+            </SoundInfo>
+    </SoundData>
+    
+</SoundList>
