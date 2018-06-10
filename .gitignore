@@ -1,6 +1,6 @@
 *.db
 *.opendb
 /Debug/*
-/PortAudioDLL/Debug/*
+/OpenAL_Engine/Debug/*
 /.vs/*
 
