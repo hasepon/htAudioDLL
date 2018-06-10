@@ -10,7 +10,7 @@
                 <Cue>Se</Cue>
                 <SubGroup>Character</SubGroup>
                 <Loop>0</Loop>
-                <StreamType>0</StreamType>
+                <StreamType>1</StreamType>
             </SoundType>
             <SoundInfo>
                 <ID>0</ID>
@@ -29,12 +29,12 @@
                 <MaxVolume>1.0</MaxVolume>
             </SoundInfo>
     </SoundData>
-     <SoundData ID ="2" Name ="TestBGM" Size="1">
+     <SoundData ID ="2" Name ="TestBgm" Size="1">
             <SoundType>
                 <Cue>Bgm</Cue>
                 <SubGroup>Bgm</SubGroup>
                 <Loop>1</Loop>
-                <StreamType>0</StreamType>
+                <StreamType>1</StreamType>
             </SoundType>
             <SoundInfo>
                 <ID>0</ID>
@@ -45,5 +45,20 @@
                 <MaxVolume>1.0</MaxVolume>
             </SoundInfo>
     </SoundData>
-    
+    <SoundData ID ="3" Name ="Test" Size="1">
+            <SoundType>
+                <Cue>Bgm</Cue>
+                <SubGroup>Bgm</SubGroup>
+                <Loop>1</Loop>
+                <StreamType>1</StreamType>
+            </SoundType>
+            <SoundInfo>
+                <ID>0</ID>
+                <Extension>wav</Extension>
+                <SoundName>Test</SoundName>
+                <Material></Material>
+                <Type></Type>
+                <MaxVolume>1.0</MaxVolume>
+            </SoundInfo>
+    </SoundData>
 </SoundList>
