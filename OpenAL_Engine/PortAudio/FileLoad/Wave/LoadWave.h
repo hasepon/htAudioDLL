@@ -35,7 +35,9 @@ namespace htAudio {
 		// ê≥ãKâªçœÇ›ÉfÅ[É^ì«Ç›çûÇ›
 		std::size_t ReadNormalize(long first, long end, float* left, float* right);
 
-		std::vector<float> PrimaryMixed;
-		std::vector<float> SecondMixed;
+		//std::vector<std::size_t> PrimaryMixed;
+		std::size_t* PrimaryMixed;
+		//std::vector<std::size_t> SecondMixed;
+		std::size_t* SecondMixed;
 	};
 }

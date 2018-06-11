@@ -38,8 +38,10 @@ namespace htAudio
 	CLoadWave::~CLoadWave()
 	{
 		m_SoundResouce.PresetSoundName.clear();
-		PrimaryMixed.clear();
-		SecondMixed.clear();
+		//PrimaryMixed.clear();
+		delete[] PrimaryMixed;
+		//SecondMixed.clear();
+		delete[] SecondMixed;
 	}
 
 	//====================================
@@ -134,7 +136,8 @@ namespace htAudio
 	{
 		long first = 0;
 		long last = m_SoundResouce.DataChunkSize;
-		PrimaryMixed = std::vector<float>(last);
+		//PrimaryMixed = std::vector<std::size_t>(last);
+		PrimaryMixed = new std::size_t[last];
 		std::size_t readSample = ReadDataRaw(first, last, &(PrimaryMixed[0]));
 		m_SoundResouce.BufferSample = m_SoundResouce.DataChunkSize;
 		return readSample;
@@ -148,8 +151,10 @@ namespace htAudio
 	{
 		std::size_t readSample = 0;
 		// BGM保存用バッファの初期化
-		PrimaryMixed = std::vector<float>(htAudio::BUFFER_SIZE);
-		SecondMixed = std::vector<float>(htAudio::BUFFER_SIZE);
+		//PrimaryMixed = std::vector<std::size_t>(htAudio::BUFFER_SIZE);
+		PrimaryMixed = new std::size_t[htAudio::BUFFER_SIZE];
+		//SecondMixed  = std::vector<std::size_t>(htAudio::BUFFER_SIZE);
+		SecondMixed = new std::size_t[htAudio::BUFFER_SIZE];
 
 		// 最初のバッファ読み込み
 		readSample = ReadDataRaw(0, htAudio::BUFFER_SIZE, &(PrimaryMixed[0]));
@@ -159,7 +164,6 @@ namespace htAudio
 		readSample += ReadDataRaw(m_SoundResouce.NextFirstSample, htAudio::BUFFER_SIZE, &(SecondMixed[0]));
 		m_SoundResouce.NextFirstSample += readSample;
 
-		m_SoundResouce.BufferSample = htAudio::BUFFER_SIZE;
 
 		// 読み込み完了
 		if (readSample > 0)
@@ -183,17 +187,22 @@ namespace htAudio
 			if (m_SoundResouce.SubmitTimes == 0)
 			{
 				readSamples = ReadDataRaw(m_SoundResouce.NextFirstSample, htAudio::BUFFER_SIZE, &(PrimaryMixed[0]));
-				m_SoundResouce.SubmitTimes = 1;
+				
+				if (readSamples > 0)
+				{
+					m_SoundResouce.SubmitTimes = 1;
+					m_SoundResouce.NextFirstSample += readSamples;
+					m_BufferLoadflag = true;
+				}
 			}else if (m_SoundResouce.SubmitTimes == 1) {
 				readSamples = ReadDataRaw(m_SoundResouce.NextFirstSample, htAudio::BUFFER_SIZE, &(SecondMixed[0]));
-				m_SoundResouce.SubmitTimes = 0;
-			}
 
-
-			if (readSamples > 0)
-			{
-				m_SoundResouce.NextFirstSample += readSamples;
-				m_BufferLoadflag = true;
+				if (readSamples > 0)
+				{
+					m_SoundResouce.SubmitTimes = 0;
+					m_SoundResouce.NextFirstSample += readSamples;
+					m_BufferLoadflag = true;
+				}
 			}
 
 			// Loop処理
@@ -212,6 +221,8 @@ namespace htAudio
 			//更新無し
 			readSamples = -1;
 		}
+
+
 
 		return readSamples;
 	}
@@ -245,10 +256,10 @@ namespace htAudio
 			return 0;
 
 		std::size_t readSample = 0;
-
+		std::size_t ret;
 		while (readSample < actualSamples)
 		{
-			std::size_t ret = fread(reinterpret_cast<uint8_t*>(buffer) + readSample * m_SoundResouce.Format.nBlockAlign,
+			ret = fread(reinterpret_cast<uint8_t*>(buffer) + readSample * m_SoundResouce.Format.nBlockAlign,
 				m_SoundResouce.Format.nBlockAlign, actualSamples - readSample, fp);
 
 			if (ret == 0)
@@ -258,6 +269,8 @@ namespace htAudio
 		}
 
 		fclose(fp);
+
+		m_SoundResouce.BufferSample = ret * m_SoundResouce.Format.nBlockAlign;
 
 		return readSample;
 	}

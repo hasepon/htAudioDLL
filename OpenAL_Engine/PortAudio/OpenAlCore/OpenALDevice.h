@@ -34,7 +34,6 @@ namespace htAudio
 		ALUT_ERROR_CORRUPT_OR_TRUNCATED_DATA
 	};
 
-
 	/// /// <summary>
 	/// シングルトンを使用してオブジェクトを生成しています
 	/// </summary>

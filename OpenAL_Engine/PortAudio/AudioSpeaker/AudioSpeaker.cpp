@@ -85,9 +85,20 @@ namespace htAudio {
 
 	AudioSpeaker::~AudioSpeaker()
 	{
-		alDeleteBuffers(2, Buffers);
-		alDeleteSources(1, &Source);
-		delete AudioSource;
+		if (AudioResource.Soundtype.StreamType == false)
+		{
+
+			alDeleteBuffers(1, &Buffers[0]);
+			alDeleteSources(1, &Source);
+			delete AudioSource;
+		}
+		else {
+			alDeleteBuffers(2, Buffers);
+			alDeleteSources(1, &Source);
+			delete AudioSource;
+		}
+
+		
 	}
 
 	void AudioSpeaker::Init()
@@ -96,21 +107,18 @@ namespace htAudio {
 		{
 			alGenBuffers(1, &Buffers[0]);
 			alGenSources(1, &Source);
-
 			SetBuffer(Buffers[0]);
 			alSourcei(Source, AL_BUFFER, Buffers[0]);
 		}else{
-
 			alGenBuffers(2, Buffers);
 			alGenSources(1, &Source);
-
 			SetBuffer(Buffers[0]);
 			SetBuffer(Buffers[1]);
 			alSourceQueueBuffers(Source, 2, Buffers);
-
 		}
 	}
 
+	//
 	bool AudioSpeaker::SetBuffer(ALuint Buf)
 	{
 		if (!Buf) {
@@ -139,7 +147,6 @@ namespace htAudio {
 		{
 			int State = 0;
 			alGetSourcei(Source, AL_SOURCE_STATE, &State);
-
 			if (State != AL_PLAYING && AudioResource.LoopSound == 1)
 			{
 				Play();
@@ -147,9 +154,7 @@ namespace htAudio {
 		}
 		else {
 			int State = 0;
-
 			alGetSourcei(Source, AL_BUFFERS_PROCESSED, &State);
-			
 			if (State > 0)
 			{
 				ALuint Buf;
@@ -171,6 +176,22 @@ namespace htAudio {
 	{
 		alSourcePause(Source);
 		return true;
+	}
+
+	void AudioSpeaker::SetPosition(float* x, float* y, float* z)
+	{
+		Position[0] = x;
+		Position[1] = y;
+		Position[2] = z;
+
+		alSource3f(Source,AL_POSITION, *Position[0], *Position[1], *Position[2]);
+	}
+
+	void AudioSpeaker::SetPosition(float* pos[3])
+	{
+		*Position = *pos;
+
+		alSource3f(Source, AL_POSITION, *Position[0], *Position[1], *Position[2]);
 	}
 
 }

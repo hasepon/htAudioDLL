@@ -8,8 +8,6 @@
 
 namespace htAudio
 {
-
-
 	/// <summary>
 	/// サウンドの再生用クラス
 	/// サウンド再生の窓口クラス
@@ -23,7 +21,7 @@ namespace htAudio
 		AudioSpeaker(std::string filepath, int id);
 		//指定なし
 		AudioSpeaker(std::string filepath, std::string SoundName);
-
+		
 		~AudioSpeaker();// デスト
 
 		bool Play();	// 再生
@@ -31,6 +29,9 @@ namespace htAudio
 		bool Stop();	// 停止
 		bool Pause();	// 一時停止
 		
+		void SetPosition(float* x, float* y, float* z);
+		void SetPosition(float* pos[3]);
+
 	private:
 		bool SetBuffer(ALuint Buf);	// バッファの設定
 		void Init();
@@ -43,6 +44,11 @@ namespace htAudio
 		//OpenAL用
 		ALuint Buffers[2];// バッファの設定
 		ALuint Source;	// Sourceの設定
+
+		// speaker情報
+		ALfloat* Position[3];	// Position
+		ALfloat Volume;		// ボリューム
+
 
 	};
 
