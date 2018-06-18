@@ -5,6 +5,7 @@ OpenAL Softを使用したサウンド開発用リポジトリです。
 C++
 
 # 仕様lib
-OpenAL Soft
-Ogg/Ogg vorbis
-pugixml
+OpenAL Soft　　
+Ogg/Ogg vorbis　　
+pugixml　　
+fftw
