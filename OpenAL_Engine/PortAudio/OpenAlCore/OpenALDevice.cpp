@@ -5,7 +5,7 @@ namespace htAudio {
 	OpenALDevice::OpenALDevice()
 	{
 		// OpenAL‚Ì‰Šú‰»
-		printf("‰Šú‰»‚µ‚Ü‚µ‚½");
+		printf("‰Šú‰»‚µ‚Ü‚µ‚½\n");
 		Device = alcOpenDevice(nullptr);
 		Context = alcCreateContext(Device,nullptr);
 
@@ -19,7 +19,7 @@ namespace htAudio {
 	
 	OpenALDevice::~OpenALDevice()
 	{
-		printf("OpenAL‚ğ‰ğ•ú‚µ‚Ü‚·");
+		printf("OpenAL‚ğ‰ğ•ú‚µ‚Ü‚·\n");
 		alcMakeContextCurrent(nullptr);
 		alcDestroyContext(Context);
 		alcCloseDevice(Device);
@@ -29,7 +29,6 @@ namespace htAudio {
 	{
 		ALCenum err;
 		err = alcGetError(Device);
-
 
 		switch (err)
 		{

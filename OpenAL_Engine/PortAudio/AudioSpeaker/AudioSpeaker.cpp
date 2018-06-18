@@ -1,4 +1,4 @@
-#include "AudioSpeaker.h"
+ï»¿#include "AudioSpeaker.h"
 #include"../FileLoad/Ogg/LoadOgg.h"
 #include"../FileLoad/Wave/LoadWave.h"
 #include"../AudioFormatData/AudioFormatData.h"
@@ -6,81 +6,100 @@
 namespace htAudio {
 
 	/// <summary>
-	/// Ä¶î•ñ‚Ì‰Šú‰»
+	/// å†ç”Ÿæƒ…å ±ã®åˆæœŸåŒ–
 	/// </summary>
 	/// <param name="filepath"></param>
 	/// <param name="SoundName"></param>
 	/// <param name="material"></param>
 	AudioSpeaker::AudioSpeaker(std::string filepath, std::string SoundName, std::string material)
 	{
-		// ƒI[ƒfƒBƒIî•ñ‚ğxml‚©‚çæ“¾
+		// ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªæƒ…å ±ã‚’xmlã‹ã‚‰å–å¾—
 		AudioFormatData afd;
 		AudioResource.Soundtype = afd.GetAudioFormatData(filepath, SoundName);
 
-		// ‘®«‚ğE‚Á‚Ä‚¢‚é‚Ì‚Åˆ—
-		// æ“¾î•ñ‚©‚çÀƒf[ƒ^‚ğæ“¾
+		int id;
+
+		// å±æ€§ã‚’æ‹¾ã£ã¦ã„ã‚‹ã®ã§å‡¦ç†
+		// å–å¾—æƒ…å ±ã‹ã‚‰å®Ÿãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 		for (auto var : AudioResource.Soundtype.Soundinfo)
 		{
-			// ƒ}ƒeƒŠƒAƒ‹‚Ì“¯ˆêƒIƒuƒWƒFƒNƒg‚ÌŒŸõ
+			// ãƒãƒ†ãƒªã‚¢ãƒ«ã®åŒä¸€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ¤œç´¢
 			if (material == var.MaterialObj)
 			{
 				if (var.Extension == "wav")
 				{
-					AudioSource = new CLoadWave(var.SoundName, AudioResource.Soundtype);
+					id = var.Id;
+					std::shared_ptr<CLoadSoundFile> shard(new CLoadWave(var.SoundName, AudioResource.Soundtype));
+					AudioSource = shard;
 				}
 				else if (var.Extension == "ogg")
 				{
-					AudioSource = new CLoadOgg(var.SoundName, AudioResource.Soundtype);
+					id = var.Id;
+					std::shared_ptr<CLoadSoundFile> shard(new CLoadOgg(var.SoundName, AudioResource.Soundtype));
+					AudioSource = shard;
 				}
 				else {
-					printf("ƒtƒ@ƒCƒ‹Œ`®‚ª‘Î‰‚µ‚Ä‚¢‚È‚¢Œ`®‚Å‚·");
+					printf("ãƒ•ã‚¡ã‚¤ãƒ«å½¢å¼ãŒå¯¾å¿œã—ã¦ã„ãªã„å½¢å¼ã§ã™");
 				}
 			}
 		}
 		Init();
+
+		alSourcei(Source, AL_GAIN, AudioResource.Soundtype.Soundinfo[id].MaxVolume);     // éŸ³é‡
+
 	}
 
 	AudioSpeaker::AudioSpeaker(std::string filepath, int id)
 	{
-		// ƒI[ƒfƒBƒIî•ñ‚ğxml‚©‚çæ“¾
+		// ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªæƒ…å ±ã‚’xmlã‹ã‚‰å–å¾—
 		AudioFormatData afd;
 		AudioResource.Soundtype = afd.GetAudioFormatData(filepath, id);
 
-		// ƒ}ƒeƒŠƒAƒ‹‚Ìİ’è‚ª‚È‚¢ê‡id[0]‚Ì‰¹‚ğ–Â‚ç‚·
+		// ãƒãƒ†ãƒªã‚¢ãƒ«ã®è¨­å®šãŒãªã„å ´åˆid[0]ã®éŸ³ã‚’é³´ã‚‰ã™
 		if (AudioResource.Soundtype.Soundinfo[id].Extension == "wav")
 		{
-			AudioSource = new CLoadWave(AudioResource.Soundtype.Soundinfo[id].SoundName, AudioResource.Soundtype);
+			std::shared_ptr<CLoadSoundFile> shard(new CLoadWave(AudioResource.Soundtype.Soundinfo[id].SoundName, AudioResource.Soundtype));
+			AudioSource = shard;
 		}
 		else if (AudioResource.Soundtype.Soundinfo[id].Extension == "ogg")
 		{
-			AudioSource = new CLoadOgg(AudioResource.Soundtype.Soundinfo[id].SoundName, AudioResource.Soundtype);
+			std::shared_ptr<CLoadSoundFile> shard(new CLoadOgg(AudioResource.Soundtype.Soundinfo[id].SoundName, AudioResource.Soundtype));
+			AudioSource = shard;
 		}
 		else {
-			printf("ƒtƒ@ƒCƒ‹Œ`®‚ª‘Î‰‚µ‚Ä‚¢‚È‚¢Œ`®‚Å‚·");
+			printf("ãƒ•ã‚¡ã‚¤ãƒ«å½¢å¼ãŒå¯¾å¿œã—ã¦ã„ãªã„å½¢å¼ã§ã™");
 		}
 		Init();
+
+		alSourcei(Source, AL_GAIN, AudioResource.Soundtype.Soundinfo[id].MaxVolume);     // éŸ³é‡
+
 	}
 
 	AudioSpeaker::AudioSpeaker(std::string filepath, std::string SoundName)
 	{
-		// ƒI[ƒfƒBƒIî•ñ‚ğxml‚©‚çæ“¾
+		// ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªæƒ…å ±ã‚’xmlã‹ã‚‰å–å¾—
 		AudioFormatData afd;
 		AudioResource.Soundtype = afd.GetAudioFormatData(filepath, SoundName);
 
-		// ƒ}ƒeƒŠƒAƒ‹‚Ìİ’è‚ª‚È‚¢ê‡id[0]‚Ì‰¹‚ğ–Â‚ç‚·
+		// ãƒãƒ†ãƒªã‚¢ãƒ«ã®è¨­å®šãŒãªã„å ´åˆid[0]ã®éŸ³ã‚’é³´ã‚‰ã™
 		if (AudioResource.Soundtype.Soundinfo[0].Extension == "wav")
 		{
-			AudioSource = new CLoadWave(AudioResource.Soundtype.Soundinfo[0].SoundName, AudioResource.Soundtype);
+			std::shared_ptr<CLoadSoundFile> shard(new CLoadWave(AudioResource.Soundtype.Soundinfo[0].SoundName, AudioResource.Soundtype));
+			AudioSource = shard;
 		}
 		else if (AudioResource.Soundtype.Soundinfo[0].Extension == "ogg")
 		{
-			AudioSource = new CLoadOgg(AudioResource.Soundtype.Soundinfo[0].SoundName, AudioResource.Soundtype);
+			std::shared_ptr<CLoadSoundFile> shard(new CLoadOgg(AudioResource.Soundtype.Soundinfo[0].SoundName, AudioResource.Soundtype));
+			AudioSource = shard;  
 		}
 		else {
-			printf("ƒtƒ@ƒCƒ‹Œ`®‚ª‘Î‰‚µ‚Ä‚¢‚È‚¢Œ`®‚Å‚·");
+			printf("ãƒ•ã‚¡ã‚¤ãƒ«å½¢å¼ãŒå¯¾å¿œã—ã¦ã„ãªã„å½¢å¼ã§ã™");
 		}
 
 		Init();
+
+		alSourcei(Source, AL_GAIN, AudioResource.Soundtype.Soundinfo[0].MaxVolume);     // éŸ³é‡
+
 	}
 
 	AudioSpeaker::~AudioSpeaker()
@@ -90,12 +109,10 @@ namespace htAudio {
 
 			alDeleteBuffers(1, &Buffers[0]);
 			alDeleteSources(1, &Source);
-			delete AudioSource;
 		}
 		else {
-			alDeleteBuffers(2, Buffers);
+			alDeleteBuffers(2, &Buffers.front());
 			alDeleteSources(1, &Source);
-			delete AudioSource;
 		}
 
 		
@@ -110,12 +127,13 @@ namespace htAudio {
 			SetBuffer(Buffers[0]);
 			alSourcei(Source, AL_BUFFER, Buffers[0]);
 		}else{
-			alGenBuffers(2, Buffers);
+			alGenBuffers(2, &Buffers.front());
 			alGenSources(1, &Source);
 			SetBuffer(Buffers[0]);
 			SetBuffer(Buffers[1]);
-			alSourceQueueBuffers(Source, 2, Buffers);
+			alSourceQueueBuffers(Source, 2, &Buffers.front());
 		}
+
 	}
 
 	//
@@ -126,7 +144,7 @@ namespace htAudio {
 		}
 
 		AudioSource->Update();
-		// ƒoƒbƒtƒ@‚ÌXV
+		// ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°
 		ALenum format = AudioSource->GetAudioChannel() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
 		int fq = AudioSource->GetAudioSpS();
 		ALsizei size = AudioSource->GetAudioBufferSize();
@@ -155,13 +173,16 @@ namespace htAudio {
 		else {
 			int State = 0;
 			alGetSourcei(Source, AL_BUFFERS_PROCESSED, &State);
+
 			if (State > 0)
 			{
 				ALuint Buf;
 				alSourceUnqueueBuffers(Source, 1, &Buf);
 				SetBuffer(Buf);
 				alSourceQueueBuffers(Source, 1, &Buf);
+				FFT();
 			}
+
 		}
 		return true;
 	}
@@ -178,20 +199,66 @@ namespace htAudio {
 		return true;
 	}
 
-	void AudioSpeaker::SetPosition(float* x, float* y, float* z)
+	void AudioSpeaker::SetPosition(float x, float y, float z)
 	{
 		Position[0] = x;
 		Position[1] = y;
 		Position[2] = z;
 
-		alSource3f(Source,AL_POSITION, *Position[0], *Position[1], *Position[2]);
+		alSourcefv(Source,AL_POSITION, Position);
 	}
 
-	void AudioSpeaker::SetPosition(float* pos[3])
+	void AudioSpeaker::SetPosition(float pos[3])
 	{
-		*Position = *pos;
+		Position[0] = pos[0];
+		Position[1] = pos[1];
+		Position[2] = pos[2];
 
-		alSource3f(Source, AL_POSITION, *Position[0], *Position[1], *Position[2]);
+		alSourcefv(Source, AL_POSITION, pos);
 	}
 
+	void AudioSpeaker::FFT()
+	{
+		fftw_complex *in, *out;
+		fftw_plan plan;
+		int size;
+		size_t* sample;
+
+		size = AudioSource->GetAudioBufferSize() / AudioResource.Format.nBlockAlign;
+		sample = (size_t*)AudioSource->GetBuffer();
+
+		in = (fftw_complex*)fftw_malloc(sizeof(fftw_complex)*size);
+		out = (fftw_complex*)fftw_malloc(sizeof(fftw_complex)*size);
+
+		for (int i = 0; i = size; i++)
+		{
+			in[i][0] = sample[i];
+			in[i][1] = 0.0;
+		}
+
+		plan = fftw_plan_dft_1d(size,in,out,FFTW_FORWARD,FFTW_ESTIMATE);
+		fftw_execute(plan);
+
+		float* dest;
+		dest = new float(sizeof(float)*size);
+		for (int i = 0; i < size; i++) {
+			dest[i] = std::sqrt(out[i][0] * out[i][0] + out[i][1] * out[i][1]);
+		}
+
+		double max = 0;
+		int index = 0;
+		for (int i = 0; i < size; i++) {
+			if (dest[i] > max) {
+				max = dest[i];
+				index = i;
+			}
+		}
+		cout << endl << index << endl << max << endl;
+		delete[] dest;
+
+		fftw_destroy_plan(plan);
+		fftw_free(in);
+		fftw_free(out);
+
+	}
 }

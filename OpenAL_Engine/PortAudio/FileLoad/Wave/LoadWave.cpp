@@ -38,9 +38,7 @@ namespace htAudio
 	CLoadWave::~CLoadWave()
 	{
 		m_SoundResouce.PresetSoundName.clear();
-		//PrimaryMixed.clear();
 		delete[] PrimaryMixed;
-		//SecondMixed.clear();
 		delete[] SecondMixed;
 	}
 
@@ -151,13 +149,11 @@ namespace htAudio
 	{
 		std::size_t readSample = 0;
 		// BGM保存用バッファの初期化
-		//PrimaryMixed = std::vector<std::size_t>(htAudio::BUFFER_SIZE);
 		PrimaryMixed = new std::size_t[htAudio::BUFFER_SIZE];
-		//SecondMixed  = std::vector<std::size_t>(htAudio::BUFFER_SIZE);
 		SecondMixed = new std::size_t[htAudio::BUFFER_SIZE];
 
 		// 最初のバッファ読み込み
-		readSample = ReadDataRaw(0, htAudio::BUFFER_SIZE, &(PrimaryMixed[0]));
+		readSample = ReadDataRaw(1, htAudio::BUFFER_SIZE, &(PrimaryMixed[0]));
 		m_SoundResouce.NextFirstSample += readSample;
 		
 		// 次のバッファの読み込み
@@ -259,7 +255,7 @@ namespace htAudio
 		std::size_t ret;
 		while (readSample < actualSamples)
 		{
-			ret = fread(reinterpret_cast<uint8_t*>(buffer) + readSample * m_SoundResouce.Format.nBlockAlign,
+			ret = fread(reinterpret_cast<uint16_t*>(buffer) + readSample * m_SoundResouce.Format.nBlockAlign,
 				m_SoundResouce.Format.nBlockAlign, actualSamples - readSample, fp);
 
 			if (ret == 0)
