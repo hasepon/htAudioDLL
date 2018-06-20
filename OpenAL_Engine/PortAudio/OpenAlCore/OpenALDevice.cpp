@@ -7,7 +7,18 @@ namespace htAudio {
 		// OpenALÇÃèâä˙âª
 		printf("èâä˙âªÇµÇ‹ÇµÇΩ\n");
 		Device = alcOpenDevice(nullptr);
-		Context = alcCreateContext(Device,nullptr);
+		
+		if( alcIsExtensionPresent(Device, "ALC_EXT_EFX") == AL_FALSE)
+		{
+			printf("alcIsExtensionPresentÇÃê›íËÇ…é∏îsÇµÇ‹ÇµÇΩ");
+		}
+		
+		ALint Attribs[4] = { 0 };
+		Attribs[0] = ALC_MAX_AUXILIARY_SENDS;
+		Attribs[1] = 4;
+
+
+		Context = alcCreateContext(Device, Attribs);
 
 		ALCboolean success = alcMakeContextCurrent(Context);
 
@@ -15,6 +26,9 @@ namespace htAudio {
 		{
 			printf("alcMakeContextCurrentÇ…é∏îsÇµÇ‹ÇµÇΩ");
 		}
+
+		alcGetIntegerv(Device, ALC_MAX_AUXILIARY_SENDS, 1, &Sends);
+
 	}
 	
 	OpenALDevice::~OpenALDevice()

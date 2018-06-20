@@ -127,13 +127,14 @@ namespace htAudio {
 			SetBuffer(Buffers[0]);
 			alSourcei(Source, AL_BUFFER, Buffers[0]);
 		}else{
-			alGenBuffers(2, &Buffers.front());
+			alGenBuffers(2, &Buffers[0]);
 			alGenSources(1, &Source);
 			SetBuffer(Buffers[0]);
 			SetBuffer(Buffers[1]);
-			alSourceQueueBuffers(Source, 2, &Buffers.front());
+			alSourceQueueBuffers(Source, 2, &Buffers[0]);
 		}
 
+		TestEffect();
 	}
 
 	//
@@ -180,7 +181,6 @@ namespace htAudio {
 				alSourceUnqueueBuffers(Source, 1, &Buf);
 				SetBuffer(Buf);
 				alSourceQueueBuffers(Source, 1, &Buf);
-				FFT();
 			}
 
 		}
@@ -217,48 +217,44 @@ namespace htAudio {
 		alSourcefv(Source, AL_POSITION, pos);
 	}
 
-	void AudioSpeaker::FFT()
+	void AudioSpeaker::TestEffect()
 	{
-		fftw_complex *in, *out;
-		fftw_plan plan;
-		int size;
-		size_t* sample;
+		algeneffect = (LPALGENEFFECTS)alGetProcAddress("alGenEffects");
 
-		size = AudioSource->GetAudioBufferSize() / AudioResource.Format.nBlockAlign;
-		sample = (size_t*)AudioSource->GetBuffer();
-
-		in = (fftw_complex*)fftw_malloc(sizeof(fftw_complex)*size);
-		out = (fftw_complex*)fftw_malloc(sizeof(fftw_complex)*size);
-
-		for (int i = 0; i = size; i++)
+		for ( int Loop = 0; Loop < 1; Loop++)
 		{
-			in[i][0] = sample[i];
-			in[i][1] = 0.0;
+			alGenAuxiliaryEffectSlots(1, &EffectSlot[Loop]);
+			if (alGetError() != AL_NO_ERROR)
+				break;
 		}
 
-		plan = fftw_plan_dft_1d(size,in,out,FFTW_FORWARD,FFTW_ESTIMATE);
-		fftw_execute(plan);
-
-		float* dest;
-		dest = new float(sizeof(float)*size);
-		for (int i = 0; i < size; i++) {
-			dest[i] = std::sqrt(out[i][0] * out[i][0] + out[i][1] * out[i][1]);
+		for (int i = 0; i < 1; ++i)
+		{
+			algeneffect(1,&Effect[i]);
+			if (alGetError() != AL_NO_ERROR)
+				break;
 		}
 
-		double max = 0;
-		int index = 0;
-		for (int i = 0; i < size; i++) {
-			if (dest[i] > max) {
-				max = dest[i];
-				index = i;
+		if (alIsEffect(Effect[0]))
+		{
+			alEffecti(Effect[0], AL_EFFECT_TYPE, AL_EFFECT_REVERB);
+			if (alGetError() != AL_NO_ERROR)
+			{
+				printf("リバーブの作成に失敗してます\n");
 			}
-		}
-		cout << endl << index << endl << max << endl;
-		delete[] dest;
+			else
+			{
+				alEffectf(Effect[0], AL_REVERB_GAIN, AL_REVERB_MAX_GAIN);
+				printf("リバーブを設定します\n");
+			}
 
-		fftw_destroy_plan(plan);
-		fftw_free(in);
-		fftw_free(out);
+		}
+
+		alAuxiliaryEffectSloti(EffectSlot[0],AL_EFFECTSLOT_EFFECT,Effect[0]);
+		if (alGetError() == AL_NO_ERROR)
+			printf("Successfully loaded effect into effect slot\n");
+		
+		alSource3i(Source, AL_AUXILIARY_SEND_FILTER, EffectSlot[0],0, NULL);
 
 	}
 }

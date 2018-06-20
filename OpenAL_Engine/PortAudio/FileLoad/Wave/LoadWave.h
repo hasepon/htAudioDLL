@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../LoadSoundFile.h"
+#include<array>
 
 namespace htAudio {
 
@@ -35,9 +36,9 @@ namespace htAudio {
 		// ê≥ãKâªçœÇ›ÉfÅ[É^ì«Ç›çûÇ›
 		std::size_t ReadNormalize(long first, long end, float* left, float* right);
 
-		//std::vector<std::size_t> PrimaryMixed;
-		std::size_t* PrimaryMixed;
-		//std::vector<std::size_t> SecondMixed;
-		std::size_t* SecondMixed;
+		std::vector<std::size_t> PrimaryMixed;
+		//std::size_t* PrimaryMixed;
+		std::vector<std::size_t> SecondMixed;
+		//std::size_t* SecondMixed;
 	};
 }

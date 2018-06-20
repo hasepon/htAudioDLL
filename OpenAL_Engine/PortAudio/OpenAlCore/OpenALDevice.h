@@ -1,8 +1,13 @@
 #pragma once
 
 #include"../../Singleton.h"
+#define AL_ALEXT_PROTOTYPES
+
 #include<AL/al.h>
 #include<AL/alc.h>
+
+#include<AL/efx.h>
+#include<AL/efx-creative.h>
 
 #pragma comment(lib,"OpenAL32.lib")
 
@@ -46,5 +51,6 @@ namespace htAudio
 	private:
 		ALCdevice * Device;
 		ALCcontext* Context;
+		ALCint Sends = 0;
 	};
 }

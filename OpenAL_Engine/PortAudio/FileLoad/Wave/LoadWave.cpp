@@ -18,6 +18,11 @@ namespace htAudio
 		m_SoundResouce.LoopSound = m_SoundResouce.Soundtype.Loopflag;
 		m_SoundResouce.PresetSoundName = FilePath + Soundlistnumb + ".wav";
 
+
+		// BGM保存用バッファの初期化
+		//PrimaryMixed = new std::size_t[htAudio::BUFFER_SIZE];
+		//SecondMixed = new std::size_t[htAudio::BUFFER_SIZE];
+
 		// chunkデータの読み込み
 		LoadFormat();
 
@@ -38,8 +43,10 @@ namespace htAudio
 	CLoadWave::~CLoadWave()
 	{
 		m_SoundResouce.PresetSoundName.clear();
-		delete[] PrimaryMixed;
-		delete[] SecondMixed;
+		//delete[] PrimaryMixed;
+		PrimaryMixed.clear();
+		//delete[] SecondMixed;
+		SecondMixed.clear();
 	}
 
 	//====================================
@@ -134,8 +141,8 @@ namespace htAudio
 	{
 		long first = 0;
 		long last = m_SoundResouce.DataChunkSize;
-		//PrimaryMixed = std::vector<std::size_t>(last);
-		PrimaryMixed = new std::size_t[last];
+		PrimaryMixed = std::vector<std::size_t>(last);
+		//PrimaryMixed = new std::size_t[last];
 		std::size_t readSample = ReadDataRaw(first, last, &(PrimaryMixed[0]));
 		m_SoundResouce.BufferSample = m_SoundResouce.DataChunkSize;
 		return readSample;
@@ -148,18 +155,19 @@ namespace htAudio
 	std::size_t CLoadWave::PrepareStreamBuffer()
 	{
 		std::size_t readSample = 0;
-		// BGM保存用バッファの初期化
-		PrimaryMixed = new std::size_t[htAudio::BUFFER_SIZE];
-		SecondMixed = new std::size_t[htAudio::BUFFER_SIZE];
+		m_SoundResouce.NextFirstSample = 0;
+		PrimaryMixed = std::vector<std::size_t>(BUFFER_SIZE);
+		SecondMixed = std::vector<std::size_t>(BUFFER_SIZE);
 
 		// 最初のバッファ読み込み
-		readSample = ReadDataRaw(1, htAudio::BUFFER_SIZE, &(PrimaryMixed[0]));
-		m_SoundResouce.NextFirstSample += readSample;
-		
-		// 次のバッファの読み込み
-		readSample += ReadDataRaw(m_SoundResouce.NextFirstSample, htAudio::BUFFER_SIZE, &(SecondMixed[0]));
-		m_SoundResouce.NextFirstSample += readSample;
+		readSample = ReadDataRaw(m_SoundResouce.NextFirstSample, htAudio::BUFFER_SIZE, &(PrimaryMixed[0]));
+		m_SoundResouce.NextFirstSample = readSample;
+		m_SoundResouce.SubmitTimes = 1;
 
+		// 次のバッファの読み込み4
+		//readSample += ReadDataRaw(m_SoundResouce.NextFirstSample, htAudio::BUFFER_SIZE, &(SecondMixed[0]));
+		//m_SoundResouce.NextFirstSample += readSample;
+		//m_SoundResouce.SubmitTimes = 0;
 
 		// 読み込み完了
 		if (readSample > 0)
@@ -175,7 +183,7 @@ namespace htAudio
 	//====================================
 	std::size_t CLoadWave::UpdateStreamBuffer()
 	{
-		std::size_t readSamples;
+		std::size_t readSamples = 0;
 		// 前回の読み込みバッファを超えた場合新しく読み込みなおす
 		if (m_SoundResouce.NextFirstSample < m_SoundResouce.DataChunkSample)
 		{
@@ -205,6 +213,7 @@ namespace htAudio
 			if (m_SoundResouce.NextFirstSample >= m_SoundResouce.DataChunkSample&& m_SoundResouce.LoopSound == true)
 			{
 				m_SoundResouce.NextFirstSample = 0;
+				PrepareStreamBuffer();
 			}
 			else
 			{

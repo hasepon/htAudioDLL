@@ -1,6 +1,5 @@
 *.db
 *.opendb
 /Debug/*
-/OpenAL_Engine/Debug/*
+/OpenAL_Engine/x64/*
 /.vs/*
-/x64/*

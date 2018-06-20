@@ -7,12 +7,7 @@
 #include<memory>
 #include<array>
 #include <complex.h>
-#include<AL/alc.h>
-#include<fftw3.h>
-
-#pragma comment(lib, "libfftw3-3.lib")
-#pragma comment(lib, "libfftw3f-3.lib")
-#pragma comment(lib, "libfftw3l-3.lib")
+#include<AL/efx-creative.h>
 
 using namespace std;
 
@@ -42,7 +37,10 @@ namespace htAudio
 		void SetPosition(float x, float y, float z);
 		void SetPosition(float pos[3]);
 
-		void FFT();
+		ALuint EffectSlot[1] = { 0 };
+		ALuint Effect[1] = { 0 };
+		LPALGENEFFECTS algeneffect;
+		void TestEffect();
 
 	private:
 		bool SetBuffer(ALuint Buf);	// バッファの設定
