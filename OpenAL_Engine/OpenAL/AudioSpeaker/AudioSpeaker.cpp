@@ -11,7 +11,7 @@ namespace htAudio {
 	/// <param name="filepath"></param>
 	/// <param name="SoundName"></param>
 	/// <param name="material"></param>
-	AudioSpeaker::AudioSpeaker(std::string filepath, std::string SoundName, std::string material)
+	AudioSpeaker::AudioSpeaker(std::u16string filepath, std::u16string SoundName, std::u16string material)
 	{
 		// オーディオ情報をxmlから取得
 		AudioFormatData afd;
@@ -49,7 +49,7 @@ namespace htAudio {
 
 	}
 
-	AudioSpeaker::AudioSpeaker(std::string filepath, int id)
+	AudioSpeaker::AudioSpeaker(std::u16string filepath, int id)
 	{
 		// オーディオ情報をxmlから取得
 		AudioFormatData afd;
@@ -75,7 +75,7 @@ namespace htAudio {
 
 	}
 
-	AudioSpeaker::AudioSpeaker(std::string filepath, std::string SoundName)
+	AudioSpeaker::AudioSpeaker(std::u16string filepath, std::u16string SoundName)
 	{
 		// オーディオ情報をxmlから取得
 		AudioFormatData afd;

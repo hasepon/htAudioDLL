@@ -21,11 +21,11 @@ namespace htAudio
 	{
 	public:
 		// 情報指定
-		AudioSpeaker(std::string filepath, std::string SoundName, std::string material);
+		AudioSpeaker(std::u16string filepath, std::u16string SoundName, std::u16string material);
 		// ID指定
-		AudioSpeaker(std::string filepath, int id);
+		AudioSpeaker(std::u16string filepath, int id);
 		//指定なし
-		AudioSpeaker(std::string filepath, std::string SoundName);
+		AudioSpeaker(std::u16string filepath, std::u16string SoundName);
 		
 		~AudioSpeaker();// デスト
 
@@ -49,7 +49,7 @@ namespace htAudio
 		std::shared_ptr<CLoadSoundFile> AudioSource;	// バッファー情報
 		SoundResources AudioResource;	// オーディオ情報
 
-		std::string UseMaterialAtt;		// マテリアルの設定
+		std::u16string UseMaterialAtt;		// マテリアルの設定
 
 		//OpenAL用
 		std::array<ALuint,2> Buffers;// バッファの設定

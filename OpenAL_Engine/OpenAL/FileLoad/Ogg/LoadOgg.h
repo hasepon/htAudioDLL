@@ -27,7 +27,7 @@ namespace htAudio
 	class CLoadOgg : public CLoadSoundFile
 	{
 	public:
-		CLoadOgg(std::string soundlistnumb, SoundType xmlinfo);
+		CLoadOgg(std::u16string soundlistnumb, SoundType xmlinfo);
 		~CLoadOgg();
 		void Update();
 

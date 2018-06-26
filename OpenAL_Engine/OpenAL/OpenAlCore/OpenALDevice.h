@@ -1,5 +1,6 @@
 #pragma once
 
+#include"../../stdafx.h"
 #include"../../Singleton.h"
 #define AL_ALEXT_PROTOTYPES
 

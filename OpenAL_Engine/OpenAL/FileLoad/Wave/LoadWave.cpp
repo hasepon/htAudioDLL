@@ -6,7 +6,7 @@ namespace htAudio
 	//==============================================================
 	//	Waveファイル情報の初期化
 	//==============================================================
-	CLoadWave::CLoadWave(std::string Soundlistnumb, SoundType xmlinfo)
+	CLoadWave::CLoadWave(std::u16string Soundlistnumb, SoundType xmlinfo)
 	{
 		// SoundResouceの初期化
 		m_SoundResouce.Soundtype = xmlinfo;
@@ -16,7 +16,7 @@ namespace htAudio
 		m_SoundResouce.HasGotWaveFormat = false;
 		m_SoundResouce.Format = {};
 		m_SoundResouce.LoopSound = m_SoundResouce.Soundtype.Loopflag;
-		m_SoundResouce.PresetSoundName = FilePath + Soundlistnumb + ".wav";
+		m_SoundResouce.PresetSoundName = FilePath + Soundlistnumb + (u".wav");
 
 
 		// BGM保存用バッファの初期化
@@ -57,7 +57,11 @@ namespace htAudio
 
 		FILE* fp;
 
-		fopen_s(&fp, m_SoundResouce.PresetSoundName.c_str(), "rb");
+		std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter;
+		std::string sn;
+		sn = converter.to_bytes(m_SoundResouce.PresetSoundName.c_str());
+
+		fopen_s(&fp, sn.c_str(), "rb");
 
 		if (fp == NULL)
 			return;
@@ -241,7 +245,11 @@ namespace htAudio
 
 		FILE* fp;
 
-		fopen_s(&fp, m_SoundResouce.PresetSoundName.c_str(), "rb");
+		std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter;
+		std::string sn;
+		sn = converter.to_bytes(m_SoundResouce.PresetSoundName.c_str());
+
+		fopen_s(&fp, sn.c_str(), "rb");
 
 		if (!buffer)
 			return 0;
@@ -289,7 +297,11 @@ namespace htAudio
 	{
 		FILE* fp;
 
-		fopen_s(&fp, m_SoundResouce.PresetSoundName.c_str(), "rb");
+		std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter;
+		std::string sn;
+		sn = converter.to_bytes(m_SoundResouce.PresetSoundName.c_str());
+
+		fopen_s(&fp, sn.c_str(), "rb");
 
 		if (!fp)
 			return 0;

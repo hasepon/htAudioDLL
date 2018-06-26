@@ -2,6 +2,7 @@
 
 #include "../LoadSoundFile.h"
 #include<array>
+#include <codecvt>
 
 namespace htAudio {
 
@@ -12,7 +13,7 @@ namespace htAudio {
 	class CLoadWave : public CLoadSoundFile
 	{
 	public:
-		CLoadWave(std::string soundlistnumb, SoundType xmlinfo);
+		CLoadWave(std::u16string soundlistnumb, SoundType xmlinfo);
 		~CLoadWave();
 		std::size_t PreloadBuffer();
 		std::size_t PrepareStreamBuffer();

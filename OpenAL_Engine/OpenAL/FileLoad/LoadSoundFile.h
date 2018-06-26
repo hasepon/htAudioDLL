@@ -1,7 +1,5 @@
 #pragma once
 
-
-
 #include<windows.h>
 #include<vector>
 #include<string>
@@ -9,7 +7,6 @@
 
 #include<AL/al.h>
 #include<AL/alc.h>
-
 
 namespace htAudio
 {
@@ -47,7 +44,7 @@ namespace htAudio
 
 	struct SoundResources
 	{
-		std::string PresetSoundName;// サウンド名
+		std::u16string PresetSoundName;// サウンド名
 		AUDIOFORMAT Format;			// ヘッダー情報
 		SoundType Soundtype;		// XMLから得た情報
 		int PlayTime;				// 再生時間
@@ -95,7 +92,7 @@ namespace htAudio
 		SoundResources m_SoundResouce;	// サウンド情報
 		bool m_BufferLoadflag;			// 読み込みフラグ
 
-		std::string FilePath = _T("../Data/Audio/");
+		std::u16string FilePath = (u"../Data/Audio/");
 
 	};
 }
