@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -50,7 +50,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -105,7 +105,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -143,7 +143,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -159,32 +159,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="PortAudio\AudioFormatData\AudioFormatData.h" />
-    <ClInclude Include="PortAudio\AudioListener\AudioListener.h" />
-    <ClInclude Include="PortAudio\AudioSpeaker\AudioSpeaker.h" />
-    <ClInclude Include="PortAudio\FileLoad\LoadSoundFile.h" />
-    <ClInclude Include="PortAudio\FileLoad\Ogg\LoadOgg.h" />
-    <ClInclude Include="PortAudio\FileLoad\Wave\LoadWave.h" />
-    <ClInclude Include="PortAudio\OpenAlCore\OpenALDevice.h" />
+    <ClInclude Include="Definclude.h" />
+    <ClInclude Include="htAudioDevice.h" />
+    <ClInclude Include="htAudioListener.h" />
+    <ClInclude Include="htAudioSpeaker.h" />
+    <ClInclude Include="OpenAL\AudioFormatData\AudioFormatData.h" />
+    <ClInclude Include="OpenAL\AudioListener\AudioListener.h" />
+    <ClInclude Include="OpenAL\AudioSpeaker\AudioSpeaker.h" />
+    <ClInclude Include="OpenAL\FileLoad\LoadSoundFile.h" />
+    <ClInclude Include="OpenAL\FileLoad\Ogg\LoadOgg.h" />
+    <ClInclude Include="OpenAL\FileLoad\Wave\LoadWave.h" />
+    <ClInclude Include="OpenAL\OpenAlCore\OpenALDevice.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SoundDLL.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="htAudioDevice.cpp" />
+    <ClCompile Include="htAudioListener.cpp" />
+    <ClCompile Include="htAudioSpeaker.cpp" />
+    <ClCompile Include="OpenAL\AudioFormatData\AudioFormatData.cpp" />
+    <ClCompile Include="OpenAL\AudioListener\AudioListener.cpp" />
+    <ClCompile Include="OpenAL\AudioSpeaker\AudioSpeaker.cpp" />
+    <ClCompile Include="OpenAL\FileLoad\Ogg\LoadOgg.cpp" />
+    <ClCompile Include="OpenAL\FileLoad\Wave\LoadWave.cpp" />
+    <ClCompile Include="OpenAL\OpenAlCore\OpenALDevice.cpp" />
     <ClCompile Include="OpenAL_Engine.cpp" />
-    <ClCompile Include="PortAudio\AudioFormatData\AudioFormatData.cpp" />
-    <ClCompile Include="PortAudio\AudioListener\AudioListener.cpp" />
-    <ClCompile Include="PortAudio\AudioSpeaker\AudioSpeaker.cpp" />
-    <ClCompile Include="PortAudio\FileLoad\Ogg\LoadOgg.cpp" />
-    <ClCompile Include="PortAudio\FileLoad\Wave\LoadWave.cpp" />
-    <ClCompile Include="PortAudio\OpenAlCore\OpenALDevice.cpp" />
     <ClCompile Include="Singleton.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

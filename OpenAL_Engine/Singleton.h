@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include<mutex>
+
 namespace htAudio {
 	class SingletonFinalizer
 	{

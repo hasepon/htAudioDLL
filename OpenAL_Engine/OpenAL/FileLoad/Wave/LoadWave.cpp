@@ -6,7 +6,7 @@ namespace htAudio
 	//==============================================================
 	//	Waveファイル情報の初期化
 	//==============================================================
-	CLoadWave::CLoadWave(std::u16string Soundlistnumb, SoundType xmlinfo)
+	CLoadWave::CLoadWave(std::string Soundlistnumb, SoundType xmlinfo)
 	{
 		// SoundResouceの初期化
 		m_SoundResouce.Soundtype = xmlinfo;
@@ -16,7 +16,7 @@ namespace htAudio
 		m_SoundResouce.HasGotWaveFormat = false;
 		m_SoundResouce.Format = {};
 		m_SoundResouce.LoopSound = m_SoundResouce.Soundtype.Loopflag;
-		m_SoundResouce.PresetSoundName = FilePath + Soundlistnumb + (u".wav");
+		m_SoundResouce.PresetSoundName = FilePath + Soundlistnumb + ".wav";
 
 
 		// BGM保存用バッファの初期化
@@ -57,11 +57,7 @@ namespace htAudio
 
 		FILE* fp;
 
-		std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter;
-		std::string sn;
-		sn = converter.to_bytes(m_SoundResouce.PresetSoundName.c_str());
-
-		fopen_s(&fp, sn.c_str(), "rb");
+		fopen_s(&fp, m_SoundResouce.PresetSoundName.c_str(), "rb");
 
 		if (fp == NULL)
 			return;
@@ -143,11 +139,11 @@ namespace htAudio
 	//====================================
 	std::size_t CLoadWave::PreloadBuffer()
 	{
-		long first = 0;
-		long last = m_SoundResouce.DataChunkSize;
+		size_t first = 0;
+		size_t last = m_SoundResouce.DataChunkSize;
 		PrimaryMixed = std::vector<std::size_t>(last);
 		//PrimaryMixed = new std::size_t[last];
-		std::size_t readSample = ReadDataRaw(first, last, &(PrimaryMixed[0]));
+		std::size_t readSample = ReadDataRaw((long)first, (long)last, &(PrimaryMixed[0]));
 		m_SoundResouce.BufferSample = m_SoundResouce.DataChunkSize;
 		return readSample;
 	}
@@ -164,7 +160,7 @@ namespace htAudio
 		SecondMixed = std::vector<std::size_t>(BUFFER_SIZE);
 
 		// 最初のバッファ読み込み
-		readSample = ReadDataRaw(m_SoundResouce.NextFirstSample, htAudio::BUFFER_SIZE, &(PrimaryMixed[0]));
+		readSample = ReadDataRaw((long)m_SoundResouce.NextFirstSample, (long)htAudio::BUFFER_SIZE, &(PrimaryMixed[0]));
 		m_SoundResouce.NextFirstSample = readSample;
 		m_SoundResouce.SubmitTimes = 1;
 
@@ -194,7 +190,7 @@ namespace htAudio
 
 			if (m_SoundResouce.SubmitTimes == 0)
 			{
-				readSamples = ReadDataRaw(m_SoundResouce.NextFirstSample, htAudio::BUFFER_SIZE, &(PrimaryMixed[0]));
+				readSamples = ReadDataRaw((long)m_SoundResouce.NextFirstSample, (long)htAudio::BUFFER_SIZE, &(PrimaryMixed[0]));
 				
 				if (readSamples > 0)
 				{
@@ -203,7 +199,7 @@ namespace htAudio
 					m_BufferLoadflag = true;
 				}
 			}else if (m_SoundResouce.SubmitTimes == 1) {
-				readSamples = ReadDataRaw(m_SoundResouce.NextFirstSample, htAudio::BUFFER_SIZE, &(SecondMixed[0]));
+				readSamples = ReadDataRaw((long)m_SoundResouce.NextFirstSample, (long)htAudio::BUFFER_SIZE, &(SecondMixed[0]));
 
 				if (readSamples > 0)
 				{
@@ -245,11 +241,7 @@ namespace htAudio
 
 		FILE* fp;
 
-		std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter;
-		std::string sn;
-		sn = converter.to_bytes(m_SoundResouce.PresetSoundName.c_str());
-
-		fopen_s(&fp, sn.c_str(), "rb");
+		fopen_s(&fp, m_SoundResouce.PresetSoundName.c_str(), "rb");
 
 		if (!buffer)
 			return 0;
@@ -297,11 +289,7 @@ namespace htAudio
 	{
 		FILE* fp;
 
-		std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter;
-		std::string sn;
-		sn = converter.to_bytes(m_SoundResouce.PresetSoundName.c_str());
-
-		fopen_s(&fp, sn.c_str(), "rb");
+		fopen_s(&fp, m_SoundResouce.PresetSoundName.c_str(), "rb");
 
 		if (!fp)
 			return 0;

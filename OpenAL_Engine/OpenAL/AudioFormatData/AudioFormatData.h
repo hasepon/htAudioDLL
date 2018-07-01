@@ -26,8 +26,8 @@ namespace htAudio
 		AudioFormatData();
 		~AudioFormatData();
 
-		SoundType GetAudioFormatData(std::u16string filepath, std::u16string Soundname);
-		SoundType GetAudioFormatData(std::u16string filepath, int id);
+		SoundType GetAudioFormatData(std::string filepath, std::string Soundname);
+		SoundType GetAudioFormatData(std::string filepath, int id);
 
 	private:
 

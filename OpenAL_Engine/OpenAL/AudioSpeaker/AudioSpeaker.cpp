@@ -11,7 +11,7 @@ namespace htAudio {
 	/// <param name="filepath"></param>
 	/// <param name="SoundName"></param>
 	/// <param name="material"></param>
-	AudioSpeaker::AudioSpeaker(std::u16string filepath, std::u16string SoundName, std::u16string material)
+	AudioSpeaker::AudioSpeaker(std::string filepath, std::string SoundName, std::string material)
 	{
 		// オーディオ情報をxmlから取得
 		AudioFormatData afd;
@@ -45,11 +45,11 @@ namespace htAudio {
 		}
 		Init();
 
-		alSourcei(Source, AL_GAIN, AudioResource.Soundtype.Soundinfo[id].MaxVolume);     // 音量
+		alSourcef(Source, AL_GAIN, (ALfloat)AudioResource.Soundtype.Soundinfo[id].MaxVolume);     // 音量
 
 	}
 
-	AudioSpeaker::AudioSpeaker(std::u16string filepath, int id)
+	AudioSpeaker::AudioSpeaker(std::string filepath, int id)
 	{
 		// オーディオ情報をxmlから取得
 		AudioFormatData afd;
@@ -71,11 +71,11 @@ namespace htAudio {
 		}
 		Init();
 
-		alSourcei(Source, AL_GAIN, AudioResource.Soundtype.Soundinfo[id].MaxVolume);     // 音量
+		alSourcef(Source, AL_GAIN, (ALfloat)AudioResource.Soundtype.Soundinfo[id].MaxVolume);     // 音量
 
 	}
 
-	AudioSpeaker::AudioSpeaker(std::u16string filepath, std::u16string SoundName)
+	AudioSpeaker::AudioSpeaker(std::string filepath, std::string SoundName)
 	{
 		// オーディオ情報をxmlから取得
 		AudioFormatData afd;
@@ -98,7 +98,7 @@ namespace htAudio {
 
 		Init();
 
-		alSourcei(Source, AL_GAIN, AudioResource.Soundtype.Soundinfo[0].MaxVolume);     // 音量
+		alSourcef(Source, AL_GAIN, (ALfloat)AudioResource.Soundtype.Soundinfo[0].MaxVolume);     // 音量
 
 	}
 
@@ -115,6 +115,8 @@ namespace htAudio {
 			alDeleteSources(1, &Source);
 		}
 
+		// 初期化終了
+		Successinit = true;
 		
 	}
 
@@ -133,8 +135,6 @@ namespace htAudio {
 			SetBuffer(Buffers[1]);
 			alSourceQueueBuffers(Source, 2, &Buffers[0]);
 		}
-
-		TestEffect();
 	}
 
 	//
@@ -148,9 +148,9 @@ namespace htAudio {
 		// バッファの更新
 		ALenum format = AudioSource->GetAudioChannel() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
 		int fq = AudioSource->GetAudioSpS();
-		ALsizei size = AudioSource->GetAudioBufferSize();
+		size_t size = AudioSource->GetAudioBufferSize();
 
-		alBufferData(Buf, format, AudioSource->GetBuffer(), size, fq);
+		alBufferData(Buf, format, AudioSource->GetBuffer(), (ALsizei)size, fq);
 		return true;
 	}
 
@@ -215,46 +215,5 @@ namespace htAudio {
 		Position[2] = pos[2];
 
 		alSourcefv(Source, AL_POSITION, pos);
-	}
-
-	void AudioSpeaker::TestEffect()
-	{
-		algeneffect = (LPALGENEFFECTS)alGetProcAddress("alGenEffects");
-
-		for ( int Loop = 0; Loop < 1; Loop++)
-		{
-			alGenAuxiliaryEffectSlots(1, &EffectSlot[Loop]);
-			if (alGetError() != AL_NO_ERROR)
-				break;
-		}
-
-		for (int i = 0; i < 1; ++i)
-		{
-			algeneffect(1,&Effect[i]);
-			if (alGetError() != AL_NO_ERROR)
-				break;
-		}
-
-		if (alIsEffect(Effect[0]))
-		{
-			alEffecti(Effect[0], AL_EFFECT_TYPE, AL_EFFECT_REVERB);
-			if (alGetError() != AL_NO_ERROR)
-			{
-				printf("リバーブの作成に失敗してます\n");
-			}
-			else
-			{
-				alEffectf(Effect[0], AL_REVERB_GAIN, AL_REVERB_MAX_GAIN);
-				printf("リバーブを設定します\n");
-			}
-
-		}
-
-		alAuxiliaryEffectSloti(EffectSlot[0],AL_EFFECTSLOT_EFFECT,Effect[0]);
-		if (alGetError() == AL_NO_ERROR)
-			printf("Successfully loaded effect into effect slot\n");
-		
-		alSource3i(Source, AL_AUXILIARY_SEND_FILTER, EffectSlot[0],0, NULL);
-
 	}
 }

@@ -6,7 +6,7 @@
 #include<string>
 #include<memory>
 #include<array>
-#include <complex.h>
+#include<complex.h>
 #include<AL/efx-creative.h>
 
 using namespace std;
@@ -21,11 +21,11 @@ namespace htAudio
 	{
 	public:
 		// 情報指定
-		AudioSpeaker(std::u16string filepath, std::u16string SoundName, std::u16string material);
+		AudioSpeaker(std::string filepath, std::string SoundName, std::string material);
 		// ID指定
-		AudioSpeaker(std::u16string filepath, int id);
+		AudioSpeaker(std::string filepath, int id);
 		//指定なし
-		AudioSpeaker(std::u16string filepath, std::u16string SoundName);
+		AudioSpeaker(std::string filepath, std::string SoundName);
 		
 		~AudioSpeaker();// デスト
 
@@ -37,14 +37,11 @@ namespace htAudio
 		void SetPosition(float x, float y, float z);
 		void SetPosition(float pos[3]);
 
-		ALuint EffectSlot[1] = { 0 };
-		ALuint Effect[1] = { 0 };
-		LPALGENEFFECTS algeneffect;
-		void TestEffect();
-
 	private:
 		bool SetBuffer(ALuint Buf);	// バッファの設定
 		void Init();
+
+		bool Successinit = false;	// 初期化成功
 
 		std::shared_ptr<CLoadSoundFile> AudioSource;	// バッファー情報
 		SoundResources AudioResource;	// オーディオ情報

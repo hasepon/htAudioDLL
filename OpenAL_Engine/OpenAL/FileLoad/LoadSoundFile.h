@@ -18,7 +18,7 @@ namespace htAudio
 		std::string SoundName;
 		std::string MaterialObj;
 		std::string Type;
-		float MaxVolume;
+		double MaxVolume;
 	};
 
 	// サウンドのタイプ
@@ -44,7 +44,7 @@ namespace htAudio
 
 	struct SoundResources
 	{
-		std::u16string PresetSoundName;// サウンド名
+		std::string PresetSoundName;// サウンド名
 		AUDIOFORMAT Format;			// ヘッダー情報
 		SoundType Soundtype;		// XMLから得た情報
 		int PlayTime;				// 再生時間
@@ -92,7 +92,7 @@ namespace htAudio
 		SoundResources m_SoundResouce;	// サウンド情報
 		bool m_BufferLoadflag;			// 読み込みフラグ
 
-		std::u16string FilePath = (u"../Data/Audio/");
+		std::string FilePath = "../Data/Audio/";
 
 	};
 }

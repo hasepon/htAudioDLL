@@ -27,7 +27,7 @@ namespace htAudio
 	class CLoadOgg : public CLoadSoundFile
 	{
 	public:
-		CLoadOgg(std::u16string soundlistnumb, SoundType xmlinfo);
+		CLoadOgg(std::string soundlistnumb, SoundType xmlinfo);
 		~CLoadOgg();
 		void Update();
 
@@ -50,6 +50,6 @@ namespace htAudio
 
 
 		OggVorbis_File m_Ovf;
-		DWORD m_TotalReadSize;
+		size_t m_TotalReadSize;
 	};
 }

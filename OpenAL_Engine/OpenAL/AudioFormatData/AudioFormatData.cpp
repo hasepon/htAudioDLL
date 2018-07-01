@@ -13,7 +13,7 @@ namespace htAudio {
 
 	}
 
-	SoundType AudioFormatData::GetAudioFormatData(std::u16string filepath, std::u16string Soundname)
+	SoundType AudioFormatData::GetAudioFormatData(std::string filepath, std::string Soundname)
 	{
 		using namespace pugi;
 
@@ -22,11 +22,7 @@ namespace htAudio {
 
 		xml_parse_result result;
 
-		std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter;
-		std::string filepth;
-		filepth = converter.to_bytes(filepath.c_str());
-
-		result = doc.load_file(filepth.c_str(), parse_default | parse_pi);
+		result = doc.load_file(filepath.c_str(), parse_default | parse_pi);
 
 		if (!result)
 		{
@@ -34,14 +30,12 @@ namespace htAudio {
 		}
 
 		xml_node tools = doc.child("SoundList");
-		std::string soundname;
-		soundname = converter.to_bytes(Soundname.c_str());
 
 		for (xml_node tool = tools.child("SoundData"); tool; tool = tool.next_sibling())
 		{
 			// Žw’è‚µ‚½ƒTƒEƒ“ƒh‚ÌŠK‘w
 			auto xmlname = tool.attribute("Name").value();
-			if (xmlname == soundname)
+			if (xmlname == Soundname)
 			{
 				std::string sub;
 				Format.Cue = tool.child("SoundType").child_value("Cue");
@@ -78,7 +72,7 @@ namespace htAudio {
 	}
 
 
-	SoundType AudioFormatData::GetAudioFormatData(std::u16string filepath, int id)
+	SoundType AudioFormatData::GetAudioFormatData(std::string filepath, int id)
 	{
 		using namespace pugi;
 
@@ -87,12 +81,7 @@ namespace htAudio {
 
 		xml_parse_result result;
 
-
-		std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter;
-		std::string filepth;
-		filepth = converter.to_bytes(filepath.c_str());
-
-		result = doc.load_file(filepth.c_str(), parse_default | parse_pi);
+		result = doc.load_file(filepath.c_str(), parse_default | parse_pi);
 
 		if (!result)
 		{
