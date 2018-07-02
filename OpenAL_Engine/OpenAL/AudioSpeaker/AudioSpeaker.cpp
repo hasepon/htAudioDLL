@@ -16,37 +16,39 @@ namespace htAudio {
 		// オーディオ情報をxmlから取得
 		AudioFormatData afd;
 		AudioResource.Soundtype = afd.GetAudioFormatData(filepath, SoundName);
-
+		
 		int id;
 
-		// 属性を拾っているので処理
-		// 取得情報から実データを取得
-		for (auto var : AudioResource.Soundtype.Soundinfo)
+		if (AudioResource.Soundtype.CreateFlag == true)
 		{
-			// マテリアルの同一オブジェクトの検索
-			if (material == var.MaterialObj)
+			// 属性を拾っているので処理
+			// 取得情報から実データを取得
+			for (auto var : AudioResource.Soundtype.Soundinfo)
 			{
-				if (var.Extension == "wav")
+				// マテリアルの同一オブジェクトの検索
+				if (material == var.MaterialObj)
 				{
-					id = var.Id;
-					std::shared_ptr<CLoadSoundFile> shard(new CLoadWave(var.SoundName, AudioResource.Soundtype));
-					AudioSource = shard;
-				}
-				else if (var.Extension == "ogg")
-				{
-					id = var.Id;
-					std::shared_ptr<CLoadSoundFile> shard(new CLoadOgg(var.SoundName, AudioResource.Soundtype));
-					AudioSource = shard;
-				}
-				else {
-					printf("ファイル形式が対応していない形式です");
+					if (var.Extension == "wav")
+					{
+						id = var.Id;
+						std::shared_ptr<CLoadSoundFile> shard(new CLoadWave(var.SoundName, AudioResource.Soundtype, filepath));
+						AudioSource = shard;
+					}
+					else if (var.Extension == "ogg")
+					{
+						id = var.Id;
+						std::shared_ptr<CLoadSoundFile> shard(new CLoadOgg(var.SoundName, AudioResource.Soundtype, filepath));
+						AudioSource = shard;
+					}
+					else {
+						printf("ファイル形式が対応していない形式です");
+					}
 				}
 			}
+			Init();
+
+			alSourcef(Source, AL_GAIN, (ALfloat)AudioResource.Soundtype.Soundinfo[id].MaxVolume);     // 音量
 		}
-		Init();
-
-		alSourcef(Source, AL_GAIN, (ALfloat)AudioResource.Soundtype.Soundinfo[id].MaxVolume);     // 音量
-
 	}
 
 	AudioSpeaker::AudioSpeaker(std::string filepath, int id)
@@ -55,24 +57,26 @@ namespace htAudio {
 		AudioFormatData afd;
 		AudioResource.Soundtype = afd.GetAudioFormatData(filepath, id);
 
-		// マテリアルの設定がない場合id[0]の音を鳴らす
-		if (AudioResource.Soundtype.Soundinfo[id].Extension == "wav")
+		if (AudioResource.Soundtype.CreateFlag == true)
 		{
-			std::shared_ptr<CLoadSoundFile> shard(new CLoadWave(AudioResource.Soundtype.Soundinfo[id].SoundName, AudioResource.Soundtype));
-			AudioSource = shard;
-		}
-		else if (AudioResource.Soundtype.Soundinfo[id].Extension == "ogg")
-		{
-			std::shared_ptr<CLoadSoundFile> shard(new CLoadOgg(AudioResource.Soundtype.Soundinfo[id].SoundName, AudioResource.Soundtype));
-			AudioSource = shard;
-		}
-		else {
-			printf("ファイル形式が対応していない形式です");
-		}
-		Init();
+			// マテリアルの設定がない場合id[0]の音を鳴らす
+			if (AudioResource.Soundtype.Soundinfo[id].Extension == "wav")
+			{
+				std::shared_ptr<CLoadSoundFile> shard(new CLoadWave(AudioResource.Soundtype.Soundinfo[id].SoundName, AudioResource.Soundtype, filepath));
+				AudioSource = shard;
+			}
+			else if (AudioResource.Soundtype.Soundinfo[id].Extension == "ogg")
+			{
+				std::shared_ptr<CLoadSoundFile> shard(new CLoadOgg(AudioResource.Soundtype.Soundinfo[id].SoundName, AudioResource.Soundtype, filepath));
+				AudioSource = shard;
+			}
+			else {
+				printf("ファイル形式が対応していない形式です");
+			}
+			Init();
 
-		alSourcef(Source, AL_GAIN, (ALfloat)AudioResource.Soundtype.Soundinfo[id].MaxVolume);     // 音量
-
+			alSourcef(Source, AL_GAIN, (ALfloat)AudioResource.Soundtype.Soundinfo[id].MaxVolume);     // 音量
+		}
 	}
 
 	AudioSpeaker::AudioSpeaker(std::string filepath, std::string SoundName)
@@ -81,25 +85,27 @@ namespace htAudio {
 		AudioFormatData afd;
 		AudioResource.Soundtype = afd.GetAudioFormatData(filepath, SoundName);
 
-		// マテリアルの設定がない場合id[0]の音を鳴らす
-		if (AudioResource.Soundtype.Soundinfo[0].Extension == "wav")
+		if (AudioResource.Soundtype.CreateFlag == true)
 		{
-			std::shared_ptr<CLoadSoundFile> shard(new CLoadWave(AudioResource.Soundtype.Soundinfo[0].SoundName, AudioResource.Soundtype));
-			AudioSource = shard;
-		}
-		else if (AudioResource.Soundtype.Soundinfo[0].Extension == "ogg")
-		{
-			std::shared_ptr<CLoadSoundFile> shard(new CLoadOgg(AudioResource.Soundtype.Soundinfo[0].SoundName, AudioResource.Soundtype));
-			AudioSource = shard;  
-		}
-		else {
-			printf("ファイル形式が対応していない形式です");
-		}
+			// マテリアルの設定がない場合id[0]の音を鳴らす
+			if (AudioResource.Soundtype.Soundinfo[0].Extension == "wav")
+			{
+				std::shared_ptr<CLoadSoundFile> shard(new CLoadWave(AudioResource.Soundtype.Soundinfo[0].SoundName, AudioResource.Soundtype, filepath));
+				AudioSource = shard;
+			}
+			else if (AudioResource.Soundtype.Soundinfo[0].Extension == "ogg")
+			{
+				std::shared_ptr<CLoadSoundFile> shard(new CLoadOgg(AudioResource.Soundtype.Soundinfo[0].SoundName, AudioResource.Soundtype, filepath));
+				AudioSource = shard;
+			}
+			else {
+				printf("ファイル形式が対応していない形式です");
+			}
 
-		Init();
+			Init();
 
-		alSourcef(Source, AL_GAIN, (ALfloat)AudioResource.Soundtype.Soundinfo[0].MaxVolume);     // 音量
-
+			alSourcef(Source, AL_GAIN, (ALfloat)AudioResource.Soundtype.Soundinfo[0].MaxVolume);     // 音量
+		}
 	}
 
 	AudioSpeaker::~AudioSpeaker()

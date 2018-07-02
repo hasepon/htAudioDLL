@@ -1,8 +1,10 @@
 #include"htAudioDevice.h"
 
-OpenALDevice* htaCreate()
+bool htaCreate(OpenALDevice* instance)
 {
-	return new OpenALDevice();
+	instance = new OpenALDevice();
+
+	return instance->GetCreateDeviceFlag();
 }
 
 void htaDelete(OpenALDevice* Instance)

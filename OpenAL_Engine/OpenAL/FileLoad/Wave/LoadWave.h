@@ -13,7 +13,7 @@ namespace htAudio {
 	class CLoadWave : public CLoadSoundFile
 	{
 	public:
-		CLoadWave(std::string soundlistnumb, SoundType xmlinfo);
+		CLoadWave(std::string soundlistnumb, SoundType xmlinfo, std::string filepath);
 		~CLoadWave();
 		std::size_t PreloadBuffer();
 		std::size_t PrepareStreamBuffer();

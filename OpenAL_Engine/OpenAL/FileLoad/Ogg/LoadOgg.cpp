@@ -4,8 +4,9 @@
 
 namespace htAudio {
 
-	CLoadOgg::CLoadOgg(std::string soundlistnumb, SoundType xmlinfo)
+	CLoadOgg::CLoadOgg(std::string soundlistnumb, SoundType xmlinfo,std::string filepath)
 	{
+		FilePath = filepath;
 		m_SoundResouce.Soundtype = xmlinfo;
 		m_SoundResouce.DataChunkSample = NULL;
 		m_SoundResouce.DataChunkSize = NULL;
@@ -13,7 +14,7 @@ namespace htAudio {
 		m_SoundResouce.HasGotWaveFormat = false;
 		m_SoundResouce.Format = {};
 		m_SoundResouce.LoopSound = m_SoundResouce.Soundtype.Loopflag;
-		m_SoundResouce.PresetSoundName = FilePath + soundlistnumb + ".ogg";
+		m_SoundResouce.PresetSoundName = FilePath + "\\Audio\\" + soundlistnumb + ".ogg";
 		m_TotalReadSize = 0;
 
 		m_Playbuf = new char[htAudio::BUFFER_SIZE];

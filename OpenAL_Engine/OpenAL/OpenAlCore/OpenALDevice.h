@@ -47,11 +47,13 @@ namespace htAudio
 	{
 	public:
 		void ErrorFunction();
+		bool GetCreateDeviceFlag() { return CreateDevice; };
 		OpenALDevice();
 		~OpenALDevice();
 	private:
 		ALCdevice * Device;
 		ALCcontext* Context;
 		ALCint Sends = 0;
+		bool CreateDevice = false;
 	};
 }

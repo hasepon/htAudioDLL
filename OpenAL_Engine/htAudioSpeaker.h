@@ -20,6 +20,7 @@ extern "C"
 	UNITY_INTERFACE_EXPORT bool UNITY_INTERFACE_API Update(AudioSpeaker* );
 	UNITY_INTERFACE_EXPORT bool UNITY_INTERFACE_API Stop(AudioSpeaker* );
 	UNITY_INTERFACE_EXPORT bool UNITY_INTERFACE_API Pause(AudioSpeaker* );
+	UNITY_INTERFACE_EXPORT bool UNITY_INTERFACE_API Formatflag(AudioSpeaker* instance);
 	//UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerVelocity(float x, float y, float z);
 	//UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerVelocity(float Pos[3]);
 	//UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerOrientation(float AtVec[3], float UpVec[3]);

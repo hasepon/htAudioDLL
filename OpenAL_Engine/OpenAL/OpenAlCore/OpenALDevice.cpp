@@ -11,6 +11,7 @@ namespace htAudio {
 		if( alcIsExtensionPresent(Device, "ALC_EXT_EFX") == AL_FALSE)
 		{
 			printf("alcIsExtensionPresentÇÃê›íËÇ…é∏îsÇµÇ‹ÇµÇΩ");
+			CreateDevice = false;
 		}
 		
 		ALint Attribs[4] = { 0 };
@@ -25,9 +26,11 @@ namespace htAudio {
 		if (success == false)
 		{
 			printf("alcMakeContextCurrentÇ…é∏îsÇµÇ‹ÇµÇΩ");
+			CreateDevice = false;
 		}
 
 		alcGetIntegerv(Device, ALC_MAX_AUXILIARY_SENDS, 1, &Sends);
+		CreateDevice = true;
 
 	}
 	

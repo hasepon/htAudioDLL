@@ -28,6 +28,7 @@ namespace htAudio
 		bool Loopflag;
 		bool StreamType;
 		std::vector<SoundInfo> Soundinfo;
+		bool CreateFlag;
 	};
 
 
@@ -92,7 +93,7 @@ namespace htAudio
 		SoundResources m_SoundResouce;	// サウンド情報
 		bool m_BufferLoadflag;			// 読み込みフラグ
 
-		std::string FilePath = "../Data/Audio/";
+		std::string FilePath;
 
 	};
 }

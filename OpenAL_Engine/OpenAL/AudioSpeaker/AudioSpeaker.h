@@ -33,7 +33,8 @@ namespace htAudio
 		bool Update();	// XV
 		bool Stop();	// ’â~
 		bool Pause();	// ˆê’â~
-		
+		bool GetResourceflag() { return AudioResource.Soundtype.CreateFlag; }
+
 		void SetPosition(float x, float y, float z);
 		void SetPosition(float pos[3]);
 

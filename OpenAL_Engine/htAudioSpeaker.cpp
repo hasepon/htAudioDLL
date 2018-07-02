@@ -6,27 +6,17 @@
 
 AudioSpeaker* htaSpeakerCreate(char* filepath, char* soundname, char* material)
 {
-	
-	std::string path, name, mat;
-
-	path = filepath;
-	name = soundname;
-	mat = material;
-
-	return new AudioSpeaker(path,name,mat);
+	return new AudioSpeaker(filepath, soundname, material);
 }
 
 AudioSpeaker* htaSpeakerCreateID(char* filepath, uint16_t id)
 {
-	std::string path = filepath;
-	return new AudioSpeaker(path, id);
+	return new AudioSpeaker(filepath, id);
 }
 
 AudioSpeaker* htaSpeakerCreateName(char* filepath, char* soundname)
 {
-	std::string path = filepath;
-	std::string name = soundname;
-	return new AudioSpeaker(path, name);
+	return new AudioSpeaker(filepath, soundname);
 }
 
 void  htaSpeakerDelete(AudioSpeaker* instance)
@@ -67,4 +57,9 @@ bool  Stop(AudioSpeaker* instance)
 bool  Pause(AudioSpeaker* instance)
 {
 	return instance->Pause();
+}
+
+bool Formatflag(AudioSpeaker* instance)
+{
+	return instance->GetResourceflag();
 }

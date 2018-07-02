@@ -6,9 +6,10 @@ namespace htAudio
 	//==============================================================
 	//	Waveファイル情報の初期化
 	//==============================================================
-	CLoadWave::CLoadWave(std::string Soundlistnumb, SoundType xmlinfo)
+	CLoadWave::CLoadWave(std::string Soundlistnumb, SoundType xmlinfo, std::string filepath)
 	{
 		// SoundResouceの初期化
+		FilePath = filepath;
 		m_SoundResouce.Soundtype = xmlinfo;
 		m_SoundResouce.DataChunkSample = NULL;
 		m_SoundResouce.DataChunkSize = NULL;
@@ -16,7 +17,7 @@ namespace htAudio
 		m_SoundResouce.HasGotWaveFormat = false;
 		m_SoundResouce.Format = {};
 		m_SoundResouce.LoopSound = m_SoundResouce.Soundtype.Loopflag;
-		m_SoundResouce.PresetSoundName = FilePath + Soundlistnumb + ".wav";
+		m_SoundResouce.PresetSoundName = FilePath + "\\Audio\\" + Soundlistnumb + ".wav";
 
 
 		// BGM保存用バッファの初期化

@@ -19,13 +19,16 @@ namespace htAudio {
 
 		SoundType Format;
 		xml_document doc;
+		filepath += "\\Xml\\SoundList.xml";
 
 		xml_parse_result result;
+		Format.CreateFlag = false;
 
 		result = doc.load_file(filepath.c_str(), parse_default | parse_pi);
 
 		if (!result)
 		{
+			Format.CreateFlag = false;
 			return Format;
 		}
 
@@ -68,6 +71,7 @@ namespace htAudio {
 
 			}
 		}
+		Format.CreateFlag = true;
 		return Format;
 	}
 
@@ -79,12 +83,16 @@ namespace htAudio {
 		SoundType Format;
 		xml_document doc;
 
+		Format.CreateFlag = false;
 		xml_parse_result result;
+
+		filepath += "\\Xml\\SoundList.xml";
 
 		result = doc.load_file(filepath.c_str(), parse_default | parse_pi);
 
 		if (!result)
 		{
+			Format.CreateFlag = false;
 			return Format;
 		}
 
@@ -127,6 +135,7 @@ namespace htAudio {
 
 			}
 		}
+		Format.CreateFlag = true;
 		return Format;
 
 	}
