@@ -10,9 +10,9 @@ using namespace htAudio;
 /// </summary>
 extern "C"
 {
-	UNITY_INTERFACE_EXPORT AudioSpeaker* UNITY_INTERFACE_API htaSpeakerCreate(char* filepath, char* soundname, char* material);
-	UNITY_INTERFACE_EXPORT AudioSpeaker* UNITY_INTERFACE_API htaSpeakerCreateID(char* filepath, uint16_t id);
-	UNITY_INTERFACE_EXPORT AudioSpeaker* UNITY_INTERFACE_API htaSpeakerCreateName(char* filepath, char* soundname);
+	UNITY_INTERFACE_EXPORT AudioSpeaker* UNITY_INTERFACE_API htaSpeakerCreate(wchar_t* filepath, wchar_t* soundname, wchar_t* material);
+	UNITY_INTERFACE_EXPORT AudioSpeaker* UNITY_INTERFACE_API htaSpeakerCreateID(wchar_t* filepath, uint16_t id);
+	UNITY_INTERFACE_EXPORT AudioSpeaker* UNITY_INTERFACE_API htaSpeakerCreateName(wchar_t* filepath, wchar_t* soundname);
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerDelete(AudioSpeaker*);
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerPosition(AudioSpeaker*,float x, float y, float z);
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerPositionArray(AudioSpeaker*, float Pos[3]);

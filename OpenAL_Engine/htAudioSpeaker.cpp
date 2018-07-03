@@ -3,20 +3,49 @@
 #include"htAudioSpeaker.h"
 
 #include<uchar.h>
+#include<codecvt>
+#include<string>
 
-AudioSpeaker* htaSpeakerCreate(char* filepath, char* soundname, char* material)
+std::string wide_to_multi_capi(std::wstring const& src)
 {
-	return new AudioSpeaker(filepath, soundname, material);
+	std::size_t converted{};
+	std::vector<char> dest(src.size() * sizeof(wchar_t) + 1, '\0');
+	if (::_wcstombs_s_l(&converted, dest.data(), dest.size(), src.data(), _TRUNCATE, ::_create_locale(LC_ALL, "jpn")) != 0) {
+		throw std::system_error{ errno, std::system_category() };
+	}
+	dest.resize(std::char_traits<char>::length(dest.data()));
+	dest.shrink_to_fit();
+	return std::string(dest.begin(), dest.end());
 }
 
-AudioSpeaker* htaSpeakerCreateID(char* filepath, uint16_t id)
+AudioSpeaker* htaSpeakerCreate(wchar_t* filepath, wchar_t* soundname, wchar_t* material)
 {
-	return new AudioSpeaker(filepath, id);
+	std::string path, name, mat;
+	
+	path = wide_to_multi_capi(filepath);
+	name = wide_to_multi_capi(soundname);
+	mat  = wide_to_multi_capi(material);
+
+	return new AudioSpeaker(path, name, mat);
 }
 
-AudioSpeaker* htaSpeakerCreateName(char* filepath, char* soundname)
+AudioSpeaker* htaSpeakerCreateID(wchar_t* filepath, uint16_t id)
 {
-	return new AudioSpeaker(filepath, soundname);
+	std::string path;
+
+	path = wide_to_multi_capi(filepath);
+
+	return new AudioSpeaker(path, id);
+}
+
+AudioSpeaker* htaSpeakerCreateName(wchar_t* filepath, wchar_t* soundname)
+{
+	std::string path, name;
+
+	path = wide_to_multi_capi(filepath);
+	name = wide_to_multi_capi(soundname);
+
+	return new AudioSpeaker(path, name);
 }
 
 void  htaSpeakerDelete(AudioSpeaker* instance)

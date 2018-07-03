@@ -51,14 +51,14 @@
     <ClInclude Include="htAudioDevice.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="htAudioListener.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Definclude.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="htAudioSpeaker.h">
       <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="htAudioListener.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
