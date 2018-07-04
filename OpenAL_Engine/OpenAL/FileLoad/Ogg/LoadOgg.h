@@ -33,9 +33,9 @@ namespace htAudio
 
 		void* GetBuffer() {
 			if (m_SoundResouce.SubmitTimes == 0)
-				return &m_Playbuf[0];
+				return &PrimaryMixed[0];
 			else 
-				return &m_Secondbuf[0];
+				return &SecondMixed[0];
 		}
 
 	private:
@@ -45,9 +45,8 @@ namespace htAudio
 		int m_BuffCnt;
 
 		// 再生に使用するバッファ情報(Ogg)
-		char* m_Secondbuf;
-		char* m_Playbuf;
-
+		std::vector<char> PrimaryMixed;
+		std::vector<char> SecondMixed;
 
 		OggVorbis_File m_Ovf;
 		size_t m_TotalReadSize;

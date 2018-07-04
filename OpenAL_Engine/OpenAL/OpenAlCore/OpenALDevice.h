@@ -15,7 +15,7 @@
 namespace htAudio
 {
 	const int SAMPLE_PER_SEC = 44100;
-	const int16_t BUFFER_SIZE = 6096;
+	const int16_t BUFFER_SIZE = 4092;
 	
 	enum AlutError
 	{

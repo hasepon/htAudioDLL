@@ -14,21 +14,23 @@ namespace htAudio {
 		m_SoundResouce.HasGotWaveFormat = false;
 		m_SoundResouce.Format = {};
 		m_SoundResouce.LoopSound = m_SoundResouce.Soundtype.Loopflag;
+		m_SoundResouce.BufferSample = htAudio::BUFFER_SIZE;
 		m_SoundResouce.PresetSoundName = FilePath + "\\Audio\\" + soundlistnumb + ".ogg";
 		m_TotalReadSize = 0;
 
-		m_Playbuf = new char[htAudio::BUFFER_SIZE];
-		m_Secondbuf = new char[htAudio::BUFFER_SIZE];
+		PrimaryMixed = std::vector<char>(BUFFER_SIZE);
+		SecondMixed = std::vector<char>(BUFFER_SIZE);
 
 		LoadFormat();
+
 	}
 
 
 	CLoadOgg::~CLoadOgg()
 	{
 		ov_clear(&m_Ovf);
-		delete[] m_Playbuf;
-		delete[] m_Secondbuf;
+		PrimaryMixed.clear();
+		SecondMixed.clear();
 		m_SoundResouce.PresetSoundName.clear();
 	}
 
@@ -52,36 +54,35 @@ namespace htAudio {
 		m_SoundResouce.Format.wBitsPerSample = 16;
 		m_SoundResouce.Format.nAvgBytesPerSec = (vi->rate) * (vi->channels * 2);
 		m_SoundResouce.Format.cbSize = 0;
-		m_SoundResouce.BufferSample = htAudio::BUFFER_SIZE;
 
 		m_SoundResouce.HasGotWaveFormat = true;
+
+		Update();
 
 	}
 
 	void CLoadOgg::Update()
 	{
-		// oggvorbisfile情報を取得
-		vorbis_info* vi = ov_info(&m_Ovf, -1);
-		std::size_t readsample;
+		std::size_t readsample = 0;
 
-		// TODO :: ひとまず一つのバッファを使用して読み込み
 		if (m_SoundResouce.SubmitTimes == 0)
 		{
- 			readsample = ReadDataRaw(0, 0, m_Playbuf);
+ 			readsample = ReadDataRaw(0, 0, &PrimaryMixed[0]);
 			if (readsample > 0)
 			{
+				m_TotalReadSize += readsample;
 				m_SoundResouce.SubmitTimes = 1;
 			}
 		}
 		else if (m_SoundResouce.SubmitTimes == 1)
 		{
-			readsample = ReadDataRaw(0, 0, m_Secondbuf);
+			readsample = ReadDataRaw(0, 0, &SecondMixed[0]);
 			if (readsample > 0)
 			{
+				m_TotalReadSize += readsample;
 				m_SoundResouce.SubmitTimes = 0;
 			}
 		}
-		m_TotalReadSize += readsample;
 	}
 
 	/// <summary>
@@ -118,9 +119,7 @@ namespace htAudio {
 		{
 			// oggファイルの読み込み
 			readsize = ov_read(&m_Ovf, (char*)(buffer + comsize), requestsize, 0, 2, 1, &bitstream);
-
-			comsize += readsize;
-
+			
 			if (readsize == 0)
 			{
 				// ファイルエンド
@@ -137,6 +136,8 @@ namespace htAudio {
 					return comsize;
 				}
 			}
+
+			comsize += readsize;
 
 			if (comsize >= htAudio::BUFFER_SIZE)
 			{

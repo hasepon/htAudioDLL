@@ -165,11 +165,6 @@ namespace htAudio
 		m_SoundResouce.NextFirstSample = readSample;
 		m_SoundResouce.SubmitTimes = 1;
 
-		// 次のバッファの読み込み4
-		//readSample += ReadDataRaw(m_SoundResouce.NextFirstSample, htAudio::BUFFER_SIZE, &(SecondMixed[0]));
-		//m_SoundResouce.NextFirstSample += readSample;
-		//m_SoundResouce.SubmitTimes = 0;
-
 		// 読み込み完了
 		if (readSample > 0)
 		{

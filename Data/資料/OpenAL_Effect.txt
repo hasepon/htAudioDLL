@@ -1,0 +1,40 @@
+void AudioSpeaker::TestEffect()
+	{
+		algeneffect = (LPALGENEFFECTS)alGetProcAddress("alGenEffects");
+
+		for ( int Loop = 0; Loop < 1; Loop++)
+		{
+			alGenAuxiliaryEffectSlots(1, &EffectSlot[Loop]);
+			if (alGetError() != AL_NO_ERROR)
+				break;
+		}
+
+		for (int i = 0; i < 1; ++i)
+		{
+			algeneffect(1,&Effect[i]);
+			if (alGetError() != AL_NO_ERROR)
+				break;
+		}
+
+		if (alIsEffect(Effect[0]))
+		{
+			alEffecti(Effect[0], AL_EFFECT_TYPE, AL_EFFECT_REVERB);
+			if (alGetError() != AL_NO_ERROR)
+			{
+				printf("リバーブの作成に失敗してます\n");
+			}
+			else
+			{
+				alEffectf(Effect[0], AL_REVERB_GAIN, AL_REVERB_MAX_GAIN);
+				printf("リバーブを設定します\n");
+			}
+
+		}
+
+		alAuxiliaryEffectSloti(EffectSlot[0],AL_EFFECTSLOT_EFFECT,Effect[0]);
+		if (alGetError() == AL_NO_ERROR)
+			printf("Successfully loaded effect into effect slot\n");
+		
+		alSource3i(Source, AL_AUXILIARY_SEND_FILTER, EffectSlot[0],0, NULL);
+
+	}

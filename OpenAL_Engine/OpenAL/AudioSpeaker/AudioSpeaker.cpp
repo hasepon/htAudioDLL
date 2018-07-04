@@ -151,12 +151,13 @@ namespace htAudio {
 		}
 
 		AudioSource->Update();
+
 		// バッファの更新
 		ALenum format = AudioSource->GetAudioChannel() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
 		int fq = AudioSource->GetAudioSpS();
-		size_t size = AudioSource->GetAudioBufferSize();
+		ALsizei size = AudioSource->GetAudioBufferSize();
 
-		alBufferData(Buf, format, AudioSource->GetBuffer(), (ALsizei)size, fq);
+		alBufferData(Buf, format, AudioSource->GetBuffer(), size, fq);
 		return true;
 	}
 
@@ -183,7 +184,7 @@ namespace htAudio {
 
 			if (State > 0)
 			{
-				ALuint Buf;
+				ALuint Buf = 0;
 				alSourceUnqueueBuffers(Source, 1, &Buf);
 				SetBuffer(Buf);
 				alSourceQueueBuffers(Source, 1, &Buf);
