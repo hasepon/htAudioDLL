@@ -1,6 +1,5 @@
 #pragma once
 
-#include"../../stdafx.h"
 #include"../../Singleton.h"
 #define AL_ALEXT_PROTOTYPES
 
@@ -15,7 +14,7 @@
 namespace htAudio
 {
 	const int SAMPLE_PER_SEC = 44100;
-	const int16_t BUFFER_SIZE = 4092;
+	const int16_t BUFFER_SIZE = 4096*3;
 	
 	enum AlutError
 	{

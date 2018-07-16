@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ListenerState>
+    <Header>
+        <Title>ListenerState</Title>
+        <Subtitle>Player</Subtitle>
+        <Date>2018/7/08</Date>
+    </Header>
+    <State>
+        <CornQuterGain>1.0</CornQuterGain>
+        <CornInnerAngle>1.0</CornInnerAngle>
+        <CornOuterAngle>1.0</CornOuterAngle>
+    </State>
+</ListenerState>

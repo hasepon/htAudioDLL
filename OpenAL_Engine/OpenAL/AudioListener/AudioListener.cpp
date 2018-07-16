@@ -1,11 +1,11 @@
 #include "AudioListener.h"
+#include"../AudioFormatData/AudioFormatData.h"
 
 namespace htAudio {
 
 	AudioListener::AudioListener()
 	{
 	}
-
 
 	AudioListener::~AudioListener()
 	{
@@ -77,5 +77,5 @@ namespace htAudio {
 
 		alListenerfv(AL_ORIENTATION, Pose);
 	}
-
+	
 }

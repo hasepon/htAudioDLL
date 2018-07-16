@@ -10,6 +10,14 @@
 
 namespace htAudio
 {
+
+	struct Audio3D
+	{
+		double OuterGain;
+		double OuterAngle;
+		double innerAngle;
+	};
+
 	// サウンド情報
 	struct SoundInfo
 	{
@@ -18,16 +26,21 @@ namespace htAudio
 		std::string SoundName;
 		std::string MaterialObj;
 		std::string Type;
+		double LowVolume;
+		double DefaultVolume;
 		double MaxVolume;
 	};
 
 	// サウンドのタイプ
 	struct SoundType {
+		int DataID;
+		double b3DAudio;
 		std::string Cue;
 		std::string SubGroup;
 		bool Loopflag;
 		bool StreamType;
 		std::vector<SoundInfo> Soundinfo;
+		Audio3D Sorrundinfo;
 		bool CreateFlag;
 	};
 

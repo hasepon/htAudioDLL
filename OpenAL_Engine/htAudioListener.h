@@ -21,4 +21,12 @@ extern "C"
 	
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaListenerOrientation(AudioListener* Instance, float AtVec[3],float UpVec[3]);
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaListenerOrientationArray(AudioListener* Instance, float AtOrient[6]);
+
+	/*UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaListenerSetConeOuterGain(AudioListener* Instance,float val);
+	UNITY_INTERFACE_EXPORT float UNITY_INTERFACE_API htaListenerGetConeOuterGain(AudioListener* Instance);
+	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaListenerSetConeInnerAngle(AudioListener* Instance, float val);
+	UNITY_INTERFACE_EXPORT float UNITY_INTERFACE_API htaListenerGetConeInnerAngle(AudioListener* Instance);
+	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaListenerSetConeOuterAngle(AudioListener* Instance, float val);
+	UNITY_INTERFACE_EXPORT float UNITY_INTERFACE_API htaListenerGetConeOuterAngle(AudioListener* Instance);*/
+
 }

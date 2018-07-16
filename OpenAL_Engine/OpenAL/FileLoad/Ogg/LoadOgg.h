@@ -6,15 +6,10 @@
 #include"../../OpenAlCore/OpenALDevice.h"
 
 #include"vorbis/vorbisfile.h"
-#ifdef _DEBUG
-#pragma comment(lib,"libvorbisfile_static_d.lib")
-#pragma comment(lib,"libogg_static_d.lib")
-#pragma comment(lib,"libvorbis_static_d.lib")
-#else
+
 #pragma comment(lib,"libvorbisfile_static.lib")
 #pragma comment(lib,"libogg_static.lib")
 #pragma comment(lib,"libvorbis_static.lib")
-#endif // DEBUG
 
 namespace htAudio
 {

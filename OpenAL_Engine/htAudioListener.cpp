@@ -45,3 +45,33 @@ void htaListenerOrientationArray(AudioListener* Instance, float AtOrient[6])
 {
 	Instance->SetOrientation(AtOrient);
 }
+
+//void  htaListenerSetConeOuterGain(AudioListener* Instance, float val)
+//{
+//
+//}
+//
+//float htaListenerGetConeOuterGain(AudioListener* Instance)
+//{
+//
+//}
+//
+//void  htaListenerSetConeInnerAngle(AudioListener* Instance, float val)
+//{
+//
+//}
+//
+//float htaListenerGetConeInnerAngle(AudioListener* Instance)
+//{
+//
+//}
+//
+//void  htaListenerSetConeOuterAngle(AudioListener* Instance, float val)
+//{
+//
+//}
+//
+//float htaListenerGetConeOuterAngle(AudioListener* Instance)
+//{
+//
+//}

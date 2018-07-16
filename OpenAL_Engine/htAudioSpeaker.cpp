@@ -18,6 +18,7 @@ std::string wide_to_multi_capi(std::wstring const& src)
 	return std::string(dest.begin(), dest.end());
 }
 
+
 AudioSpeaker* htaSpeakerCreate(wchar_t* filepath, wchar_t* soundname, wchar_t* material)
 {
 	std::string path, name, mat;
@@ -91,4 +92,54 @@ bool  Pause(AudioSpeaker* instance)
 bool Formatflag(AudioSpeaker* instance)
 {
 	return instance->GetResourceflag();
+}
+
+void htaSpeakerVelocity(AudioSpeaker* instance, float x, float y, float z)
+{
+	instance->SetVelocity(x, y, z);
+}
+
+void htaSpeakerVelocityArray(AudioSpeaker* instance, float Pos[3])
+{
+	instance->SetVelocity(Pos);
+}
+
+void htaSpeakerOrientation(AudioSpeaker* instance, float AtVec[3], float UpVec[3])
+{
+	instance->SetOrientation(AtVec, UpVec);
+}
+
+void htaSpeakerOrientationArray(AudioSpeaker* instance, float AtOrient[6])
+{
+	instance->SetOrientation(AtOrient);
+}
+
+void htaSpeakerSetConeOuterGain(AudioSpeaker* Instance, float val)
+{
+	Instance->SetConeOuterGain(val);
+}
+
+float htaSpeakerGetConeOuterGain(AudioSpeaker* Instance)
+{
+	return (float)Instance->GetConeOuterGain();
+}
+
+void htaSpeakerSetConeInnerAngle(AudioSpeaker* Instance, float val)
+{
+	Instance->SetConeInnerAngle(val);
+}
+
+float htaSpeakerGetConeInnerAngle(AudioSpeaker* Instance)
+{
+	return (float)Instance->GetConeInnerAngle();
+}
+
+void htaSpeakerSetConeOuterAngle(AudioSpeaker* Instance, float val)
+{
+	Instance->SetConeOuterAngle(val);
+}
+
+float htaSpeakerGetConeOuterAngle(AudioSpeaker* Instance)
+{
+	return (float)Instance->GetConeOuterAngle();
 }

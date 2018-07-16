@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
 <SoundList>
+    
     <Header>
         <Title>Test Data</Title>
         <Subtitle>Soundinfo Test</Subtitle>
         <Date>2018/5/21</Date>
     </Header>
+    
     <SoundData ID ="1" Name ="Foot" Size="2">
             <SoundType>
                 <Cue>Se</Cue>
                 <SubGroup>Character</SubGroup>
                 <Loop>0</Loop>
                 <StreamType>1</StreamType>
+                <SurroundFlag>1</SurroundFlag>
             </SoundType>
             <SoundInfo>
                 <ID>0</ID>
@@ -18,6 +21,8 @@
                 <SoundName>SandFoot</SoundName>
                 <Material>Sand</Material>
                 <Type></Type>
+                <LowVolume>0.0</LowVolume>
+                <DefaultVolume>1.0</DefaultVolume>
                 <MaxVolume>1.0</MaxVolume>
             </SoundInfo>
             <SoundInfo>
@@ -26,15 +31,24 @@
                 <SoundName>GrassFoot</SoundName>
                 <Material>Grass</Material>
                 <Type></Type>
+                <LowVolume>0.0</LowVolume>
+                <DefaultVolume>1.0</DefaultVolume>
                 <MaxVolume>1.0</MaxVolume>
             </SoundInfo>
+            <SurroundInfo>
+                <OuterGain>1.0</OuterGain>
+                <OuterAngle>180.0</OuterAngle>
+                <InnerAngle>80.0</InnerAngle>
+            </SurroundInfo>
     </SoundData>
+    
      <SoundData ID ="2" Name ="TestBgm" Size="1">
             <SoundType>
                 <Cue>Bgm</Cue>
                 <SubGroup>Bgm</SubGroup>
                 <Loop>1</Loop>
                 <StreamType>1</StreamType>
+                <SurroundFlag>0</SurroundFlag>
             </SoundType>
             <SoundInfo>
                 <ID>0</ID>
@@ -42,15 +56,19 @@
                 <SoundName>TestBgm</SoundName>
                 <Material></Material>
                 <Type></Type>
+                <LowVolume>0.0</LowVolume>
+                <DefaultVolume>1.0</DefaultVolume>
                 <MaxVolume>1.0</MaxVolume>
             </SoundInfo>
     </SoundData>
+    
     <SoundData ID ="3" Name ="Test" Size="1">
             <SoundType>
                 <Cue>Bgm</Cue>
                 <SubGroup>Bgm</SubGroup>
                 <Loop>1</Loop>
                 <StreamType>1</StreamType>
+                <SurroundFlag>1</SurroundFlag>
             </SoundType>
             <SoundInfo>
                 <ID>0</ID>
@@ -58,7 +76,15 @@
                 <SoundName>Test</SoundName>
                 <Material></Material>
                 <Type></Type>
+                <LowVolume>0.0</LowVolume>
+                <DefaultVolume>1.0</DefaultVolume>
                 <MaxVolume>1.0</MaxVolume>
             </SoundInfo>
+            <SurroundInfo>
+                <OuterGain>1.0</OuterGain>
+                <OuterAngle>180.0</OuterAngle>
+                <InnerAngle>80.0</InnerAngle>
+            </SurroundInfo>
     </SoundData>
+    
 </SoundList>

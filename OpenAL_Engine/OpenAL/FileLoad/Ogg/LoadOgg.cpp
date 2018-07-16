@@ -14,12 +14,13 @@ namespace htAudio {
 		m_SoundResouce.HasGotWaveFormat = false;
 		m_SoundResouce.Format = {};
 		m_SoundResouce.LoopSound = m_SoundResouce.Soundtype.Loopflag;
-		m_SoundResouce.BufferSample = htAudio::BUFFER_SIZE;
+		m_SoundResouce.BufferSample = BUFFER_SIZE;
 		m_SoundResouce.PresetSoundName = FilePath + "\\Audio\\" + soundlistnumb + ".ogg";
 		m_TotalReadSize = 0;
+		m_SoundResouce.SubmitTimes = 0;
 
-		PrimaryMixed = std::vector<char>(BUFFER_SIZE);
-		SecondMixed = std::vector<char>(BUFFER_SIZE);
+		PrimaryMixed.resize(BUFFER_SIZE);
+		SecondMixed.resize(BUFFER_SIZE);
 
 		LoadFormat();
 
@@ -99,16 +100,15 @@ namespace htAudio {
 			return 0;
 		}
 
-
-		int requestsize = htAudio::BUFFER_SIZE;
+		int requestsize = BUFFER_SIZE;
 		int bitstream = 0;
 		int readsize = 0;
 		unsigned int comsize = 0;
 		bool isadjust = false;
 
-		if (htAudio::BUFFER_SIZE < requestsize)
+		if (BUFFER_SIZE < requestsize)
 		{
-			requestsize = htAudio::BUFFER_SIZE;
+			requestsize = BUFFER_SIZE;
 			isadjust = true;
 		}
 
@@ -139,15 +139,15 @@ namespace htAudio {
 
 			comsize += readsize;
 
-			if (comsize >= htAudio::BUFFER_SIZE)
+			if (comsize >= BUFFER_SIZE)
 			{
 				return comsize;
 			}
 
-			if (htAudio::BUFFER_SIZE - comsize < htAudio::BUFFER_SIZE)
+			if (BUFFER_SIZE - comsize < BUFFER_SIZE)
 			{
 				isadjust = true;
-				requestsize = htAudio::BUFFER_SIZE - comsize;
+				requestsize = BUFFER_SIZE - comsize;
 			}
 
 		}
