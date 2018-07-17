@@ -252,7 +252,7 @@ namespace htAudio {
 		alSourcefv(Source, AL_VELOCITY, Velocity);
 	}
 
-	void AudioSpeaker::SetOrientation(float AtVec[3], float UpVec[3])
+	/*void AudioSpeaker::SetOrientation(float AtVec[3], float UpVec[3])
 	{
 		Orientation[0] = AtVec[0];
 		Orientation[1] = AtVec[1];
@@ -274,6 +274,22 @@ namespace htAudio {
 		Orientation[5] = AtOrient[5];
 
 		alSourcefv(Source, AL_ORIENTATION, Orientation);
+	}*/
+
+	void AudioSpeaker::SetDirection(float x, float y, float z)
+	{
+		Direction[0] = x;
+		Direction[1] = y;
+		Direction[2] = z;
+		alSourcefv(Source, AL_DIRECTION, Direction);
+	}
+
+	void AudioSpeaker::SetDirection(float dir[3])
+	{
+		Direction[0] = dir[0];
+		Direction[1] = dir[1];
+		Direction[2] = dir[2];
+		alSourcefv(Source, AL_DIRECTION, Direction);
 	}
 
 	void AudioSpeaker::SetConeOuterGain(float val)

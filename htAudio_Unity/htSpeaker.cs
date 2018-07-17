@@ -21,7 +21,7 @@ public class htSpeaker : MonoBehaviour {
     [DllImport("OpenAL_Engine")]
     public static extern void htaSpeakerVelocity(IntPtr instance, float x, float y, float z);
     [DllImport("OpenAL_Engine")]
-    public static extern void htaSpeakerOrientation(IntPtr instance,float[] AtVec,float[] Upvec);
+    public static extern void htaSpeakerDirection(IntPtr instance,float x, float y, float z);
 
     [DllImport("OpenAL_Engine")]
     public static extern void htaSpeakerSetConeOuterGain(IntPtr instance,float val);
@@ -78,19 +78,7 @@ public class htSpeaker : MonoBehaviour {
         
         Update(SpeakerPtr);
         htaSpeakerPosition(SpeakerPtr,-transform.position.x, transform.position.y, transform.position.z);
-
-        float[] at = new float[3];
-        float[] up = new float[3];
-
-        at[0] = transform.forward.x;
-        at[1] = transform.forward.y;
-        at[2] = transform.forward.z;
-
-        up[0] = transform.up.x;
-        up[1] = transform.up.y;
-        up[2] = transform.up.z;
-
-        htaSpeakerOrientation(SpeakerPtr,at,up);
+        htaSpeakerDirection(SpeakerPtr, transform.forward.x, transform.forward.y, transform.forward.z);
 
     }
 

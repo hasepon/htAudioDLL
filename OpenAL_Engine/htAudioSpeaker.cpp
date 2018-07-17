@@ -104,14 +104,24 @@ void htaSpeakerVelocityArray(AudioSpeaker* instance, float Pos[3])
 	instance->SetVelocity(Pos);
 }
 
-void htaSpeakerOrientation(AudioSpeaker* instance, float AtVec[3], float UpVec[3])
+//void htaSpeakerOrientation(AudioSpeaker* instance, float AtVec[3], float UpVec[3])
+//{
+//	instance->SetOrientation(AtVec, UpVec);
+//}
+//
+//void htaSpeakerOrientationArray(AudioSpeaker* instance, float AtOrient[6])
+//{
+//	instance->SetOrientation(AtOrient);
+//}
+
+void htaSpeakerDirection(AudioSpeaker* instance, float x, float y, float z)
 {
-	instance->SetOrientation(AtVec, UpVec);
+	instance->SetDirection(x, y, z);
 }
 
-void htaSpeakerOrientationArray(AudioSpeaker* instance, float AtOrient[6])
+void htaSpeakerDirectionArray(AudioSpeaker* instance, float dir[3])
 {
-	instance->SetOrientation(AtOrient);
+	instance->SetDirection(dir);
 }
 
 void htaSpeakerSetConeOuterGain(AudioSpeaker* Instance, float val)

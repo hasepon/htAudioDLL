@@ -41,8 +41,11 @@ namespace htAudio
 		void SetVelocity(float x, float y, float z);
 		void SetVelocity(float vec[3]);
 
-		void SetOrientation(float AtVec[3], float UpVec[3]);
-		void SetOrientation(float AtOrient[6]);
+		//void SetOrientation(float AtVec[3], float UpVec[3]);
+		//void SetOrientation(float AtOrient[6]);
+
+		void SetDirection(float x, float y, float z);
+		void SetDirection(float dir[3]);
 
 		void SetConeOuterGain(float val);
 		float GetConeOuterGain();
@@ -77,7 +80,8 @@ namespace htAudio
 		ALfloat Position[3];	// Position
 		ALfloat Volume;			// ƒ{ƒŠƒ…[ƒ€
 		ALfloat Velocity[3];	// ˆÚ“®‘¬“x
-		ALfloat Orientation[6];	// p¨
+		//ALfloat Orientation[6];	// p¨
+		ALfloat Direction[3];	// Œü‚«
 		ALfloat ConeOuterGain;	
 		ALfloat InnerAngle;
 		ALfloat OuterAngle;
