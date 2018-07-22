@@ -1,7 +1,8 @@
-void AudioSpeaker::TestEffect()
-	{
-		algeneffect = (LPALGENEFFECTS)alGetProcAddress("alGenEffects");
 
+
+void AudioSpeaker::TestEffect()
+{
+		algeneffect = (LPALGENEFFECTS)alGetProcAddress("alGenEffects");
 		for ( int Loop = 0; Loop < 1; Loop++)
 		{
 			alGenAuxiliaryEffectSlots(1, &EffectSlot[Loop]);
@@ -36,5 +37,4 @@ void AudioSpeaker::TestEffect()
 			printf("Successfully loaded effect into effect slot\n");
 		
 		alSource3i(Source, AL_AUXILIARY_SEND_FILTER, EffectSlot[0],0, NULL);
-
-	}
+}

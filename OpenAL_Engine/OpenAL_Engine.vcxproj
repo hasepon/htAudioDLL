@@ -47,7 +47,7 @@
     <WholeProgramOptimization>false</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -160,7 +160,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AudioEffects.h" />
+    <ClInclude Include="ChorusEffect.h" />
     <ClInclude Include="Definclude.h" />
+    <ClInclude Include="DistortionEffect.h" />
+    <ClInclude Include="EchoEffect.h" />
     <ClInclude Include="htAudioDevice.h" />
     <ClInclude Include="htAudioListener.h" />
     <ClInclude Include="htAudioSpeaker.h" />
@@ -171,12 +175,17 @@
     <ClInclude Include="OpenAL\FileLoad\Ogg\LoadOgg.h" />
     <ClInclude Include="OpenAL\FileLoad\Wave\LoadWave.h" />
     <ClInclude Include="OpenAL\OpenAlCore\OpenALDevice.h" />
+    <ClInclude Include="ReverbEffects.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SoundDLL.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AudioEffects.cpp" />
+    <ClCompile Include="ChorusEffect.cpp" />
+    <ClCompile Include="DistortionEffect.cpp" />
+    <ClCompile Include="EchoEffect.cpp" />
     <ClCompile Include="htAudioDevice.cpp" />
     <ClCompile Include="htAudioListener.cpp" />
     <ClCompile Include="htAudioSpeaker.cpp" />
@@ -187,6 +196,7 @@
     <ClCompile Include="OpenAL\FileLoad\Wave\LoadWave.cpp" />
     <ClCompile Include="OpenAL\OpenAlCore\OpenALDevice.cpp" />
     <ClCompile Include="OpenAL_Engine.cpp" />
+    <ClCompile Include="ReverbEffects.cpp" />
     <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>

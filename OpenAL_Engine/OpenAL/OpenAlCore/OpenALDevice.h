@@ -39,6 +39,20 @@ namespace htAudio
 		ALUT_ERROR_CORRUPT_OR_TRUNCATED_DATA
 	};
 
+	enum EFFECTSNUM
+	{
+		REVERB = 0,
+		CHORUS,
+		DISTORTION,
+		ECHO,
+		FLANGER,
+		FQ,
+		PITCH_INFO,
+		WAH,
+		EQ,
+		MAX_EFFECTS,
+	};
+
 	/// /// <summary>
 	/// シングルトンを使用してオブジェクトを生成しています
 	/// </summary>
@@ -46,6 +60,7 @@ namespace htAudio
 	{
 	public:
 		void ErrorFunction();
+		void CreateEffect();
 		bool GetCreateDeviceFlag() { return CreateDevice; };
 		OpenALDevice();
 		~OpenALDevice();

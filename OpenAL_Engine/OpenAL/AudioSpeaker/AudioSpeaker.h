@@ -7,12 +7,59 @@
 #include<memory>
 #include<array>
 #include<complex.h>
+
+#include<AL/efx.h>
 #include<AL/efx-creative.h>
 
 using namespace std;
 
 namespace htAudio
 {
+	struct FLANGER
+	{
+		UINT16 WAVEFORM;
+		UINT16 PHASE;
+		double RATE;
+		double DEPTH;
+		double FEEDBACK;
+		double DELAY;
+	};
+
+	struct FQ
+	{
+		double FREQUENCY;
+		UINT16 LEFT_DIRECTION;
+		UINT16 RIGHT_DIRECTION;
+	};
+
+	struct PITCH_INFO
+	{
+		UINT16 COARSE_TUNE;
+		UINT16 FINE_TUNE;
+	};
+
+	struct WAH
+	{
+		double ATTACK_TIME;
+		double RELEASE_TIME;
+		double RESONANCE;
+		double PEAK_GAIN;
+	};
+
+	struct EQ
+	{
+		double LOW_GAIN;
+		double LOW_CUTOFF;
+		double MID1_GAIN;
+		double MID1_CENTER;
+		double MID1_WIDTH;
+		double MID2_GAIN;
+		double MID2_CENTER;
+		double MID2_WIDTH;
+		double HIGH_GAIN;
+		double HIGH_CUTOFF;
+	};
+
 	/// <summary>
 	/// サウンドの再生用クラス
 	/// サウンド再生の窓口クラス
@@ -41,9 +88,6 @@ namespace htAudio
 		void SetVelocity(float x, float y, float z);
 		void SetVelocity(float vec[3]);
 
-		//void SetOrientation(float AtVec[3], float UpVec[3]);
-		//void SetOrientation(float AtOrient[6]);
-
 		void SetDirection(float x, float y, float z);
 		void SetDirection(float dir[3]);
 
@@ -56,35 +100,37 @@ namespace htAudio
 		void SetConeOuterAngle(float val);
 		float GetConeOuterAngle();
 
-		//float GetMaxVolume();
-		//float GetLowVolume();
-		//float GetDefaultVolume();
-
+		bool AddEffects(EFFECTSNUM num);
+		
+		void SetReverb(float density, float diffusion, float gain, float decayTime);
+		
 	private:
-		bool SetBuffer(ALuint Buf);	// バッファの設定
-		void Init();
+		bool SetBuffer(ALuint Buf);						// バッファの設定
+		void Init();									// 共通初期化処理
+		bool SettingEffect(EFFECTSNUM,int EffectDef);	// エフェクト実装部
 
-		bool Successinit = false;	// 初期化成功
+		bool Successinit = false;						// 初期化成功フラグ
 
 		std::shared_ptr<CLoadSoundFile> AudioSource;	// バッファー情報
-		SoundResources AudioResource;	// オーディオ情報
+		SoundResources AudioResource;					// オーディオ情報
 
-		std::u16string UseMaterialAtt;		// マテリアルの設定
-		std::string Filepath;
+		std::string UseMaterialAtt;						// マテリアルの設定
+		std::string Filepath;							// ファイルパス
 
-		//OpenAL用
-		std::array<ALuint,2> Buffers;// バッファの設定
-		ALuint Source;	// Sourceの設定
+		std::array<ALuint,2> Buffers;					// バッファの設定
+		ALuint Source;									// Sourceの設定
+		
+		std::array<ALuint, MAX_EFFECTS> EffectSlot;		// エフェクトスロット
+		std::array<ALuint, MAX_EFFECTS> Effect;			// エフェクト
 
 		// speaker情報
 		ALfloat Position[3];	// Position
 		ALfloat Volume;			// ボリューム
 		ALfloat Velocity[3];	// 移動速度
-		//ALfloat Orientation[6];	// 姿勢
 		ALfloat Direction[3];	// 向き
-		ALfloat ConeOuterGain;	
-		ALfloat InnerAngle;
-		ALfloat OuterAngle;
+		ALfloat ConeOuterGain;	// コーンの外部ゲイン数値
+		ALfloat InnerAngle;		// 内部の角度
+		ALfloat OuterAngle;		// 外部の角度
 
 	};
 

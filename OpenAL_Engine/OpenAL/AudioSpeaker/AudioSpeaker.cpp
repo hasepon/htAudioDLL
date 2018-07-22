@@ -92,6 +92,8 @@ namespace htAudio {
 			{
 				std::shared_ptr<CLoadSoundFile> shard(new CLoadWave(AudioResource.Soundtype.Soundinfo[0].SoundName, AudioResource.Soundtype, filepath));
 				AudioSource = shard;
+
+				alSourcef(Source, AL_MAX_GAIN, (ALfloat)AudioResource.Soundtype.Soundinfo[0].MaxVolume);     // 音量
 			}
 			else if (AudioResource.Soundtype.Soundinfo[0].Extension == "ogg")
 			{
@@ -145,7 +147,6 @@ namespace htAudio {
 
 		// ソースの初期設定
 		alSourcei(Source,AL_SOURCE_RELATIVE,AL_TRUE);
-		alSourcef(Source, AL_MAX_GAIN, (ALfloat)AudioResource.Soundtype.Soundinfo[0].MaxVolume);     // 音量
 		SetConeInnerAngle(AudioResource.Soundtype.Sorrundinfo.innerAngle);
 		SetConeOuterAngle(AudioResource.Soundtype.Sorrundinfo.OuterAngle);
 		SetConeOuterGain(AudioResource.Soundtype.Sorrundinfo.OuterGain);
@@ -251,31 +252,7 @@ namespace htAudio {
 
 		alSourcefv(Source, AL_VELOCITY, Velocity);
 	}
-
-	/*void AudioSpeaker::SetOrientation(float AtVec[3], float UpVec[3])
-	{
-		Orientation[0] = AtVec[0];
-		Orientation[1] = AtVec[1];
-		Orientation[2] = AtVec[2];
-		Orientation[3] = UpVec[0];
-		Orientation[4] = UpVec[1];
-		Orientation[5] = UpVec[2];
-
-		alSourcefv(Source, AL_ORIENTATION, Orientation);
-	}
-
-	void AudioSpeaker::SetOrientation(float AtOrient[6])
-	{
-		Orientation[0] = AtOrient[0];
-		Orientation[1] = AtOrient[1];
-		Orientation[2] = AtOrient[2];
-		Orientation[3] = AtOrient[3];
-		Orientation[4] = AtOrient[4];
-		Orientation[5] = AtOrient[5];
-
-		alSourcefv(Source, AL_ORIENTATION, Orientation);
-	}*/
-
+	
 	void AudioSpeaker::SetDirection(float x, float y, float z)
 	{
 		Direction[0] = x;
@@ -327,6 +304,93 @@ namespace htAudio {
 		alGetSourcef(Source, AL_CONE_OUTER_ANGLE, &OuterAngle);
 		return OuterAngle;
 	}
+	
 
+
+	/// <summary>
+	/// 概要		:: 外部からのエフェクト呼び出し用の関数
+	/// アクセス制限	:: public
+	/// </summary>
+	/// <param name="num">エフェクトの種類</param>
+	/// <returns>エフェクト生成に成功しているかどうか</returns>
+	bool AudioSpeaker::AddEffects(EFFECTSNUM num)
+	{
+		// 引数に応じて種類別に
+		switch (num)
+		{
+		case htAudio::REVERB:
+			SettingEffect(REVERB,AL_EFFECT_REVERB);
+			break;
+		case htAudio::CHORUS:
+			SettingEffect(REVERB, AL_EFFECT_CHORUS);
+			break;
+		case htAudio::DISTORTION:
+			SettingEffect(REVERB, AL_EFFECT_DISTORTION);
+			break;
+		case htAudio::ECHO:
+			SettingEffect(REVERB, AL_EFFECT_ECHO);
+			break;
+		case htAudio::FLANGER:
+			SettingEffect(REVERB, AL_EFFECT_FLANGER);
+			break;
+		case htAudio::FQ:
+			SettingEffect(REVERB, AL_EFFECT_FREQUENCY_SHIFTER);
+			break;
+		case htAudio::PITCH_INFO:
+			SettingEffect(REVERB, AL_EFFECT_PITCH_SHIFTER);
+			break;
+		case htAudio::WAH:
+			SettingEffect(REVERB, AL_EFFECT_AUTOWAH);
+			break;
+		case htAudio::EQ:
+			SettingEffect(REVERB, AL_EFFECT_EQUALIZER);
+			break;
+		default:
+			return false;
+			break;
+		}
+	}
+
+	/// <summary>
+	/// 概要	 :: エフェクト追加実行部
+	/// アクセス制限 :: private
+	/// </summary>
+	/// <param name="num">エフェクト配列番号</param>
+	/// <param name="EffectDef">定期用エフェクト</param>
+	/// <returns>エフェクト成功フラグ</returns>
+	bool AudioSpeaker::SettingEffect(EFFECTSNUM num, int EffectDef)
+	{
+		LPALGENEFFECTS algeneffect = (LPALGENEFFECTS)alGetProcAddress("alGenEffects");
+
+		alGenAuxiliaryEffectSlots(1, &EffectSlot[num]);
+
+		if (alGetError() != AL_NO_ERROR)
+			return false;
+
+		algeneffect(1, &Effect[num]);
+
+		if (alGetError() != AL_NO_ERROR)
+			return false;
+
+		if (alIsEffect(Effect[num]))
+		{
+			alEffecti(Effect[num], AL_EFFECT_TYPE, EffectDef);
+			if (alGetError() != AL_NO_ERROR)
+			{
+				printf("リバーブの作成に失敗してます\n");
+				return false;
+			}
+		}
+
+		alAuxiliaryEffectSloti(EffectSlot[num], AL_EFFECTSLOT_EFFECT, Effect[num]);
+		
+		if (alGetError() == AL_NO_ERROR)
+			printf("Successfully loaded effect into effect slot\n");
+
+		alSource3i(Source, AL_AUXILIARY_SEND_FILTER, EffectSlot[num], 0, NULL);
+
+		return true;
+
+	}
 
 }

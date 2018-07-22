@@ -18,7 +18,6 @@ namespace htAudio {
 		Attribs[0] = ALC_MAX_AUXILIARY_SENDS;
 		Attribs[1] = 4;
 
-
 		Context = alcCreateContext(Device, Attribs);
 
 		ALCboolean success = alcMakeContextCurrent(Context);
