@@ -57,26 +57,46 @@ namespace htAudio {
 
 	/// <summary>
 	/// 概要 :: LRのディレイの設定
+	/// アクセス制限 :: public
 	/// </summary>
-	/// <param name="lrdelay"></param>
+	/// <param name="lrdelay">二回目の遅延の制御</param>
+	/// MAX(0.404) :: MIN(0.0) :: Default(0.1)
 	void EchoEffect::SetLRDelay(float lrdelay)
 	{
 		Info.LRDELAY = lrdelay;
 		alEffectf(Effect, AL_ECHO_LRDELAY, Info.LRDELAY);
 	}
 
+	/// <summary>
+	/// 概要 :: エコーの強さ(意訳)
+	/// アクセス制限 :: public
+	/// </summary>
+	/// <param name="damping">dampingの数値</param>
+	/// MAX(0.99) :: MIN(0.0) :: Default(0.5)
 	void EchoEffect::SetDamping(float damping)
 	{
 		Info.DAMPING = damping;
 		alEffectf(Effect, AL_ECHO_DAMPING, Info.DAMPING);
 	}
 
+	/// <summary>
+	/// 概要 :: sampleの長さ
+	/// アクセス制限 :: public
+	/// </summary>
+	/// <param name="feedback">feedbackの強さ</param>
+	/// MAX(1.0) :: MIN(0.0) :: Default(0.5)
 	void EchoEffect::SetFeedBack(float feedback)
 	{
 		Info.FEEDBACK = feedback;
 		alEffectf(Effect, AL_ECHO_FEEDBACK, Info.FEEDBACK);
 	}
 
+	/// <summary>
+	/// 概要 :: パンニングの位置
+	/// アクセス制限 :: public
+	/// </summary>
+	/// <param name="spread">パンニングの位置</param>
+	/// MAX(1.0) :: MIN(-1.0) :: Default(-1.0)
 	void EchoEffect::SetSpRead(float spread)
 	{
 		Info.SPREAD = spread;

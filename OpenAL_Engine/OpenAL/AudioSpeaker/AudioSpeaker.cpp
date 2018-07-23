@@ -336,7 +336,7 @@ namespace htAudio {
 		case htAudio::FQ:
 			SettingEffect(REVERB, AL_EFFECT_FREQUENCY_SHIFTER);
 			break;
-		case htAudio::PITCH_INFO:
+		case htAudio::PITCH:
 			SettingEffect(REVERB, AL_EFFECT_PITCH_SHIFTER);
 			break;
 		case htAudio::WAH:

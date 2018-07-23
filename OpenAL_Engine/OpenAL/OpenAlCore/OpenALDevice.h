@@ -47,7 +47,7 @@ namespace htAudio
 		ECHO,
 		FLANGER,
 		FQ,
-		PITCH_INFO,
+		PITCH,
 		WAH,
 		EQ,
 		MAX_EFFECTS,

@@ -15,51 +15,6 @@ using namespace std;
 
 namespace htAudio
 {
-	struct FLANGER
-	{
-		UINT16 WAVEFORM;
-		UINT16 PHASE;
-		double RATE;
-		double DEPTH;
-		double FEEDBACK;
-		double DELAY;
-	};
-
-	struct FQ
-	{
-		double FREQUENCY;
-		UINT16 LEFT_DIRECTION;
-		UINT16 RIGHT_DIRECTION;
-	};
-
-	struct PITCH_INFO
-	{
-		UINT16 COARSE_TUNE;
-		UINT16 FINE_TUNE;
-	};
-
-	struct WAH
-	{
-		double ATTACK_TIME;
-		double RELEASE_TIME;
-		double RESONANCE;
-		double PEAK_GAIN;
-	};
-
-	struct EQ
-	{
-		double LOW_GAIN;
-		double LOW_CUTOFF;
-		double MID1_GAIN;
-		double MID1_CENTER;
-		double MID1_WIDTH;
-		double MID2_GAIN;
-		double MID2_CENTER;
-		double MID2_WIDTH;
-		double HIGH_GAIN;
-		double HIGH_CUTOFF;
-	};
-
 	/// <summary>
 	/// サウンドの再生用クラス
 	/// サウンド再生の窓口クラス

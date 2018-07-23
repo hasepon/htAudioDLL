@@ -165,6 +165,9 @@
     <ClInclude Include="Definclude.h" />
     <ClInclude Include="DistortionEffect.h" />
     <ClInclude Include="EchoEffect.h" />
+    <ClInclude Include="EQEffect.h" />
+    <ClInclude Include="FlangerEffect.h" />
+    <ClInclude Include="FQEffect.h" />
     <ClInclude Include="htAudioDevice.h" />
     <ClInclude Include="htAudioListener.h" />
     <ClInclude Include="htAudioSpeaker.h" />
@@ -175,17 +178,22 @@
     <ClInclude Include="OpenAL\FileLoad\Ogg\LoadOgg.h" />
     <ClInclude Include="OpenAL\FileLoad\Wave\LoadWave.h" />
     <ClInclude Include="OpenAL\OpenAlCore\OpenALDevice.h" />
+    <ClInclude Include="PitchEffect.h" />
     <ClInclude Include="ReverbEffects.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SoundDLL.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="WahEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioEffects.cpp" />
     <ClCompile Include="ChorusEffect.cpp" />
     <ClCompile Include="DistortionEffect.cpp" />
     <ClCompile Include="EchoEffect.cpp" />
+    <ClCompile Include="EQEffect.cpp" />
+    <ClCompile Include="FlangerEffect.cpp" />
+    <ClCompile Include="FQEffect.cpp" />
     <ClCompile Include="htAudioDevice.cpp" />
     <ClCompile Include="htAudioListener.cpp" />
     <ClCompile Include="htAudioSpeaker.cpp" />
@@ -196,9 +204,11 @@
     <ClCompile Include="OpenAL\FileLoad\Wave\LoadWave.cpp" />
     <ClCompile Include="OpenAL\OpenAlCore\OpenALDevice.cpp" />
     <ClCompile Include="OpenAL_Engine.cpp" />
+    <ClCompile Include="PitchEffect.cpp" />
     <ClCompile Include="ReverbEffects.cpp" />
     <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="WahEffect.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
