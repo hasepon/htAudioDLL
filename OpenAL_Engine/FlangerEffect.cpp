@@ -77,7 +77,7 @@ namespace htAudio {
 	void FlangerEffect::SetRate(float rate)
 	{
 		Info.RATE = rate;
-		alEffectf(Effect, AL_FLANGER_RATE, Info.RATE);
+		alEffectf(Effect, AL_FLANGER_RATE, (ALfloat)Info.RATE);
 	}
 
 	/// <summary>
@@ -89,7 +89,7 @@ namespace htAudio {
 	void FlangerEffect::SetDepth(float depth)
 	{
 		Info.DEPTH = depth;
-		alEffectf(Effect, AL_FLANGER_DEPTH, Info.DEPTH);
+		alEffectf(Effect, AL_FLANGER_DEPTH, (ALfloat)Info.DEPTH);
 	}
 
 	/// <summary>
@@ -101,7 +101,7 @@ namespace htAudio {
 	void FlangerEffect::SetFeedback(float feedback)
 	{
 		Info.FEEDBACK = feedback;
-		alEffectf(Effect, AL_FLANGER_FEEDBACK, Info.FEEDBACK);
+		alEffectf(Effect, AL_FLANGER_FEEDBACK, (ALfloat)Info.FEEDBACK);
 	}
 
 	/// <summary>
@@ -113,7 +113,7 @@ namespace htAudio {
 	void FlangerEffect::SetDelay(float delay)
 	{
 		Info.DELAY = delay;
-		alEffectf(Effect, AL_FLANGER_DELAY, Info.DELAY);
+		alEffectf(Effect, AL_FLANGER_DELAY, (ALfloat)Info.DELAY);
 	}
 
 }

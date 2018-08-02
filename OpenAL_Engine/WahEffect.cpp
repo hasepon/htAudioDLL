@@ -54,7 +54,7 @@ namespace htAudio {
 	void WahEffect::SetAttackTime(float time)
 	{
 		Info.ATTACK_TIME = time;
-		alEffectf(Effect, AL_AUTOWAH_ATTACK_TIME, Info.ATTACK_TIME);
+		alEffectf(Effect, AL_AUTOWAH_ATTACK_TIME, (ALfloat)Info.ATTACK_TIME);
 	}
 
 	/// <summary>
@@ -66,7 +66,7 @@ namespace htAudio {
 	void WahEffect::SetReleaseTime(float time)
 	{
 		Info.RELEASE_TIME = time;
-		alEffectf(Effect, AL_AUTOWAH_RELEASE_TIME, Info.RELEASE_TIME);
+		alEffectf(Effect, AL_AUTOWAH_RELEASE_TIME, (ALfloat)Info.RELEASE_TIME);
 	}
 
 	/// <summary>
@@ -78,7 +78,7 @@ namespace htAudio {
 	void WahEffect::SetResonance(float val)
 	{
 		Info.RELEASE_TIME = val;
-		alEffectf(Effect, AL_AUTOWAH_RELEASE_TIME, Info.RELEASE_TIME);
+		alEffectf(Effect, AL_AUTOWAH_RELEASE_TIME, (ALfloat)Info.RELEASE_TIME);
 	}
 
 	/// <summary>
@@ -90,7 +90,7 @@ namespace htAudio {
 	void WahEffect::SetPeakGain(float gain)
 	{
 		Info.PEAK_GAIN = gain;
-		alEffectf(Effect, AL_AUTOWAH_PEAK_GAIN, Info.PEAK_GAIN);
+		alEffectf(Effect, AL_AUTOWAH_PEAK_GAIN,(ALfloat)Info.PEAK_GAIN);
 	}
 
 }

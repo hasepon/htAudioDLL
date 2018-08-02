@@ -215,9 +215,9 @@ namespace htAudio {
 		xml_node tools = doc.child("ListenerState");
 		xml_node tool = tools.child("State");
 
-		state->OuterGain = atof(tool.child_value("ConeQuterGain"));
-		state->InnerAngle = atof(tool.child_value("ConeInnerAngle"));
-		state->OuterAngle = atof(tool.child_value("ConeOuterAngle"));
+		state->OuterGain  = (float)atof(tool.child_value("ConeQuterGain"));
+		state->InnerAngle = (float)atof(tool.child_value("ConeInnerAngle"));
+		state->OuterAngle = (float)atof(tool.child_value("ConeOuterAngle"));
 
 		return true;
 	}

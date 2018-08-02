@@ -1,4 +1,6 @@
 #pragma once
+#include"OpenAL/OpenAlCore/OpenALDevice.h"
+
 class AudioEffects
 {
 public:

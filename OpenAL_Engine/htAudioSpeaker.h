@@ -23,8 +23,6 @@ extern "C"
 	UNITY_INTERFACE_EXPORT bool UNITY_INTERFACE_API Formatflag(AudioSpeaker* instance);
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerVelocity(AudioSpeaker* instance,float x, float y, float z);
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerVelocityArray(AudioSpeaker* instance, float Vec[3]);
-	//UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerOrientation(AudioSpeaker* instance,float AtVec[3], float UpVec[3]);
-	//UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerOrientationArray(AudioSpeaker* instance,float AtOrient[6]);
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerDirection(AudioSpeaker* instance, float x, float y, float z);
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerDirectionArray(AudioSpeaker* instance, float dir[3]);
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API  htaSpeakerSetConeOuterGain(AudioSpeaker* Instance, float val);

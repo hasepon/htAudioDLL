@@ -76,20 +76,36 @@ public class htSpeaker : MonoBehaviour {
         htaSpeakerSetConeOuterAngle(SpeakerPtr,outerAngle);
         htaSpeakerSetConeOuterGain(SpeakerPtr, 1);
         
-        Update(SpeakerPtr);
-        htaSpeakerPosition(SpeakerPtr,-transform.position.x, transform.position.y, transform.position.z);
-        htaSpeakerDirection(SpeakerPtr, transform.forward.x, transform.forward.y, transform.forward.z);
+        htaSpeakerPosition(SpeakerPtr,transform.position.x, transform.position.y, transform.position.z);
+        //htaSpeakerDirection(SpeakerPtr, transform.forward.x, transform.forward.y, transform.forward.z);
 
+    }
+
+    private void OnApplicationQuit()
+    {
+        if (SpeakerPtr != IntPtr.Zero)
+        {
+            htaSpeakerDelete(SpeakerPtr);
+            SpeakerPtr = IntPtr.Zero;
+        }
     }
 
     private void OnDisable()
     {
-        
+        if (SpeakerPtr != IntPtr.Zero)
+        {
+            htaSpeakerDelete(SpeakerPtr);
+            SpeakerPtr = IntPtr.Zero;
+        }
     }
 
     private void OnDestroy()
     {
-        htaSpeakerDelete(SpeakerPtr);
+        if (SpeakerPtr != null)
+        {
+            htaSpeakerDelete(SpeakerPtr);
+            SpeakerPtr = IntPtr.Zero;
+        }
     }
 
     public void SetOuterAngle( float angle)

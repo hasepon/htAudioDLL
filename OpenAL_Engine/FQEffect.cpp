@@ -54,7 +54,7 @@ namespace htAudio {
 	void FQEffect::SetFrequency(float fq)
 	{
 		Info.FREQUENCY = fq;
-		alEffectf(Effect, AL_FREQUENCY_SHIFTER_FREQUENCY, Info.FREQUENCY);
+		alEffectf(Effect, AL_FREQUENCY_SHIFTER_FREQUENCY, (ALfloat)Info.FREQUENCY);
 	}
 
 	/// <summary>

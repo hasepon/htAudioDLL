@@ -53,7 +53,7 @@ namespace htAudio {
 	void ReverbEffects::SetDensity(float density)
 	{
 		Info.DENSITY = density;
-		alEffectf(Effect, AL_REVERB_DENSITY,Info.DENSITY);
+		alEffectf(Effect, AL_REVERB_DENSITY, (ALfloat)Info.DENSITY);
 	}
 
 	/// <summary>
@@ -65,7 +65,7 @@ namespace htAudio {
 	void ReverbEffects::SetDiffusion(float diffusion)
 	{
 		Info.DIFFUSION = diffusion;
-		alEffectf(Effect, AL_REVERB_DIFFUSION,Info.DIFFUSION);
+		alEffectf(Effect, AL_REVERB_DIFFUSION, (ALfloat)Info.DIFFUSION);
 	}
 
 	/// <summary>
@@ -81,8 +81,8 @@ namespace htAudio {
 	{
 		Info.GAIN = gain;
 		Info.GAINHF = gainhf;
-		alEffectf(Effect, AL_REVERB_GAIN,Info.GAIN);
-		alEffectf(Effect, AL_REVERB_GAINHF,Info.GAINHF);
+		alEffectf(Effect, AL_REVERB_GAIN, (ALfloat)Info.GAIN);
+		alEffectf(Effect, AL_REVERB_GAINHF, (ALfloat)Info.GAINHF);
 	}
 
 	/// <summary>
@@ -98,8 +98,8 @@ namespace htAudio {
 	{
 		Info.DECAY_TIME = time;
 		Info.DECAY_HFRATIO = hfratio;
-		alEffectf(Effect,AL_REVERB_DECAY_TIME,Info.DECAY_TIME);
-		alEffectf(Effect,AL_REVERB_DECAY_HFRATIO,Info.DECAY_HFRATIO);
+		alEffectf(Effect,AL_REVERB_DECAY_TIME, (ALfloat)Info.DECAY_TIME);
+		alEffectf(Effect,AL_REVERB_DECAY_HFRATIO, (ALfloat)Info.DECAY_HFRATIO);
 	}
 
 	/// <summary>
@@ -116,8 +116,8 @@ namespace htAudio {
 		Info.REFLECTIONS_GAIN = gain;
 		Info.REFLECTIONS_DELAY = delay;
 
-		alEffectf(Effect, AL_REVERB_REFLECTIONS_GAIN,  Info.REFLECTIONS_GAIN);
-		alEffectf(Effect, AL_REVERB_REFLECTIONS_DELAY, Info.REFLECTIONS_DELAY);
+		alEffectf(Effect, AL_REVERB_REFLECTIONS_GAIN, (ALfloat)Info.REFLECTIONS_GAIN);
+		alEffectf(Effect, AL_REVERB_REFLECTIONS_DELAY, (ALfloat)Info.REFLECTIONS_DELAY);
 	}
 
 	/// <summary>
@@ -134,8 +134,8 @@ namespace htAudio {
 		Info.LATE_GAIN = gain;
 		Info.LATE_DELAY = reflection;
 
-		alEffectf(Effect, AL_REVERB_LATE_REVERB_GAIN,Info.LATE_GAIN);
-		alEffectf(Effect, AL_REVERB_LATE_REVERB_DELAY,Info.LATE_DELAY);
+		alEffectf(Effect, AL_REVERB_LATE_REVERB_GAIN, (ALfloat)Info.LATE_GAIN);
+		alEffectf(Effect, AL_REVERB_LATE_REVERB_DELAY, (ALfloat)Info.LATE_DELAY);
 	}
 
 	/// <summary>
@@ -150,7 +150,7 @@ namespace htAudio {
 	void ReverbEffects::SetRoomRollOff(float val)
 	{
 		Info.ROOM_ROLL_OFF = val;
-		alEffectf(Effect, AL_REVERB_ROOM_ROLLOFF_FACTOR,Info.ROOM_ROLL_OFF);
+		alEffectf(Effect, AL_REVERB_ROOM_ROLLOFF_FACTOR, (ALfloat)Info.ROOM_ROLL_OFF);
 	}
 
 	/// <summary>
@@ -168,8 +168,8 @@ namespace htAudio {
 		Info.AIR_GAINHF = gainhf;
 		Info.AIR_HFLIMIT = hflimit;
 
-		alEffectf(Effect, AL_REVERB_AIR_ABSORPTION_GAINHF, Info.AIR_GAINHF);
-		alEffectf(Effect, AL_REVERB_DECAY_HFLIMIT, Info.AIR_HFLIMIT);
+		alEffectf(Effect, AL_REVERB_AIR_ABSORPTION_GAINHF, (ALfloat)Info.AIR_GAINHF);
+		alEffecti(Effect, AL_REVERB_DECAY_HFLIMIT, (ALint)Info.AIR_HFLIMIT);
 	}
 
 }

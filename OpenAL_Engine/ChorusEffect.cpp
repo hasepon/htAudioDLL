@@ -78,7 +78,7 @@ namespace htAudio
 	void ChorusEffect::SetRate(float rate)
 	{
 		Info.RATE = rate;
-		alEffectf(Effect, AL_CHORUS_RATE, Info.RATE);
+		alEffectf(Effect, AL_CHORUS_RATE, (ALfloat)Info.RATE);
 	}
 
 	/// <summary>
@@ -90,7 +90,7 @@ namespace htAudio
 	void ChorusEffect::SetDepth(float value)
 	{
 		Info.DEPTH = value;
-		alEffectf(Effect, AL_CHORUS_DEPTH, Info.DEPTH);
+		alEffectf(Effect, AL_CHORUS_DEPTH, (ALfloat)Info.DEPTH);
 	}
 
 	/// <summary>
@@ -102,7 +102,7 @@ namespace htAudio
 	void ChorusEffect::SetFeedBack(float value)
 	{
 		Info.FEEDBACK = value;
-		alEffectf(Effect, AL_CHORUS_FEEDBACK, Info.FEEDBACK);
+		alEffectf(Effect, AL_CHORUS_FEEDBACK, (ALfloat)Info.FEEDBACK);
 	}
 
 	/// <summary>
@@ -114,7 +114,7 @@ namespace htAudio
 	void ChorusEffect::SetDelay(float value)
 	{
 		Info.DELAY = value;
-		alEffectf(Effect, AL_CHORUS_DELAY, Info.DELAY);
+		alEffectf(Effect, AL_CHORUS_DELAY, (ALfloat)Info.DELAY);
 	}
 
 }

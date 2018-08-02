@@ -54,7 +54,7 @@ namespace htAudio {
 	void DistortionEffect::SetEdge(float val)
 	{
 		Info.EDGE = val;
-		alEffectf(Effect, AL_DISTORTION_EDGE, Info.EDGE);
+		alEffectf(Effect, AL_DISTORTION_EDGE, (ALfloat)Info.EDGE);
 	}
 
 	/// <summary>
@@ -66,7 +66,7 @@ namespace htAudio {
 	void DistortionEffect::SetGain(float gain)
 	{
 		Info.GAIN = gain;
-		alEffectf(Effect, AL_DISTORTION_GAIN, Info.GAIN);
+		alEffectf(Effect, AL_DISTORTION_GAIN, (ALfloat)Info.GAIN);
 	}
 
 	/// <summary>
@@ -78,7 +78,7 @@ namespace htAudio {
 	void DistortionEffect::SetLowpassCutOff(float val)
 	{
 		Info.LOWPASS_CUTOFF = val;
-		alEffectf(Effect, AL_DISTORTION_LOWPASS_CUTOFF, Info.LOWPASS_CUTOFF);
+		alEffectf(Effect, AL_DISTORTION_LOWPASS_CUTOFF, (ALfloat)Info.LOWPASS_CUTOFF);
 	}
 
 	/// <summary>
@@ -90,7 +90,7 @@ namespace htAudio {
 	void DistortionEffect::SetEQEnter(float val)
 	{
 		Info.EQCENTER = val;
-		alEffectf(Effect, AL_DISTORTION_EQCENTER, Info.EQCENTER);
+		alEffectf(Effect, AL_DISTORTION_EQCENTER, (ALfloat)Info.EQCENTER);
 	}
 
 	/// <summary>
@@ -102,7 +102,7 @@ namespace htAudio {
 	void DistortionEffect::SetEQBandWidth(float val)
 	{
 		Info.EQBANDWIDTH = val;
-		alEffectf(Effect, AL_DISTORTION_EQBANDWIDTH, Info.EQBANDWIDTH);
+		alEffectf(Effect, AL_DISTORTION_EQBANDWIDTH, (ALfloat)Info.EQBANDWIDTH);
 	}
 
 }

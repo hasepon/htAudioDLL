@@ -19,7 +19,7 @@ namespace htAudio
 		double LATE_DELAY;
 		double ROOM_ROLL_OFF;
 		double AIR_GAINHF;
-		double AIR_HFLIMIT;
+		int16_t AIR_HFLIMIT;
 	};
 
 	class ReverbEffects : public AudioEffects

@@ -1,12 +1,12 @@
 #pragma once
 
-
 #include"../OpenAlCore/OpenALDevice.h"
 #include"../FileLoad/LoadSoundFile.h"
 #include<string>
 #include<memory>
 #include<array>
 #include<complex.h>
+#include<future>
 
 #include<AL/efx.h>
 #include<AL/efx-creative.h>
@@ -36,6 +36,7 @@ namespace htAudio
 		bool Stop();	// 停止
 		bool Pause();	// 一時停止
 		bool GetResourceflag() { return AudioResource.Soundtype.CreateFlag; }
+		void StopUpdate();
 
 		void SetPosition(float x, float y, float z);
 		void SetPosition(float pos[3]);
@@ -65,6 +66,7 @@ namespace htAudio
 		bool SettingEffect(EFFECTSNUM,int EffectDef);	// エフェクト実装部
 
 		bool Successinit = false;						// 初期化成功フラグ
+		bool LoopFlag = true;							// updateloopフラグ
 
 		std::shared_ptr<CLoadSoundFile> AudioSource;	// バッファー情報
 		SoundResources AudioResource;					// オーディオ情報
@@ -86,6 +88,8 @@ namespace htAudio
 		ALfloat ConeOuterGain;	// コーンの外部ゲイン数値
 		ALfloat InnerAngle;		// 内部の角度
 		ALfloat OuterAngle;		// 外部の角度
+
+		std::thread UpdateThread;	// 自動アップデート用のスレッド
 
 	};
 

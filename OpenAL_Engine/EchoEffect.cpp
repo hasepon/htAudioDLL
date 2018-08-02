@@ -52,7 +52,7 @@ namespace htAudio {
 	void EchoEffect::SetDelay(float delay)
 	{
 		Info.DELAY = delay;
-		alEffectf(Effect, AL_ECHO_DELAY, Info.DELAY);
+		alEffectf(Effect, AL_ECHO_DELAY, (ALfloat)Info.DELAY);
 	}
 
 	/// <summary>
@@ -64,7 +64,7 @@ namespace htAudio {
 	void EchoEffect::SetLRDelay(float lrdelay)
 	{
 		Info.LRDELAY = lrdelay;
-		alEffectf(Effect, AL_ECHO_LRDELAY, Info.LRDELAY);
+		alEffectf(Effect, AL_ECHO_LRDELAY, (ALfloat)Info.LRDELAY);
 	}
 
 	/// <summary>
@@ -76,7 +76,7 @@ namespace htAudio {
 	void EchoEffect::SetDamping(float damping)
 	{
 		Info.DAMPING = damping;
-		alEffectf(Effect, AL_ECHO_DAMPING, Info.DAMPING);
+		alEffectf(Effect, AL_ECHO_DAMPING, (ALfloat)Info.DAMPING);
 	}
 
 	/// <summary>
@@ -88,7 +88,7 @@ namespace htAudio {
 	void EchoEffect::SetFeedBack(float feedback)
 	{
 		Info.FEEDBACK = feedback;
-		alEffectf(Effect, AL_ECHO_FEEDBACK, Info.FEEDBACK);
+		alEffectf(Effect, AL_ECHO_FEEDBACK, (ALfloat)Info.FEEDBACK);
 	}
 
 	/// <summary>
@@ -100,7 +100,7 @@ namespace htAudio {
 	void EchoEffect::SetSpRead(float spread)
 	{
 		Info.SPREAD = spread;
-		alEffectf(Effect, AL_ECHO_SPREAD, Info.SPREAD);
+		alEffectf(Effect, AL_ECHO_SPREAD, (ALfloat)Info.SPREAD);
 	}
 
 }

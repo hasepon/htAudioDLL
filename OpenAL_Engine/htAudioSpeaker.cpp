@@ -57,6 +57,7 @@ void  htaSpeakerDelete(AudioSpeaker* instance)
 	}
 
 	delete instance;
+	instance = nullptr;
 }
 
 void  htaSpeakerPosition(AudioSpeaker* instance,float x, float y, float z)
@@ -103,16 +104,6 @@ void htaSpeakerVelocityArray(AudioSpeaker* instance, float Pos[3])
 {
 	instance->SetVelocity(Pos);
 }
-
-//void htaSpeakerOrientation(AudioSpeaker* instance, float AtVec[3], float UpVec[3])
-//{
-//	instance->SetOrientation(AtVec, UpVec);
-//}
-//
-//void htaSpeakerOrientationArray(AudioSpeaker* instance, float AtOrient[6])
-//{
-//	instance->SetOrientation(AtOrient);
-//}
 
 void htaSpeakerDirection(AudioSpeaker* instance, float x, float y, float z)
 {

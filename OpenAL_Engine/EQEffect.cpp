@@ -55,37 +55,37 @@ namespace htAudio {
 	void EQEffect::SetLow(float gain, float cutoff)
 	{
 		Info.LOW_GAIN = gain;
-		alEffectf(Effect, AL_EQUALIZER_LOW_GAIN, Info.LOW_GAIN);
+		alEffectf(Effect, AL_EQUALIZER_LOW_GAIN, (ALfloat)Info.LOW_GAIN);
 		Info.LOW_CUTOFF = cutoff;
-		alEffectf(Effect, AL_EQUALIZER_LOW_CUTOFF, Info.LOW_CUTOFF);
+		alEffectf(Effect, AL_EQUALIZER_LOW_CUTOFF, (ALfloat)Info.LOW_CUTOFF);
 	}
 
 	void EQEffect::SetMid1(float gain, float center, float width)
 	{
 		Info.MID1_GAIN = gain;
-		alEffectf(Effect, AL_EQUALIZER_MID1_GAIN, Info.MID1_GAIN);
+		alEffectf(Effect, AL_EQUALIZER_MID1_GAIN, (ALfloat)Info.MID1_GAIN);
 		Info.MID1_CENTER = center;
-		alEffectf(Effect, AL_EQUALIZER_MID1_CENTER, Info.MID1_CENTER);
+		alEffectf(Effect, AL_EQUALIZER_MID1_CENTER, (ALfloat)Info.MID1_CENTER);
 		Info.MID1_WIDTH = width;
-		alEffectf(Effect, AL_EQUALIZER_MID1_WIDTH, Info.MID1_WIDTH);
+		alEffectf(Effect, AL_EQUALIZER_MID1_WIDTH, (ALfloat)Info.MID1_WIDTH);
 	}
 
 	void EQEffect::SetMid2(float gain, float center, float width)
 	{
 		Info.MID2_GAIN = gain;
-		alEffectf(Effect, AL_EQUALIZER_MID2_GAIN, Info.MID2_GAIN);
+		alEffectf(Effect, AL_EQUALIZER_MID2_GAIN, (ALfloat)Info.MID2_GAIN);
 		Info.MID2_CENTER = center;
-		alEffectf(Effect, AL_EQUALIZER_MID2_CENTER, Info.MID2_CENTER);
+		alEffectf(Effect, AL_EQUALIZER_MID2_CENTER, (ALfloat)Info.MID2_CENTER);
 		Info.MID2_WIDTH = width;
-		alEffectf(Effect, AL_EQUALIZER_MID2_WIDTH, Info.MID2_WIDTH);
+		alEffectf(Effect, AL_EQUALIZER_MID2_WIDTH, (ALfloat)Info.MID2_WIDTH);
 	}
 
 	void EQEffect::SetHigh(float gain, float cutoff)
 	{
 		Info.HIGH_GAIN = gain;
-		alEffectf(Effect, AL_EQUALIZER_HIGH_GAIN, Info.HIGH_GAIN);
+		alEffectf(Effect, AL_EQUALIZER_HIGH_GAIN, (ALfloat)Info.HIGH_GAIN);
 		Info.HIGH_CUTOFF = cutoff;
-		alEffectf(Effect, AL_EQUALIZER_HIGH_CUTOFF, Info.HIGH_CUTOFF);
+		alEffectf(Effect, AL_EQUALIZER_HIGH_CUTOFF, (ALfloat)Info.HIGH_CUTOFF);
 	}
 
 }

@@ -103,13 +103,14 @@ namespace htAudio {
 			else {
 				printf("ファイル形式が対応していない形式です");
 			}
-
 			Init();
 		}
 	}
 
 	AudioSpeaker::~AudioSpeaker()
 	{
+		StopUpdate();
+
 		if (AudioResource.Soundtype.StreamType == false)
 		{
 
@@ -127,6 +128,15 @@ namespace htAudio {
 		// 初期化終了
 		Successinit = true;
 		
+	}
+
+	void AudioSpeaker::StopUpdate()
+	{
+		LoopFlag = false;
+		
+		UpdateThread.join();
+
+		//UpdateThread.detach();
 	}
 
 	void AudioSpeaker::Init()
@@ -147,16 +157,20 @@ namespace htAudio {
 
 		// ソースの初期設定
 		alSourcei(Source,AL_SOURCE_RELATIVE,AL_TRUE);
-		SetConeInnerAngle(AudioResource.Soundtype.Sorrundinfo.innerAngle);
-		SetConeOuterAngle(AudioResource.Soundtype.Sorrundinfo.OuterAngle);
-		SetConeOuterGain(AudioResource.Soundtype.Sorrundinfo.OuterGain);
+		SetConeInnerAngle((float)AudioResource.Soundtype.Sorrundinfo.innerAngle);
+		SetConeOuterAngle((float)AudioResource.Soundtype.Sorrundinfo.OuterAngle);
+		SetConeOuterGain((float)AudioResource.Soundtype.Sorrundinfo.OuterGain);
+
+		// Updateのスレッド化
+		UpdateThread = std::thread(&AudioSpeaker::Update,this);
+
+		LoopFlag = true;
 
 	}
 
 	//
 	bool AudioSpeaker::SetBuffer(ALuint Buf)
 	{
-
 		if (!Buf) {
 			alGenBuffers(1, &Buf);
 		}
@@ -164,7 +178,7 @@ namespace htAudio {
 		// バッファの更新
 		ALenum format = AudioSource->GetAudioChannel() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
 		int fq = AudioSource->GetAudioSpS();
-		ALsizei size = AudioSource->GetAudioBufferSize();
+		ALsizei size = (ALsizei)AudioSource->GetAudioBufferSize();
 
 		alBufferData(Buf, format, AudioSource->GetBuffer(), size, fq);
 		return true;
@@ -172,41 +186,51 @@ namespace htAudio {
 
 	bool AudioSpeaker::Play()
 	{
+		LoopFlag = true;
 		alSourcePlay(Source);
 		return true;
 	}
 
 	bool AudioSpeaker::Update()
 	{
-		if (AudioResource.Soundtype.StreamType == false)
+
+		while (LoopFlag)
 		{
-			int State = 0;
-			alGetSourcei(Source, AL_SOURCE_STATE, &State);
-			if (State != AL_PLAYING && AudioResource.LoopSound == 1)
+			if (AudioResource.Soundtype.StreamType == false)
 			{
-				Play();
+				int State = 0;
+				alGetSourcei(Source, AL_SOURCE_STATE, &State);
+				if (State != AL_PLAYING && AudioResource.LoopSound == 1)
+				{
+					Play();
+				}
 			}
-		}
-		else {
-			int State = 0;
-			alGetSourcei(Source, AL_BUFFERS_PROCESSED, &State);
-
-			if (State > 0)
+			else 
 			{
-				AudioSource->Update();
-				ALuint Buf = 0;
-				alSourceUnqueueBuffers(Source, 1, &Buf);
-				SetBuffer(Buf);
-				alSourceQueueBuffers(Source, 1, &Buf);
+				int State = 0;
+				alGetSourcei(Source, AL_BUFFERS_PROCESSED, &State);
+
+				if (State > 0)
+				{
+					printf("バッファ更新中\n");
+
+					AudioSource->Update();
+					ALuint Buf = 0;
+					alSourceUnqueueBuffers(Source, 1, &Buf);
+					SetBuffer(Buf);
+					alSourceQueueBuffers(Source, 1, &Buf);
+				}
+
 			}
 
 		}
-
 		return true;
 	}
 
 	bool AudioSpeaker::Stop()
 	{
+		StopUpdate();
+
 		alSourceStop(Source);
 		return true;
 	}
@@ -352,7 +376,7 @@ namespace htAudio {
 	}
 
 	/// <summary>
-	/// 概要	 :: エフェクト追加実行部
+	/// 概要 :: エフェクト追加実行部
 	/// アクセス制限 :: private
 	/// </summary>
 	/// <param name="num">エフェクト配列番号</param>
