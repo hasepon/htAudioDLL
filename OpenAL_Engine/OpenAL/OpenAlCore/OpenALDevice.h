@@ -1,8 +1,8 @@
 #pragma once
 
-#include"../../Singleton.h"
 #define AL_ALEXT_PROTOTYPES
 
+#include <cstdint>
 #include<AL/al.h>
 #include<AL/alc.h>
 
@@ -50,6 +50,7 @@ namespace htAudio
 		PITCH,
 		WAH,
 		EQ,
+		I3DAUDIO,
 		MAX_EFFECTS,
 	};
 

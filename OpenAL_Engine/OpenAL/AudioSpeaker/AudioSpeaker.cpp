@@ -136,9 +136,11 @@ namespace htAudio {
 		
 		UpdateThread.join();
 
-		//UpdateThread.detach();
 	}
 
+	/// <summary>
+	/// 初期バッファの作成とxmlから読み込んだ情報の設定
+	/// </summary>
 	void AudioSpeaker::Init()
 	{
 		if (AudioResource.Soundtype.StreamType == false)
@@ -157,9 +159,6 @@ namespace htAudio {
 
 		// ソースの初期設定
 		alSourcei(Source,AL_SOURCE_RELATIVE,AL_TRUE);
-		SetConeInnerAngle((float)AudioResource.Soundtype.Sorrundinfo.innerAngle);
-		SetConeOuterAngle((float)AudioResource.Soundtype.Sorrundinfo.OuterAngle);
-		SetConeOuterGain((float)AudioResource.Soundtype.Sorrundinfo.OuterGain);
 
 		// Updateのスレッド化
 		UpdateThread = std::thread(&AudioSpeaker::Update,this);
@@ -241,96 +240,6 @@ namespace htAudio {
 		return true;
 	}
 
-	void AudioSpeaker::SetPosition(float x, float y, float z)
-	{
-		Position[0] = x;
-		Position[1] = y;
-		Position[2] = z;
-
-		alSourcefv(Source,AL_POSITION, Position);
-	}
-
-	void AudioSpeaker::SetPosition(float pos[3])
-	{
-		Position[0] = pos[0];
-		Position[1] = pos[1];
-		Position[2] = pos[2];
-
-		alSourcefv(Source, AL_POSITION, pos);
-	}
-
-	void AudioSpeaker::SetVelocity(float x, float y, float z)
-	{
-		Velocity[0] = x;
-		Velocity[1] = y;
-		Velocity[2] = z;
-
-		alSourcefv(Source,AL_VELOCITY,Velocity);
-	}
-
-	void AudioSpeaker::SetVelocity(float vec[3])
-	{
-		Velocity[0] = vec[0];
-		Velocity[1] = vec[1];
-		Velocity[2] = vec[2];
-
-		alSourcefv(Source, AL_VELOCITY, Velocity);
-	}
-	
-	void AudioSpeaker::SetDirection(float x, float y, float z)
-	{
-		Direction[0] = x;
-		Direction[1] = y;
-		Direction[2] = z;
-		alSourcefv(Source, AL_DIRECTION, Direction);
-	}
-
-	void AudioSpeaker::SetDirection(float dir[3])
-	{
-		Direction[0] = dir[0];
-		Direction[1] = dir[1];
-		Direction[2] = dir[2];
-		alSourcefv(Source, AL_DIRECTION, Direction);
-	}
-
-	void AudioSpeaker::SetConeOuterGain(float val)
-	{
-		ConeOuterGain = val;
-		alSourcef(Source,AL_CONE_OUTER_GAIN, ConeOuterGain);
-	}
-
-	float AudioSpeaker::GetConeOuterGain()
-	{
-		alGetSourcef(Source,AL_CONE_OUTER_GAIN,&ConeOuterGain);
-		return ConeOuterGain;
-	}
-
-	void AudioSpeaker::SetConeInnerAngle(float val)
-	{
-		InnerAngle = val;
-		alSourcef(Source, AL_CONE_INNER_ANGLE, InnerAngle);
-	}
-	
-	float AudioSpeaker::GetConeInnerAngle()
-	{
-		alGetSourcef(Source, AL_CONE_INNER_ANGLE, &InnerAngle);
-		return InnerAngle;
-	}
-
-	void AudioSpeaker::SetConeOuterAngle(float val)
-	{
-		OuterAngle = val;
-		alSourcef(Source, AL_CONE_OUTER_ANGLE, OuterAngle);
-	}
-
-	float AudioSpeaker::GetConeOuterAngle()
-	{
-		alGetSourcef(Source, AL_CONE_OUTER_ANGLE, &OuterAngle);
-		return OuterAngle;
-	}
-	
-
-
 	/// <summary>
 	/// 概要		:: 外部からのエフェクト呼び出し用の関数
 	/// アクセス制限	:: public
@@ -342,33 +251,40 @@ namespace htAudio {
 		// 引数に応じて種類別に
 		switch (num)
 		{
+
+
 		case htAudio::REVERB:
 			SettingEffect(REVERB,AL_EFFECT_REVERB);
 			break;
 		case htAudio::CHORUS:
-			SettingEffect(REVERB, AL_EFFECT_CHORUS);
+			SettingEffect(CHORUS, AL_EFFECT_CHORUS);
 			break;
 		case htAudio::DISTORTION:
-			SettingEffect(REVERB, AL_EFFECT_DISTORTION);
+			SettingEffect(DISTORTION, AL_EFFECT_DISTORTION);
 			break;
 		case htAudio::ECHO:
-			SettingEffect(REVERB, AL_EFFECT_ECHO);
+			SettingEffect(ECHO, AL_EFFECT_ECHO);
 			break;
 		case htAudio::FLANGER:
-			SettingEffect(REVERB, AL_EFFECT_FLANGER);
+			SettingEffect(FLANGER, AL_EFFECT_FLANGER);
 			break;
 		case htAudio::FQ:
-			SettingEffect(REVERB, AL_EFFECT_FREQUENCY_SHIFTER);
+			SettingEffect(FQ, AL_EFFECT_FREQUENCY_SHIFTER);
 			break;
 		case htAudio::PITCH:
-			SettingEffect(REVERB, AL_EFFECT_PITCH_SHIFTER);
+			SettingEffect(PITCH, AL_EFFECT_PITCH_SHIFTER);
 			break;
 		case htAudio::WAH:
-			SettingEffect(REVERB, AL_EFFECT_AUTOWAH);
+			SettingEffect(WAH, AL_EFFECT_AUTOWAH);
 			break;
 		case htAudio::EQ:
-			SettingEffect(REVERB, AL_EFFECT_EQUALIZER);
+			SettingEffect(EQ, AL_EFFECT_EQUALIZER);
 			break;
+
+		case htAudio::I3DAUDIO:
+			I3D = new I3DAudio(Source);
+			break;
+
 		default:
 			return false;
 			break;

@@ -17,7 +17,6 @@ extern "C"
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerPosition(AudioSpeaker*,float x, float y, float z);
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerPositionArray(AudioSpeaker*, float Pos[3]);
 	UNITY_INTERFACE_EXPORT bool UNITY_INTERFACE_API Play(AudioSpeaker* instance);
-	UNITY_INTERFACE_EXPORT bool UNITY_INTERFACE_API Update(AudioSpeaker* instance);
 	UNITY_INTERFACE_EXPORT bool UNITY_INTERFACE_API Stop(AudioSpeaker* instance);
 	UNITY_INTERFACE_EXPORT bool UNITY_INTERFACE_API Pause(AudioSpeaker* instance);
 	UNITY_INTERFACE_EXPORT bool UNITY_INTERFACE_API Formatflag(AudioSpeaker* instance);

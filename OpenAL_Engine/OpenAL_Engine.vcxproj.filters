@@ -13,15 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="htAudioDll">
+      <UniqueIdentifier>{39b1efce-5942-4438-a4dd-5cbd19b2ff28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="htAudioEffect">
+      <UniqueIdentifier>{a3d9b680-e63a-4c82-a828-e2e24185ef80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="OpenAL\AudioFormatData\AudioFormatData.h">
@@ -48,54 +51,57 @@
     <ClInclude Include="SoundDLL.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="htAudioDevice.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Definclude.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="htAudioSpeaker.h">
-      <Filter>ソース ファイル</Filter>
+      <Filter>htAudioDll</Filter>
+    </ClInclude>
+    <ClInclude Include="htAudioDevice.h">
+      <Filter>htAudioDll</Filter>
     </ClInclude>
     <ClInclude Include="htAudioListener.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioEffects.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ReverbEffects.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>htAudioDll</Filter>
     </ClInclude>
     <ClInclude Include="ChorusEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>htAudioEffect</Filter>
     </ClInclude>
     <ClInclude Include="DistortionEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="EchoEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="FlangerEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="FQEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="PitchEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="WahEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>htAudioEffect</Filter>
     </ClInclude>
     <ClInclude Include="EQEffect.h">
+      <Filter>htAudioEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="EchoEffect.h">
+      <Filter>htAudioEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="FQEffect.h">
+      <Filter>htAudioEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="FlangerEffect.h">
+      <Filter>htAudioEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="ReverbEffects.h">
+      <Filter>htAudioEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="PitchEffect.h">
+      <Filter>htAudioEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="WahEffect.h">
+      <Filter>htAudioEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioEffects.h">
+      <Filter>htAudioEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="ConeState.h">
+      <Filter>htAudioEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="I3DAudio.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="OpenAL_Engine.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Singleton.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
@@ -119,43 +125,49 @@
     <ClCompile Include="OpenAL\OpenAlCore\OpenALDevice.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="htAudioDevice.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="htAudioSpeaker.cpp">
+      <Filter>htAudioDll</Filter>
     </ClCompile>
     <ClCompile Include="htAudioListener.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>htAudioDll</Filter>
     </ClCompile>
-    <ClCompile Include="htAudioSpeaker.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioEffects.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ReverbEffects.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ChorusEffect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="DistortionEffect.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="htAudioDevice.cpp">
+      <Filter>htAudioDll</Filter>
     </ClCompile>
     <ClCompile Include="EchoEffect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="FlangerEffect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="FQEffect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="PitchEffect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="WahEffect.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>htAudioEffect</Filter>
     </ClCompile>
     <ClCompile Include="EQEffect.cpp">
+      <Filter>htAudioEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="ChorusEffect.cpp">
+      <Filter>htAudioEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="FlangerEffect.cpp">
+      <Filter>htAudioEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioEffects.cpp">
+      <Filter>htAudioEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="DistortionEffect.cpp">
+      <Filter>htAudioEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="FQEffect.cpp">
+      <Filter>htAudioEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="PitchEffect.cpp">
+      <Filter>htAudioEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="ReverbEffects.cpp">
+      <Filter>htAudioEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="WahEffect.cpp">
+      <Filter>htAudioEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="ConeState.cpp">
+      <Filter>htAudioEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="I3DAudio.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

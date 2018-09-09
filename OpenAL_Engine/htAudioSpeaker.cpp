@@ -75,11 +75,6 @@ bool  Play(AudioSpeaker* instance)
 	return instance->Play();
 }
 
-bool  Update(AudioSpeaker* instance)
-{
-	return instance->Update();
-}
-
 bool  Stop(AudioSpeaker* instance)
 {
 	return instance->Stop();
