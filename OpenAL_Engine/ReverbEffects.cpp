@@ -26,15 +26,13 @@ namespace htAudio {
 			alEffecti(Effect, AL_EFFECT_TYPE, AL_EFFECT_REVERB);
 			if (alGetError() != AL_NO_ERROR)
 			{
-				printf("ÉäÉoÅ[ÉuÇÃçÏê¨Ç…é∏îsÇµÇƒÇ‹Ç∑\n");
 				return;
 			}
 		}
 
 		alAuxiliaryEffectSloti(EffectSlot, AL_EFFECTSLOT_EFFECT, Effect);
 
-		if (alGetError() == AL_NO_ERROR)
-			printf("Successfully loaded effect into effect slot\n");
+		//if (alGetError() == AL_NO_ERROR)
 
 		alSource3i(source, AL_AUXILIARY_SEND_FILTER, EffectSlot, 0, NULL);
 	}

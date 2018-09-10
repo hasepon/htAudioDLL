@@ -111,6 +111,8 @@ namespace htAudio {
 	{
 		StopUpdate();
 
+		delete I3D;
+
 		if (AudioResource.Soundtype.StreamType == false)
 		{
 

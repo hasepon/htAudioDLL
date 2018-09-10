@@ -61,7 +61,6 @@ namespace htAudio
 	{
 	public:
 		void ErrorFunction();
-		void CreateEffect();
 		bool GetCreateDeviceFlag() { return CreateDevice; };
 		OpenALDevice();
 		~OpenALDevice();

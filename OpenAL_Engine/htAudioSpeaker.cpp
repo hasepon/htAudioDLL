@@ -19,7 +19,7 @@ std::string wide_to_multi_capi(std::wstring const& src)
 }
 
 
-AudioSpeaker* htaSpeakerCreate(wchar_t* filepath, wchar_t* soundname, wchar_t* material)
+int htaSpeakerCreate(wchar_t* filepath, wchar_t* soundname, wchar_t* material)
 {
 	std::string path, name, mat;
 	
@@ -30,7 +30,7 @@ AudioSpeaker* htaSpeakerCreate(wchar_t* filepath, wchar_t* soundname, wchar_t* m
 	return new AudioSpeaker(path, name, mat);
 }
 
-AudioSpeaker* htaSpeakerCreateID(wchar_t* filepath, uint16_t id)
+int htaSpeakerCreateID(wchar_t* filepath, uint16_t id)
 {
 	std::string path;
 
@@ -39,7 +39,7 @@ AudioSpeaker* htaSpeakerCreateID(wchar_t* filepath, uint16_t id)
 	return new AudioSpeaker(path, id);
 }
 
-AudioSpeaker* htaSpeakerCreateName(wchar_t* filepath, wchar_t* soundname)
+int htaSpeakerCreateName(wchar_t* filepath, wchar_t* soundname)
 {
 	std::string path, name;
 

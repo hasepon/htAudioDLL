@@ -40,7 +40,8 @@ namespace htAudio
 		void StopUpdate();
 
 		bool AddEffects(EFFECTSNUM num);
-		
+		ALuint GetSpeakerNumb() { return Source; }
+
 	private:
 		bool SetBuffer(ALuint Buf);						// バッファの設定
 		void Init();									// 共通初期化処理
@@ -62,7 +63,7 @@ namespace htAudio
 		std::array<ALuint, MAX_EFFECTS> Effect;			// エフェクト
 
 		ALfloat Volume;			// ボリューム
-		I3DAudio* I3D;
+		I3DAudio* I3D;			// 3DAudioの設定
 
 		std::thread UpdateThread;	// 自動アップデート用のスレッド
 
