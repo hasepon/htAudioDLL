@@ -135,9 +135,6 @@ namespace htAudio {
 	void AudioSpeaker::StopUpdate()
 	{
 		LoopFlag = false;
-		
-		UpdateThread.join();
-
 	}
 
 	/// <summary>
@@ -159,11 +156,9 @@ namespace htAudio {
 			alSourceQueueBuffers(Source, 2, &Buffers[0]);
 		}
 
+
 		// ソースの初期設定
 		alSourcei(Source,AL_SOURCE_RELATIVE,AL_TRUE);
-
-		// Updateのスレッド化
-		UpdateThread = std::thread(&AudioSpeaker::Update,this);
 
 		LoopFlag = true;
 
@@ -187,7 +182,6 @@ namespace htAudio {
 
 	bool AudioSpeaker::Play()
 	{
-		LoopFlag = true;
 		alSourcePlay(Source);
 		return true;
 	}

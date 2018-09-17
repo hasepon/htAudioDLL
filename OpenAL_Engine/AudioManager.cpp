@@ -6,6 +6,10 @@ namespace htAudio {
 	AudioManager::AudioManager()
 	{
 		AlDevice = new OpenALDevice();
+
+		// Update‚ÌƒXƒŒƒbƒh‰»
+		UpdateThread = std::thread(&AudioManager::ThreadUpdate , this);
+
 	}
 
 	AudioManager::~AudioManager()
@@ -68,12 +72,47 @@ namespace htAudio {
 	{
 		auto itr = SpeakerMap.find(numb);
 
+		// ‚ ‚Á‚½ê‡‚Ìˆ—
 		if (SpeakerMap.end() != itr)
 		{
 			delete SpeakerMap[numb];
 			SpeakerMap.erase(itr);
 		}
 
+	}
+
+	bool AudioManager::SpeakerFormat(int numb)
+	{
+		auto itr = SpeakerMap.find(numb);
+
+		if (SpeakerMap.end() != itr)
+		{
+			return SpeakerMap[numb]->GetResourceflag();
+		}
+
+		return false;
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	void AudioManager::ThreadUpdate()
+	{
+		for (auto itr = SpeakerMap.begin(); itr != SpeakerMap.end(); itr++)
+		{
+			itr->second->Update();
+		}
+	}
+
+	void AudioManager::AllDelete()
+	{
+		for (auto itr = SpeakerMap.begin(); itr != SpeakerMap.end(); itr++)
+		{
+			delete itr->second;
+			SpeakerMap.erase(itr);
+		}
+
+		SpeakerMap.clear();
 	}
 
 }

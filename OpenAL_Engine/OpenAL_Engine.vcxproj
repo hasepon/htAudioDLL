@@ -161,6 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AudioEffects.h" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="ChorusEffect.h" />
     <ClInclude Include="ConeState.h" />
     <ClInclude Include="Definclude.h" />
@@ -169,9 +170,7 @@
     <ClInclude Include="EQEffect.h" />
     <ClInclude Include="FlangerEffect.h" />
     <ClInclude Include="FQEffect.h" />
-    <ClInclude Include="htAudioDevice.h" />
-    <ClInclude Include="htAudioListener.h" />
-    <ClInclude Include="htAudioSpeaker.h" />
+    <ClInclude Include="htAudioDll.h" />
     <ClInclude Include="I3DAudio.h" />
     <ClInclude Include="OpenAL\AudioFormatData\AudioFormatData.h" />
     <ClInclude Include="OpenAL\AudioListener\AudioListener.h" />
@@ -182,13 +181,13 @@
     <ClInclude Include="OpenAL\OpenAlCore\OpenALDevice.h" />
     <ClInclude Include="PitchEffect.h" />
     <ClInclude Include="ReverbEffects.h" />
-    <ClInclude Include="SoundDLL.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="WahEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioEffects.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="ChorusEffect.cpp" />
     <ClCompile Include="ConeState.cpp" />
     <ClCompile Include="DistortionEffect.cpp" />
@@ -196,9 +195,7 @@
     <ClCompile Include="EQEffect.cpp" />
     <ClCompile Include="FlangerEffect.cpp" />
     <ClCompile Include="FQEffect.cpp" />
-    <ClCompile Include="htAudioDevice.cpp" />
-    <ClCompile Include="htAudioListener.cpp" />
-    <ClCompile Include="htAudioSpeaker.cpp" />
+    <ClCompile Include="htAudioDll.cpp" />
     <ClCompile Include="I3DAudio.cpp" />
     <ClCompile Include="OpenAL\AudioFormatData\AudioFormatData.cpp" />
     <ClCompile Include="OpenAL\AudioListener\AudioListener.cpp" />

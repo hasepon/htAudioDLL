@@ -32,10 +32,8 @@ namespace htAudio
 		
 		~AudioSpeaker();// デスト
 
-		bool Play();	// 再生
 		bool Update();	// 更新
-		bool Stop();	// 停止
-		bool Pause();	// 一時停止
+
 		bool GetResourceflag() { return AudioResource.Soundtype.CreateFlag; }
 		void StopUpdate();
 
@@ -43,6 +41,10 @@ namespace htAudio
 		ALuint GetSpeakerNumb() { return Source; }
 
 	private:
+		bool Play();	// 再生
+		bool Stop();	// 停止
+		bool Pause();	// 一時停止
+
 		bool SetBuffer(ALuint Buf);						// バッファの設定
 		void Init();									// 共通初期化処理
 		bool SettingEffect(EFFECTSNUM,int EffectDef);	// エフェクト実装部
@@ -65,7 +67,7 @@ namespace htAudio
 		ALfloat Volume;			// ボリューム
 		I3DAudio* I3D;			// 3DAudioの設定
 
-		std::thread UpdateThread;	// 自動アップデート用のスレッド
+		
 
 	};
 
