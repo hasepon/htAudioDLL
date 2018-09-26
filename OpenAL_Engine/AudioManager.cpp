@@ -7,6 +7,8 @@ namespace htAudio {
 	{
 		AlDevice = new OpenALDevice();
 
+		Updateflag = true;
+
 		// Update‚ÌƒXƒŒƒbƒh‰»
 		UpdateThread = std::thread(&AudioManager::ThreadUpdate , this);
 
@@ -98,14 +100,21 @@ namespace htAudio {
 	/// </summary>
 	void AudioManager::ThreadUpdate()
 	{
-		for (auto itr = SpeakerMap.begin(); itr != SpeakerMap.end(); itr++)
+		while (Updateflag)
 		{
-			itr->second->Update();
+			for (auto itr = SpeakerMap.begin(); itr != SpeakerMap.end(); itr++)
+			{
+				itr->second->Update();
+			}
 		}
 	}
 
 	void AudioManager::AllDelete()
 	{
+		Updateflag = false;
+
+		UpdateThread.join();
+
 		for (auto itr = SpeakerMap.begin(); itr != SpeakerMap.end(); itr++)
 		{
 			delete itr->second;
@@ -113,6 +122,11 @@ namespace htAudio {
 		}
 
 		SpeakerMap.clear();
+	}
+
+	bool AudioManager::AddEffect(AudioEffects* effect, int speakerId)
+	{
+		SpeakerMap[speakerId]->AddEffects(effect);
 	}
 
 }

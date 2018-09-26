@@ -37,7 +37,8 @@ namespace htAudio
 		bool GetResourceflag() { return AudioResource.Soundtype.CreateFlag; }
 		void StopUpdate();
 
-		bool AddEffects(EFFECTSNUM num);
+		bool AddEffects(AudioEffects* effect);
+
 		ALuint GetSpeakerNumb() { return Source; }
 
 	private:
@@ -47,7 +48,6 @@ namespace htAudio
 
 		bool SetBuffer(ALuint Buf);						// バッファの設定
 		void Init();									// 共通初期化処理
-		bool SettingEffect(EFFECTSNUM,int EffectDef);	// エフェクト実装部
 
 		bool Successinit = false;						// 初期化成功フラグ
 		bool LoopFlag = true;							// updateloopフラグ
@@ -61,9 +61,8 @@ namespace htAudio
 		std::array<ALuint,2> Buffers;					// バッファの設定
 		ALuint Source;									// Sourceの設定
 		
-		std::array<ALuint, MAX_EFFECTS> EffectSlot;		// エフェクトスロット
-		std::array<ALuint, MAX_EFFECTS> Effect;			// エフェクト
-
+		std::vector<AudioEffects*> EffectSlot;		// エフェクトスロット
+		
 		ALfloat Volume;			// ボリューム
 		I3DAudio* I3D;			// 3DAudioの設定
 

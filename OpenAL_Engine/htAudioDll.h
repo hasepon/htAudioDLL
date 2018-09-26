@@ -24,12 +24,12 @@ extern "C" {
 	UNITY_INTERFACE_EXPORT bool UNITY_INTERFACE_API Formatflag(AudioManager* mgtPtr, int speakerId);
 
 	// Effect‚Ì‹@”\
-	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerPosition(AudioSpeaker*, float x, float y, float z);
-	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerPositionArray(AudioSpeaker*, float Pos[3]);
-	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerVelocity(AudioSpeaker* instance, float x, float y, float z);
-	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerVelocityArray(AudioSpeaker* instance, float Vec[3]);
-	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerDirection(AudioSpeaker* instance, float x, float y, float z);
-	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaSpeakerDirectionArray(AudioSpeaker* instance, float dir[3]);
+	
+	/* 3DAudioŠÖŒW */
+	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaAddI3DAudio(AudioManager* mgtPtr,int speakerId, float* position[3], float* velocity[3], float* Dir[3]);
+	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API htaI3DAudioGain(int speakerId,float* gain);
+
+	/* CornŠÖŒW */
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API  htaSpeakerSetConeOuterGain(AudioSpeaker* Instance, float val);
 	UNITY_INTERFACE_EXPORT float UNITY_INTERFACE_API htaSpeakerGetConeOuterGain(AudioSpeaker* Instance);
 	UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API  htaSpeakerSetConeInnerAngle(AudioSpeaker* Instance, float val);

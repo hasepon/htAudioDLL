@@ -22,6 +22,8 @@ namespace htAudio {
 		int AddSpeaker(std::string filepath, uint16_t id);
 		int AddSpeaker(std::string filepath, std::string soundname);
 
+		bool AddEffect(AudioEffects* effect,int speakerId);
+
 		void ThreadUpdate();
 
 		bool SpeakerFormat( int numb );
@@ -33,6 +35,8 @@ namespace htAudio {
 		OpenALDevice* AlDevice;						// デバイスポインタ
 		std::map<ALuint, AudioSpeaker*> SpeakerMap;	// speakerのmap 管理するやつ
 		std::thread UpdateThread;	// 自動アップデート用のスレッド
+
+		bool Updateflag;
 
 	};
 

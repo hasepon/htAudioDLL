@@ -188,37 +188,32 @@ namespace htAudio {
 
 	bool AudioSpeaker::Update()
 	{
-
-		while (LoopFlag)
+		if (AudioResource.Soundtype.StreamType == false)
 		{
-			if (AudioResource.Soundtype.StreamType == false)
+			int State = 0;
+			alGetSourcei(Source, AL_SOURCE_STATE, &State);
+			if (State != AL_PLAYING && AudioResource.LoopSound == 1)
 			{
-				int State = 0;
-				alGetSourcei(Source, AL_SOURCE_STATE, &State);
-				if (State != AL_PLAYING && AudioResource.LoopSound == 1)
-				{
-					Play();
-				}
+				Play();
 			}
-			else 
+		}
+		else 
+		{
+			int State = 0;
+			alGetSourcei(Source, AL_BUFFERS_PROCESSED, &State);
+
+			if (State > 0)
 			{
-				int State = 0;
-				alGetSourcei(Source, AL_BUFFERS_PROCESSED, &State);
-
-				if (State > 0)
-				{
-					printf("バッファ更新中\n");
-
-					AudioSource->Update();
-					ALuint Buf = 0;
-					alSourceUnqueueBuffers(Source, 1, &Buf);
-					SetBuffer(Buf);
-					alSourceQueueBuffers(Source, 1, &Buf);
-				}
-
+				printf("バッファ更新中\n");
+				AudioSource->Update();
+				ALuint Buf = 0;
+				alSourceUnqueueBuffers(Source, 1, &Buf);
+				SetBuffer(Buf);
+				alSourceQueueBuffers(Source, 1, &Buf);
 			}
 
 		}
+
 		return true;
 	}
 
@@ -242,88 +237,9 @@ namespace htAudio {
 	/// </summary>
 	/// <param name="num">エフェクトの種類</param>
 	/// <returns>エフェクト生成に成功しているかどうか</returns>
-	bool AudioSpeaker::AddEffects(EFFECTSNUM num)
+	bool AudioSpeaker::AddEffects(AudioEffects* effect)
 	{
-		// 引数に応じて種類別に
-		switch (num)
-		{
-
-
-		case htAudio::REVERB:
-			SettingEffect(REVERB,AL_EFFECT_REVERB);
-			break;
-		case htAudio::CHORUS:
-			SettingEffect(CHORUS, AL_EFFECT_CHORUS);
-			break;
-		case htAudio::DISTORTION:
-			SettingEffect(DISTORTION, AL_EFFECT_DISTORTION);
-			break;
-		case htAudio::ECHO:
-			SettingEffect(ECHO, AL_EFFECT_ECHO);
-			break;
-		case htAudio::FLANGER:
-			SettingEffect(FLANGER, AL_EFFECT_FLANGER);
-			break;
-		case htAudio::FQ:
-			SettingEffect(FQ, AL_EFFECT_FREQUENCY_SHIFTER);
-			break;
-		case htAudio::PITCH:
-			SettingEffect(PITCH, AL_EFFECT_PITCH_SHIFTER);
-			break;
-		case htAudio::WAH:
-			SettingEffect(WAH, AL_EFFECT_AUTOWAH);
-			break;
-		case htAudio::EQ:
-			SettingEffect(EQ, AL_EFFECT_EQUALIZER);
-			break;
-
-		case htAudio::I3DAUDIO:
-			I3D = new I3DAudio(Source);
-			break;
-
-		default:
-			return false;
-			break;
-		}
-	}
-
-	/// <summary>
-	/// 概要 :: エフェクト追加実行部
-	/// アクセス制限 :: private
-	/// </summary>
-	/// <param name="num">エフェクト配列番号</param>
-	/// <param name="EffectDef">定期用エフェクト</param>
-	/// <returns>エフェクト成功フラグ</returns>
-	bool AudioSpeaker::SettingEffect(EFFECTSNUM num, int EffectDef)
-	{
-		LPALGENEFFECTS algeneffect = (LPALGENEFFECTS)alGetProcAddress("alGenEffects");
-
-		alGenAuxiliaryEffectSlots(1, &EffectSlot[num]);
-
-		if (alGetError() != AL_NO_ERROR)
-			return false;
-
-		algeneffect(1, &Effect[num]);
-
-		if (alGetError() != AL_NO_ERROR)
-			return false;
-
-		if (alIsEffect(Effect[num]))
-		{
-			alEffecti(Effect[num], AL_EFFECT_TYPE, EffectDef);
-			if (alGetError() != AL_NO_ERROR)
-			{
-				printf("リバーブの作成に失敗してます\n");
-				return false;
-			}
-		}
-
-		alAuxiliaryEffectSloti(EffectSlot[num], AL_EFFECTSLOT_EFFECT, Effect[num]);
-		
-		if (alGetError() == AL_NO_ERROR)
-			printf("Successfully loaded effect into effect slot\n");
-
-		alSource3i(Source, AL_AUXILIARY_SEND_FILTER, EffectSlot[num], 0, NULL);
+		EffectSlot.push_back(effect);
 
 		return true;
 

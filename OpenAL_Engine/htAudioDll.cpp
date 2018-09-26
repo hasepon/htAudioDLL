@@ -77,36 +77,6 @@ bool Formatflag(AudioManager* mgtPtr, int speakerId)
 	return mgtPtr->SpeakerFormat(speakerId);
 }
 
-void  htaSpeakerPosition(AudioSpeaker* instance, float x, float y, float z)
-{
-	instance->SetPosition(x, y, z);
-}
-
-void  htaSpeakerPositionArray(AudioSpeaker* instance, float Pos[3])
-{
-	instance->SetPosition(Pos);
-}
-
-void htaSpeakerVelocity(AudioSpeaker* instance, float x, float y, float z)
-{
-	instance->SetVelocity(x, y, z);
-}
-
-void htaSpeakerVelocityArray(AudioSpeaker* instance, float Pos[3])
-{
-	instance->SetVelocity(Pos);
-}
-
-void htaSpeakerDirection(AudioSpeaker* instance, float x, float y, float z)
-{
-	instance->SetDirection(x, y, z);
-}
-
-void htaSpeakerDirectionArray(AudioSpeaker* instance, float dir[3])
-{
-	instance->SetDirection(dir);
-}
-
 void htaSpeakerSetConeOuterGain(AudioSpeaker* Instance, float val)
 {
 	Instance->SetConeOuterGain(val);
@@ -200,3 +170,27 @@ void htaDelete(OpenALDevice* Instance)
 
 	delete Instance;
 }
+
+/// <summary>
+/// C#側から3DAudioに必要なポインターを受け取って使用する
+/// </summary>
+/// <param name="speakerId"></param>
+/// <param name="position"></param>
+/// <param name="velocity"></param>
+/// <param name="Dir"></param>
+void htaAddI3DAudio(AudioManager* mgtPtr, int speakerId, float* position[3], float* velocity[3], float* Dir[3])
+{
+	I3DAudio* i3deffect = new I3DAudio(speakerId);
+	
+	i3deffect->SetPosition(position);
+	i3deffect->SetDirection(Dir);
+	i3deffect->SetVelocity(velocity);
+
+	mgtPtr->AddEffect(i3deffect,speakerId);
+}
+
+void htaI3DAudioGain(int speakerId, float* gain)
+{
+	alSourcefv(speakerId, AL_GAIN, gain);
+}
+
