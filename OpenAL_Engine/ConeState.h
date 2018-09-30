@@ -23,9 +23,9 @@ namespace htAudio {
 	private:
 		ALuint Source;
 
-		ALfloat* ConeOuterGain;	// コーンの外部ゲイン数値
-		ALfloat* InnerAngle;		// 内部の角度
-		ALfloat* OuterAngle;		// 外部の角度
+		ALfloat ConeOuterGain;	// コーンの外部ゲイン数値
+		ALfloat InnerAngle;		// 内部の角度
+		ALfloat OuterAngle;		// 外部の角度
 
 	};
 

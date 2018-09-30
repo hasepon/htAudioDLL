@@ -37,9 +37,13 @@ namespace htAudio {
 		alSource3i(source, AL_AUXILIARY_SEND_FILTER, EffectSlot, 0, NULL);
 	}
 
-
 	ReverbEffects::~ReverbEffects()
 	{
+	}
+
+	void ReverbEffects::SetInfo(REVERB_INFO* info)
+	{
+		Info = info;
 	}
 
 	/// <summary>
@@ -50,8 +54,8 @@ namespace htAudio {
 	/// <param name="density">設定する密度の値</param>
 	void ReverbEffects::SetDensity(float density)
 	{
-		Info.DENSITY = density;
-		alEffectf(Effect, AL_REVERB_DENSITY, (ALfloat)Info.DENSITY);
+		Info->DENSITY = density;
+		alEffectf(Effect, AL_REVERB_DENSITY, (ALfloat)Info->DENSITY);
 	}
 
 	/// <summary>
@@ -62,8 +66,8 @@ namespace htAudio {
 	/// <param name="diffusion">設定する拡散数値の値</param>
 	void ReverbEffects::SetDiffusion(float diffusion)
 	{
-		Info.DIFFUSION = diffusion;
-		alEffectf(Effect, AL_REVERB_DIFFUSION, (ALfloat)Info.DIFFUSION);
+		Info->DIFFUSION = diffusion;
+		alEffectf(Effect, AL_REVERB_DIFFUSION, (ALfloat)Info->DIFFUSION);
 	}
 
 	/// <summary>
@@ -77,10 +81,10 @@ namespace htAudio {
 	/// MAX(1.0) :: LOW(0.0) :: Default(0.89)
 	void ReverbEffects::SetGain(float gain, float gainhf)
 	{
-		Info.GAIN = gain;
-		Info.GAINHF = gainhf;
-		alEffectf(Effect, AL_REVERB_GAIN, (ALfloat)Info.GAIN);
-		alEffectf(Effect, AL_REVERB_GAINHF, (ALfloat)Info.GAINHF);
+		Info->GAIN = gain;
+		Info->GAINHF = gainhf;
+		alEffectf(Effect, AL_REVERB_GAIN, (ALfloat)Info->GAIN);
+		alEffectf(Effect, AL_REVERB_GAINHF, (ALfloat)Info->GAINHF);
 	}
 
 	/// <summary>
@@ -94,10 +98,10 @@ namespace htAudio {
 	/// MAX(2.0) :: LOW(0.1) :: Default(0.83)
 	void ReverbEffects::SetDecay(float time, float hfratio)
 	{
-		Info.DECAY_TIME = time;
-		Info.DECAY_HFRATIO = hfratio;
-		alEffectf(Effect,AL_REVERB_DECAY_TIME, (ALfloat)Info.DECAY_TIME);
-		alEffectf(Effect,AL_REVERB_DECAY_HFRATIO, (ALfloat)Info.DECAY_HFRATIO);
+		Info->DECAY_TIME = time;
+		Info->DECAY_HFRATIO = hfratio;
+		alEffectf(Effect,AL_REVERB_DECAY_TIME, (ALfloat)Info->DECAY_TIME);
+		alEffectf(Effect,AL_REVERB_DECAY_HFRATIO, (ALfloat)Info->DECAY_HFRATIO);
 	}
 
 	/// <summary>
@@ -111,11 +115,11 @@ namespace htAudio {
 	/// MAX(0.3) :: LOW(1.0) :: Default(0.007)
 	void ReverbEffects::SetReflection(float gain, float delay)
 	{
-		Info.REFLECTIONS_GAIN = gain;
-		Info.REFLECTIONS_DELAY = delay;
+		Info->REFLECTIONS_GAIN = gain;
+		Info->REFLECTIONS_DELAY = delay;
 
-		alEffectf(Effect, AL_REVERB_REFLECTIONS_GAIN, (ALfloat)Info.REFLECTIONS_GAIN);
-		alEffectf(Effect, AL_REVERB_REFLECTIONS_DELAY, (ALfloat)Info.REFLECTIONS_DELAY);
+		alEffectf(Effect, AL_REVERB_REFLECTIONS_GAIN, (ALfloat)Info->REFLECTIONS_GAIN);
+		alEffectf(Effect, AL_REVERB_REFLECTIONS_DELAY, (ALfloat)Info->REFLECTIONS_DELAY);
 	}
 
 	/// <summary>
@@ -129,11 +133,11 @@ namespace htAudio {
 	/// MAX(0.1) :: LOW(0.0) :: Default(0.11)
 	void ReverbEffects::SetLate(float gain,float reflection)
 	{
-		Info.LATE_GAIN = gain;
-		Info.LATE_DELAY = reflection;
+		Info->LATE_GAIN = gain;
+		Info->LATE_DELAY = reflection;
 
-		alEffectf(Effect, AL_REVERB_LATE_REVERB_GAIN, (ALfloat)Info.LATE_GAIN);
-		alEffectf(Effect, AL_REVERB_LATE_REVERB_DELAY, (ALfloat)Info.LATE_DELAY);
+		alEffectf(Effect, AL_REVERB_LATE_REVERB_GAIN, (ALfloat)Info->LATE_GAIN);
+		alEffectf(Effect, AL_REVERB_LATE_REVERB_DELAY, (ALfloat)Info->LATE_DELAY);
 	}
 
 	/// <summary>
@@ -147,8 +151,8 @@ namespace htAudio {
 	/// MAX(10.0) :: LOW(0.0) :: Default(0.0)
 	void ReverbEffects::SetRoomRollOff(float val)
 	{
-		Info.ROOM_ROLL_OFF = val;
-		alEffectf(Effect, AL_REVERB_ROOM_ROLLOFF_FACTOR, (ALfloat)Info.ROOM_ROLL_OFF);
+		Info->ROOM_ROLL_OFF = val;
+		alEffectf(Effect, AL_REVERB_ROOM_ROLLOFF_FACTOR, (ALfloat)Info->ROOM_ROLL_OFF);
 	}
 
 	/// <summary>
@@ -163,11 +167,11 @@ namespace htAudio {
 	/// AL_FALSE AL_TRUE
 	void ReverbEffects::SetAir(float gainhf, int hflimit)
 	{
-		Info.AIR_GAINHF = gainhf;
-		Info.AIR_HFLIMIT = hflimit;
+		Info->AIR_GAINHF = gainhf;
+		Info->AIR_HFLIMIT = hflimit;
 
-		alEffectf(Effect, AL_REVERB_AIR_ABSORPTION_GAINHF, (ALfloat)Info.AIR_GAINHF);
-		alEffecti(Effect, AL_REVERB_DECAY_HFLIMIT, (ALint)Info.AIR_HFLIMIT);
+		alEffectf(Effect, AL_REVERB_AIR_ABSORPTION_GAINHF, (ALfloat)Info->AIR_GAINHF);
+		alEffecti(Effect, AL_REVERB_DECAY_HFLIMIT, (ALint)Info->AIR_HFLIMIT);
 	}
 
 }

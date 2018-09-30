@@ -28,6 +28,8 @@ namespace htAudio
 		ReverbEffects(ALuint source);
 		~ReverbEffects();
 
+		void SetInfo(REVERB_INFO* Info);
+
 		void SetDensity(float density);
 		void SetDiffusion(float diffusion);
 		void SetGain(float gain,float gainhf);
@@ -38,7 +40,7 @@ namespace htAudio
 		void SetAir(float gainhf, int hflimit);
 
 	private:
-		REVERB_INFO Info;		// リバーブ情報
+		REVERB_INFO* Info;		// リバーブ情報
 	};
 
 }

@@ -2,6 +2,8 @@
 #include"../FileLoad/Ogg/LoadOgg.h"
 #include"../FileLoad/Wave/LoadWave.h"
 #include"../AudioFormatData/AudioFormatData.h"
+#include <algorithm>
+#include<iterator>
 
 namespace htAudio {
 
@@ -110,9 +112,7 @@ namespace htAudio {
 	AudioSpeaker::~AudioSpeaker()
 	{
 		StopUpdate();
-
-		delete I3D;
-
+		
 		if (AudioResource.Soundtype.StreamType == false)
 		{
 
@@ -188,6 +188,7 @@ namespace htAudio {
 
 	bool AudioSpeaker::Update()
 	{
+		// バッファの更新
 		if (AudioResource.Soundtype.StreamType == false)
 		{
 			int State = 0;
@@ -214,6 +215,11 @@ namespace htAudio {
 
 		}
 
+		// エフェクトの更新
+		std::for_each(EffectSlot.begin(),EffectSlot.end(),[](AudioEffects x) {
+			x.Update();
+		});
+		
 		return true;
 	}
 

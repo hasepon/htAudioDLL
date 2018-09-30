@@ -2,7 +2,7 @@
 
 #include"../OpenAlCore/OpenALDevice.h"
 #include"../FileLoad/LoadSoundFile.h"
-#include"../../I3DAudio.h"
+#include"../../AudioEffects.h"
 #include<string>
 #include<memory>
 #include<array>
@@ -64,9 +64,6 @@ namespace htAudio
 		std::vector<AudioEffects*> EffectSlot;		// エフェクトスロット
 		
 		ALfloat Volume;			// ボリューム
-		I3DAudio* I3D;			// 3DAudioの設定
-
-		
 
 	};
 

@@ -84,14 +84,14 @@
     <ClInclude Include="ConeState.h">
       <Filter>Effect</Filter>
     </ClInclude>
-    <ClInclude Include="I3DAudio.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="AudioManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="htAudioDll.h">
       <Filter>htAudioDll</Filter>
+    </ClInclude>
+    <ClInclude Include="I3DAudio.h">
+      <Filter>Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -152,14 +152,14 @@
     <ClCompile Include="ConeState.cpp">
       <Filter>Effect</Filter>
     </ClCompile>
-    <ClCompile Include="I3DAudio.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="AudioManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="htAudioDll.cpp">
       <Filter>htAudioDll</Filter>
+    </ClCompile>
+    <ClCompile Include="I3DAudio.cpp">
+      <Filter>Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

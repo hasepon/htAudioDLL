@@ -7,7 +7,10 @@ public:
 	AudioEffects();
 	~AudioEffects();
 
+	void Update();
+	
 protected:
+
 
 	ALuint EffectSlot;		// エフェクトスロット
 	ALuint Effect;			// エフェクト

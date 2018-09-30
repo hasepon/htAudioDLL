@@ -77,37 +77,6 @@ bool Formatflag(AudioManager* mgtPtr, int speakerId)
 	return mgtPtr->SpeakerFormat(speakerId);
 }
 
-void htaSpeakerSetConeOuterGain(AudioSpeaker* Instance, float val)
-{
-	Instance->SetConeOuterGain(val);
-}
-
-float htaSpeakerGetConeOuterGain(AudioSpeaker* Instance)
-{
-	return (float)Instance->GetConeOuterGain();
-}
-
-void htaSpeakerSetConeInnerAngle(AudioSpeaker* Instance, float val)
-{
-	Instance->SetConeInnerAngle(val);
-}
-
-float htaSpeakerGetConeInnerAngle(AudioSpeaker* Instance)
-{
-	return (float)Instance->GetConeInnerAngle();
-}
-
-void htaSpeakerSetConeOuterAngle(AudioSpeaker* Instance, float val)
-{
-	Instance->SetConeOuterAngle(val);
-}
-
-float htaSpeakerGetConeOuterAngle(AudioSpeaker* Instance)
-{
-	return (float)Instance->GetConeOuterAngle();
-}
-
-
 AudioListener* htaListenerCreate()
 {
 	return new AudioListener();
@@ -172,25 +141,72 @@ void htaDelete(OpenALDevice* Instance)
 }
 
 /// <summary>
-/// C#側から3DAudioに必要なポインターを受け取って使用する
+/// 3DAudioの機能をOnにする
+/// 位置情報、向き情報、速度情報をポインタで渡して自動更新
 /// </summary>
-/// <param name="speakerId"></param>
-/// <param name="position"></param>
-/// <param name="velocity"></param>
-/// <param name="Dir"></param>
-void htaAddI3DAudio(AudioManager* mgtPtr, int speakerId, float* position[3], float* velocity[3], float* Dir[3])
+void htaAddI3DAudio(AudioManager* mgtPtr, int speakerId, I3DAudioInfo* info)
 {
-	I3DAudio* i3deffect = new I3DAudio(speakerId);
-	
-	i3deffect->SetPosition(position);
-	i3deffect->SetDirection(Dir);
-	i3deffect->SetVelocity(velocity);
-
+	I3DAudio* i3deffect = new I3DAudio(speakerId,info);
 	mgtPtr->AddEffect(i3deffect,speakerId);
 }
 
-void htaI3DAudioGain(int speakerId, float* gain)
+/// <summary>
+/// 3DAudioのコーンを機能をOnにする
+/// インナーアングル、アウターアングル、アウターゲインを設定する
+/// </summary>
+void htaAddCone(AudioManager* mgtPtr, int speakerId, float innerangle, float outerangle, float outergain)
 {
-	alSourcefv(speakerId, AL_GAIN, gain);
+	ConeState* conestate = new ConeState(speakerId);
+	conestate->SetConeInnerAngle(innerangle);
+	conestate->SetConeOuterAngle(outerangle);
+	conestate->SetConeOuterGain(outergain);
+	mgtPtr->AddEffect(conestate,speakerId);
+
 }
 
+void htaSpeakerSetConeOuterGain(int speakerId, float val)
+{
+	alSourcef(speakerId, AL_CONE_OUTER_GAIN, val);
+}
+
+float htaSpeakerGetConeOuterGain(int speakerId)
+{
+	float val;
+	alGetSourcef(speakerId, AL_CONE_OUTER_GAIN, &val);
+	return val;
+}
+
+void htaSpeakerSetConeInnerAngle(int speakerId, float val)
+{
+	alSourcef(speakerId, AL_CONE_INNER_ANGLE, val);
+}
+
+float htaSpeakerGetConeInnerAngle(int speakerId)
+{
+	float val;
+	alGetSourcef(speakerId, AL_CONE_INNER_ANGLE, &val);
+	return val;
+}
+
+void htaSpeakerSetConeOuterAngle(int speakerId, float val)
+{
+	alSourcef(speakerId, AL_CONE_OUTER_ANGLE, val);
+}
+
+float htaSpeakerGetConeOuterAngle(int speakerId)
+{
+	float val;
+	alGetSourcef(speakerId, AL_CONE_OUTER_ANGLE, &val);
+	return val;
+}
+
+/// <summary>
+/// リバーヴの機能をOnにする
+/// 
+/// </summary>
+void htaAddReverb(AudioManager* mgtPtr, int speakerId, REVERB_INFO* info)
+{
+	ReverbEffects* effect = new ReverbEffects(speakerId);
+	effect->SetInfo(info);
+	mgtPtr->AddEffect(effect,speakerId);
+}
